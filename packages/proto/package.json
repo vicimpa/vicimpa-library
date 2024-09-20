@@ -1,0 +1,33 @@
+{
+  "name": "@vicimpa/proto",
+  "version": "0.0.1",
+  "description": "Библиотека для сериализации и десериализации данных с использованием пользовательского протокола",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "PromiSe####",
+    "url": "https://github.com/vicimpa",
+    "email": "vicimpa@ya.ru"
+  },
+  "keywords": [
+    "proto",
+    "serialization",
+    "deserialization",
+    "typescript",
+    "binary",
+    "data"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublish": "npm run build"
+  },
+  "license": "GPL-3.0-only",
+  "peerDependencies": {
+    "@vicimpa/data-buffer": "*"
+  }
+}
