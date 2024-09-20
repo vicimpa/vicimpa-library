@@ -1,6 +1,6 @@
 {
   "name": "@vicimpa/react-decorators",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A library of decorators and hooks to enhance React components with dependency injection and context management.",
   "repository": "github:vicimpa/vicimpa-library",
   "funding": "https://boosty.to/vic_dev",
