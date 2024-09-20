@@ -16,8 +16,10 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
 
-      - name: Install Dependencies
-        run: npm install
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install
 
       - name: Configure npm for authentication
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
