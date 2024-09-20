@@ -1,18 +1,44 @@
 {
   "name": "@vicimpa/react-decorators",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/index.js",
   "private": false,
   "publishConfig": {
     "access": "public"
   },
-  "keywords": [],
+  "author": {
+    "name": "PromiSe####",
+    "url": "https://github.com/vicimpa",
+    "email": "vicimpa@ya.ru"
+  },
+  "keywords": [
+    "@vicimpa/react-decorators",
+    "library",
+    "decorators",
+    "hooks",
+    "React components",
+    "dependency injection",
+    "context management",
+    "connect",
+    "plugins",
+    "mixins",
+    "side effects",
+    "provide",
+    "context value",
+    "context providers",
+    "inject",
+    "context value",
+    "provider component",
+    "dependency injection",
+    "useInject",
+    "functional component",
+    "class components"
+  ],
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
     "prepublish": "npm install && npm run build"
   },
-  "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
