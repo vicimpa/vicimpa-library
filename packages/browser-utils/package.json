@@ -1,0 +1,9 @@
+{
+  "name": "@vicimpa/browser-utils",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
