@@ -22,9 +22,6 @@ jobs:
       - name: Configure npm for authentication
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
-      - name: Bootstrap packages
-        run: npx lerna bootstrap
-
       - name: Publish updated packages
         run: npx lerna publish from-git --yes
         env:
