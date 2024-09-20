@@ -2,7 +2,9 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "declaration": false,
+    "noEmit": true
   },
   "include": [
     "./src" // Включает все файлы в папке src и её подкаталогах

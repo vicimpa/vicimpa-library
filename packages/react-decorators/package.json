@@ -1,7 +1,9 @@
 {
   "name": "@vicimpa/react-decorators",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "type": "module",
   "private": false,
   "publishConfig": {
@@ -36,9 +38,9 @@
     "class components"
   ],
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc --watch",
-    "prepublish": "npm run build"
+    "build:type": "dts-bundle-generator -o dist/index.d.ts src/index.ts",
+    "build:lib": "rollup --config rollup.config.js",
+    "build": "npm run build:type && npm run build:lib"
   },
   "license": "GPL-3.0-only",
   "peerDependencies": {

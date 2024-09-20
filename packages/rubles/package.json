@@ -1,7 +1,8 @@
 {
   "name": "@vicimpa/rubles",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "Стоимость прописью",
+  "type": "module",
   "keywords": [
     "ruble",
     "numeral",
@@ -19,12 +20,15 @@
   ],
   "homepage": "http://github.com/vicimpa/rubles",
   "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/vicimpa/rubles.git"
   },
   "scripts": {
-    "build": "tsc"
+    "build:type": "dts-bundle-generator -o dist/index.d.ts src/index.ts",
+    "build:lib": "rollup --config rollup.config.js",
+    "build": "npm run build:type && npm run build:lib"
   },
   "license": "MIT"
 }

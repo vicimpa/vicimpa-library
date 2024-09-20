@@ -1,17 +1,16 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "ES2019",
-    "module": "CommonJS",
-    "esModuleInterop": true,
-    "declaration": true,
-    "declarationDir": "./dist",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "noEmit": true,
+    "declaration": false
   },
   "include": [
     "./src"
   ],
   "exclude": [
-    "./src/index.test.ts",
-    "./src/test.ts"
+    "node_modules",
+    "@vicimpa",
+    "dist"
   ]
 }

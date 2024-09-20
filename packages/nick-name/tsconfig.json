@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "declaration": false,
+    "noEmit": true
+  },
+  "include": [
+    "src" // Включает все файлы в папке src и её подкаталогах
+  ],
+  "exclude": [
+    "node_modules", // Исключает папку node_modules
+    "dist" // Исключает папку dist
+  ]
+}

@@ -2,13 +2,9 @@
   "name": "@vicimpa/nick-name",
   "version": "1.0.4",
   "description": "Nick name generator for JavaScript",
-  "main": "nick-name.js",
-  "directories": {
-    "lib": "lib"
-  },
-  "scripts": {
-    "start": "node main.js"
-  },
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "keywords": [
     "nickname",
     "nick-name",
@@ -28,6 +24,11 @@
     "custom-nickname",
     "nick-name-generator"
   ],
+  "scripts": {
+    "build:type": "dts-bundle-generator -o dist/index.d.ts src/index.ts",
+    "build:lib": "rollup --config rollup.config.js",
+    "build": "npm run build:type && npm run build:lib"
+  },
   "author": "",
   "license": "GPL-3.0-only"
 }

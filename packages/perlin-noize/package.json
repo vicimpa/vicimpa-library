@@ -1,0 +1,22 @@
+{
+  "name": "@vicimpa/perlin-noise",
+  "version": "0.0.3",
+  "description": "simple perlin noise generator",
+  "main": "dist/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:vicimpa/perlin-noise.git"
+  },
+  "authors": [
+    "Andrew Kelley <superjoe30@gmail.com>",
+    "PromiSe### <vicimpa94@gmail.com>"
+  ],
+  "license": "BSD"
+}
