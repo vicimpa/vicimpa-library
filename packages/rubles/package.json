@@ -1,0 +1,30 @@
+{
+  "name": "@vicimpa/rubles",
+  "version": "0.1.11",
+  "description": "Стоимость прописью",
+  "keywords": [
+    "ruble",
+    "numeral",
+    "стоимость",
+    "прописью",
+    "цифры",
+    "числа",
+    "буквы",
+    "рубли",
+    "документооборот"
+  ],
+  "authors": [
+    "Alexey Simonenko <alexey@simonenko.su>",
+    "PromiSe#### <vicimpa@ya.ru>"
+  ],
+  "homepage": "http://github.com/vicimpa/rubles",
+  "main": "./dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vicimpa/rubles.git"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "license": "MIT"
+}

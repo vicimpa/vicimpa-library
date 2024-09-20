@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "declaration": true,
+    "declarationDir": "./dist",
+    "outDir": "./dist"
+  },
+  "include": [
+    "./src"
+  ],
+  "exclude": [
+    "./src/index.test.ts",
+    "./src/test.ts"
+  ]
+}
