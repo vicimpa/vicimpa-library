@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist"
+  },
+  "include": [
+    "./src" // Включает все файлы в папке src и её подкаталогах
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "@vicimpa"
+  ]
+}

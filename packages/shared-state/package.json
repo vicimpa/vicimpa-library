@@ -1,0 +1,39 @@
+{
+  "name": "@vicimpa/shared-state",
+  "version": "1.0.3",
+  "main": "dist/index.js",
+  "type": "module",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "PromiSe####",
+    "url": "https://github.com/vicimpa",
+    "email": "vicimpa@ya.ru"
+  },
+  "keywords": [
+    "@vicimpa/shared-state",
+    "library",
+    "state management",
+    "shared state",
+    "React",
+    "hooks",
+    "context management",
+    "state synchronization",
+    "global state",
+    "state sharing"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublish": "npm run build"
+  },
+  "license": "GPL-3.0-only",
+  "peerDependencies": {
+    "react": "*"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.8"
+  },
+  "description": "A lightweight TypeScript library for managing shared state across different components in a React application."
+}
