@@ -19,6 +19,9 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Prebuild Packages
+        run: npx lerna exec npm run build || echo "Prebuild end"
+
       - name: Configure npm for authentication
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
