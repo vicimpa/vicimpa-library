@@ -1,6 +1,6 @@
 {
   "name": "@vicimpa/rubles",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Стоимость прописью",
   "type": "module",
   "keywords": [
@@ -18,13 +18,9 @@
     "Alexey Simonenko <alexey@simonenko.su>",
     "PromiSe#### <vicimpa@ya.ru>"
   ],
-  "homepage": "http://github.com/vicimpa/rubles",
   "main": "./dist/index.js",
+  "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/vicimpa/rubles.git"
-  },
   "scripts": {
     "build:type": "dts-bundle-generator -o dist/index.d.ts src/index.ts",
     "build:lib": "rollup --config rollup.config.js",
