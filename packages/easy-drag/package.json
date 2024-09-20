@@ -1,6 +1,6 @@
 {
   "name": "@vicimpa/easy-drag",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "A simple project demonstrating drag-and-drop functionality using @vicimpa/easy-drag.",
   "private": false,
@@ -21,7 +21,7 @@
   },
   "license": "GPL-3.0-only",
   "dependencies": {
-    "@vicimpa/events": "^0.0.5",
-    "@vicimpa/lib-vec2": "^0.2.0"
+    "@vicimpa/events": "*",
+    "@vicimpa/lib-vec2": "*"
   }
 }
