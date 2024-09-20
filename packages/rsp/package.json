@@ -1,0 +1,31 @@
+{
+  "name": "@vicimpa/rsp",
+  "version": "0.0.4",
+  "description": "A small layer between react and @preact/signals-react that allows you to use signals for attributes of native elements and bind some input and textarea properties to signals.",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "readme": "README.md",
+  "keywords": [
+    "react",
+    "signals",
+    "props",
+    "preact",
+    "bind",
+    "input",
+    "textarea",
+    "vmodel"
+  ],
+  "author": "PromiSe#### (vicimpa@ya.ru)",
+  "license": "MIT",
+  "peerDependencies": {
+    "@preact/signals-react": "^2.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.1"
+  }
+}

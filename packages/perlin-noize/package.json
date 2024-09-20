@@ -10,10 +10,6 @@
     "build": "tsc",
     "test": "node test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:vicimpa/perlin-noise.git"
-  },
   "authors": [
     "Andrew Kelley <superjoe30@gmail.com>",
     "PromiSe### <vicimpa94@gmail.com>"

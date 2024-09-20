@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": [
+      "ESNext",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "strict": true,
+    "moduleResolution": "Node",
+    "declaration": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "index.ts"
+  ]
+}
