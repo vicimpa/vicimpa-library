@@ -5,6 +5,11 @@
   "repository": "github:vicimpa/vicimpa-library",
   "funding": "https://boosty.to/vic_dev",
   "homepage": "https://github.com/vicimpa/vicimpa-library/tree/main/packages/week-store",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "postinstall": "[ -d ./src ] && npm run build"
+  },
   "private": false,
   "type": "module",
   "main": "dist/index.js",
@@ -26,10 +31,5 @@
     "javascript",
     "prototype chain",
     "data management"
-  ],
-  "scripts": {
-    "build": "tsc",
-    "watch": "tsc --watch",
-    "prepublish": "npm run build"
-  }
+  ]
 }

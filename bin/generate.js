@@ -18,6 +18,7 @@ const projects = readdirSync('./packages/')
       funding = "https://boosty.to/vic_dev",
       homepage = `https://github.com/${join(base, file)}`,
       description,
+      scripts,
       version,
       ...other
     } = JSON.parse(
@@ -33,6 +34,11 @@ const projects = readdirSync('./packages/')
         repository,
         funding,
         homepage,
+        scripts: {
+          ...scripts,
+          "prepublish": undefined,
+          "postinstall": "[ -d ./src ] && npm run build",
+        },
         ...other
       },
       null,

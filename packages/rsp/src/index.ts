@@ -1,4 +1,4 @@
-import { FC, RefObject, SyntheticEvent, createElement, forwardRef } from "react";
+import { FC, PropsWithoutRef, RefObject, SyntheticEvent, createElement, forwardRef } from "react";
 
 import { Signal } from "@preact/signals-react";
 import { useSignals } from "@preact/signals-react/runtime";
@@ -68,10 +68,10 @@ export type RSP = {
   [K in keyof Elements]: FC<{
     [P in keyof Elements[K]]: Elements[K][P] | Signal<Elements[K][P]>
   } & {
-      [B in keyof bind]?: ReturnType<bind[B]> extends Elements[K] ? (
-        Parameters<bind[B]>[0]
-      ) : never
-    }>
+    [B in keyof bind]?: ReturnType<bind[B]> extends Elements[K] ? (
+      Parameters<bind[B]>[0]
+    ) : never
+  }>
 };
 
 export const rsp = new Proxy({} as RSP, {
@@ -80,7 +80,7 @@ export const rsp = new Proxy({} as RSP, {
       assign(target, {
         [key]: forwardRef(
           rename(
-            (props: RSP[K], ref: any) => {
+            (props: PropsWithoutRef<RSP[K]>, ref: any) => {
               useSignals();
               return createElement(key, _props(props, ref));
             }, key

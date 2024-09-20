@@ -5,6 +5,12 @@
   "repository": "github:vicimpa/vicimpa-library",
   "funding": "https://boosty.to/vic_dev",
   "homepage": "https://github.com/vicimpa/vicimpa-library/tree/main/packages/react-decorators",
+  "scripts": {
+    "build:type": "dts-bundle-generator -o dist/index.d.ts src/index.ts",
+    "build:lib": "rollup --config rollup.config.js",
+    "build": "npm run build:type && npm run build:lib",
+    "postinstall": "[ -d ./src ] && npm run build"
+  },
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
@@ -41,11 +47,6 @@
     "functional component",
     "class components"
   ],
-  "scripts": {
-    "build:type": "dts-bundle-generator -o dist/index.d.ts src/index.ts",
-    "build:lib": "rollup --config rollup.config.js",
-    "build": "npm run build:type && npm run build:lib"
-  },
   "license": "GPL-3.0-only",
   "peerDependencies": {
     "react": "*"

@@ -5,13 +5,13 @@
   "repository": "github:vicimpa/vicimpa-library",
   "funding": "https://boosty.to/vic_dev",
   "homepage": "https://github.com/vicimpa/vicimpa-library/tree/main/packages/events",
+  "scripts": {
+    "build": "tsc",
+    "postinstall": "[ -d ./src ] && npm run build"
+  },
   "type": "module",
   "main": "dist/index.js",
   "private": false,
-  "scripts": {
-    "build": "tsc",
-    "prepublish": "npm run build"
-  },
   "publishConfig": {
     "access": "public"
   },

@@ -57,7 +57,7 @@ export const makeDrag = <T extends any[] = []>(
       if ('button' in e && e.button !== btn)
         return;
 
-      stop?.(event, ...meta);
+      stop instanceof Function && stop(event, ...meta);
       unsub.forEach(u => u?.());
     }),
     windowEvents('mousemove', (e) => {

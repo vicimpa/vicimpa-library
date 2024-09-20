@@ -9,6 +9,8 @@
     "generate": "node bin/generate \"$( git remote get-url origin )\" \"$( git branch --show-current )\""
   },
   "devDependencies": {
+    "@preact/signals-core": "^1.8.0",
+    "@preact/signals-react": "^2.2.0",
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/node": "^22.5.5",
     "dts-bundle-generator": "^9.5.1",

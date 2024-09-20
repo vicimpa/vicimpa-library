@@ -5,6 +5,12 @@
   "repository": "github:vicimpa/vicimpa-library",
   "funding": "https://boosty.to/vic_dev",
   "homepage": "https://github.com/vicimpa/vicimpa-library/tree/main/packages/lib-vec2",
+  "scripts": {
+    "build:type": "dts-bundle-generator -o dist/index.d.ts src/index.ts",
+    "build:lib": "rollup --config rollup.config.js",
+    "build": "npm run build:type && npm run build:lib",
+    "postinstall": "[ -d ./src ] && npm run build"
+  },
   "private": false,
   "type": "module",
   "main": "dist/index.js",
@@ -38,11 +44,5 @@
     "Basic usage",
     "Canvas",
     "Advanced operations"
-  ],
-  "scripts": {
-    "build:type": "dts-bundle-generator -o dist/index.d.ts src/index.ts",
-    "build:lib": "rollup --config rollup.config.js",
-    "build": "npm run build:type && npm run build:lib",
-    "prepublish": "npm run build"
-  }
+  ]
 }

@@ -5,12 +5,16 @@
   "repository": "github:vicimpa/vicimpa-library",
   "funding": "https://boosty.to/vic_dev",
   "homepage": "https://github.com/vicimpa/vicimpa-library/tree/main/packages/rsp",
+  "scripts": {
+    "build": "tsc",
+    "postinstall": "[ -d ./src ] && npm run build"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "module": "dist/index.js",
   "type": "module",
   "publishConfig": {
     "access": "public"
-  },
-  "scripts": {
-    "build": "tsc"
   },
   "readme": "README.md",
   "keywords": [
