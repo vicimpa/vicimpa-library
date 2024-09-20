@@ -1,6 +1,7 @@
 {
   "name": "@vicimpa/lib-vec2",
   "version": "0.0.1",
+  "private": false,
   "author": {
     "name": "PromiSe####",
     "url": "https://github.com/vicimpa",
