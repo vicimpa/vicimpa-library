@@ -11,6 +11,7 @@
     "postinstall": "[ -d ./src ] && npm run build"
   },
   "main": "dist/index.js",
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
