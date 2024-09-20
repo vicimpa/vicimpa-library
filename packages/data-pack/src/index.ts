@@ -86,3 +86,5 @@ export const makeDataPack = <T extends TypeStruct>(schema: T) => {
     }
   };
 };
+
+export { TypeValue };

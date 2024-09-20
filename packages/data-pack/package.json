@@ -1,6 +1,6 @@
 {
   "name": "@vicimpa/data-pack",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "description": "Efficient drag-and-drop library with optimized data serialization.",
   "keywords": [
