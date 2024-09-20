@@ -44,6 +44,7 @@ const projects = readdirSync('./packages/')
     return {
       file,
       name,
+      version,
       description
     };
   });
@@ -58,4 +59,9 @@ source.replace(re, (find, _, index) => {
   return find;
 });
 
-// console.log(source.slice(start, end), projects);
+var pre = source.slice(0, start + 1);
+var post = source.slice(end - 1);
+var data = projects.map(project => (
+  `- [${project.name} (${project.version})](${project.file}) - [открыть на npm](https://www.npmjs.com/package/${project.name})\n\t- ${project.description}`
+)).join('\n');
+writeFileSync('./README.md', `${pre}\n${data}\n${post}`);

@@ -13,7 +13,36 @@ npm. Теперь все библиотеки можно и нужно буде�
 
 <!-- START_GEN -->
 
-Тут что-то написано
+- [@vicimpa/data-buffer (0.0.2)](packages/data-buffer) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/data-buffer)
+	- Библиотека для работы с буферами данных
+- [@vicimpa/data-pack (0.0.3)](packages/data-pack) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/data-pack)
+	- Efficient drag-and-drop library with optimized data serialization.
+- [@vicimpa/easy-drag (0.1.2)](packages/easy-drag) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/easy-drag)
+	- A simple project demonstrating drag-and-drop functionality using @vicimpa/easy-drag.
+- [@vicimpa/events (0.0.5)](packages/events) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/events)
+	- A lightweight TypeScript library for managing event listeners on HTML elements, document, and window.
+- [@vicimpa/lib-vec2 (0.2.1)](packages/lib-vec2) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/lib-vec2)
+	- A library of decorators and hooks to enhance React components with dependency injection and context management.
+- [@vicimpa/math (0.0.5)](packages/math) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/math)
+	- A collection of mathematical utility functions including operations like clamp, lerp, normalize, and more.
+- [@vicimpa/nick-name (1.0.5)](packages/nick-name) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/nick-name)
+	- Nick name generator for JavaScript
+- [@vicimpa/observers (0.0.3)](packages/observers) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/observers)
+	- A lightweight TypeScript library providing utilities for observing intersection and resize events of DOM elements with automatic cleanup.
+- [@vicimpa/perlin-noise (0.0.3)](packages/perlin-noize) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/perlin-noise)
+	- simple perlin noise generator
+- [@vicimpa/proto (0.0.1)](packages/proto) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/proto)
+	- Библиотека для сериализации и десериализации данных с использованием пользовательского протокола
+- [@vicimpa/react-decorators (0.1.1)](packages/react-decorators) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/react-decorators)
+	- A library of decorators and hooks to enhance React components with dependency injection and context management.
+- [@vicimpa/rsp (0.0.4)](packages/rsp) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/rsp)
+	- A small layer between react and @preact/signals-react that allows you to use signals for attributes of native elements and bind some input and textarea properties to signals.
+- [@vicimpa/rubles (0.1.13)](packages/rubles) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/rubles)
+	- Стоимость прописью
+- [@vicimpa/shared-state (1.0.3)](packages/shared-state) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/shared-state)
+	- A lightweight TypeScript library for managing shared state across different components in a React application.
+- [@vicimpa/week-store (0.0.5)](packages/week-store) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/week-store)
+	- A utility library for creating and managing weakly referenced stores in JavaScript, useful for metadata and auxiliary data management without preventing garbage collection.
 
 <!-- END_GEN -->
 
