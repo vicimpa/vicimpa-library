@@ -1,0 +1,27 @@
+{
+  "name": "@vicimpa/events",
+  "version": "0.0.1",
+  "description": "A lightweight TypeScript library for managing event listeners on HTML elements, document, and window.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "prepublish": "npm install && npm run build"
+  },
+  "keywords": [
+    "typescript",
+    "events",
+    "event listeners",
+    "html",
+    "document",
+    "window"
+  ],
+  "author": {
+    "name": "PromiSe####",
+    "url": "https://github.com/vicimpa",
+    "email": "vicimpa@ya.ru"
+  },
+  "license": "GPL-3.0-only",
+  "devDependencies": {
+    "typescript": "^4.0.0"
+  }
+}
