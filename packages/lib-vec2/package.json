@@ -1,6 +1,6 @@
 {
   "name": "@vicimpa/lib-vec2",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": false,
   "type": "module",
   "main": "dist/index.js",
@@ -36,7 +36,9 @@
     "Advanced operations"
   ],
   "scripts": {
-    "build": "tsc && rollup --config rollup.config.js",
+    "build:type": "dts-bundle-generator -o dist/index.d.ts src/index.ts",
+    "build:lib": "rollup --config rollup.config.js",
+    "build": "npm run build:type && npm run build:lib",
     "prepublish": "npm run build"
   },
   "description": "A library of decorators and hooks to enhance React components with dependency injection and context management."

@@ -1,6 +1,6 @@
 {
   "name": "@vicimpa/data-pack",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "description": "Efficient drag-and-drop library with optimized data serialization.",
   "keywords": [
@@ -24,7 +24,9 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc && rollup --config rollup.config.js",
+    "build:type": "dts-bundle-generator -o dist/index.d.ts src/index.ts",
+    "build:lib": "rollup --config rollup.config.js",
+    "build": "npm run build:type && npm run build:lib",
     "prepublish": "npm run build"
   },
   "license": "GPL-3.0-only",
