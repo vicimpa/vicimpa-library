@@ -6,7 +6,7 @@
       ]
     },
     "declaration": true,
-    "target": "ES6", // Устанавливает версию ECMAScript, на которую будет компилироваться TypeScript
+    "target": "ES2020", // Устанавливает версию ECMAScript, на которую будет компилироваться TypeScript
     "strict": true, // Включает все строгие проверки типов
     "esModuleInterop": true, // Включает поддержку синтаксиса import/export ES6
     "skipLibCheck": true, // Пропускает проверку типов в файлах библиотек

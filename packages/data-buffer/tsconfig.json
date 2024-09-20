@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "./src" // Включает все файлы в папке src и её подкаталогах
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "@vicimpa"
+  ]
+}

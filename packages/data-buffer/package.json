@@ -1,0 +1,30 @@
+{
+  "name": "@vicimpa/data-buffer",
+  "version": "0.0.1",
+  "description": "Библиотека для работы с буферами данных",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "PromiSe####",
+    "url": "https://github.com/vicimpa",
+    "email": "vicimpa@ya.ru"
+  },
+  "keywords": [
+    "buffer",
+    "data",
+    "typescript",
+    "binary",
+    "serialization",
+    "deserialization"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublish": "npm run build"
+  },
+  "license": "GPL-3.0-only"
+}
