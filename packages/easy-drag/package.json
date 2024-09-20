@@ -1,6 +1,6 @@
 {
   "name": "@vicimpa/easy-drag",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "description": "A simple project demonstrating drag-and-drop functionality using @vicimpa/easy-drag.",
   "private": false,
@@ -20,7 +20,7 @@
     "prepublish": "npm run build"
   },
   "license": "GPL-3.0-only",
-  "dependencies": {
+  "peerDependencies": {
     "@vicimpa/events": "*",
     "@vicimpa/lib-vec2": "*"
   }
