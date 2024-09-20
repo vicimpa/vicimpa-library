@@ -1,9 +1,10 @@
 {
   "name": "@vicimpa/observers",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": false,
   "type": "module",
   "main": "dist/index.js",
+  "module": "dist/index.js",
   "author": {
     "name": "PromiSe####",
     "url": "https://github.com/vicimpa",
