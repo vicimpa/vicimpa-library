@@ -1,0 +1,31 @@
+{
+  "name": "@vicimpa/observers",
+  "version": "0.0.1",
+  "private": false,
+  "main": "dist/index.js",
+  "author": {
+    "name": "PromiSe####",
+    "url": "https://github.com/vicimpa",
+    "email": "vicimpa@ya.ru"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "GPL-3.0-only",
+  "keywords": [
+    "IntersectionObserver",
+    "ResizeObserver",
+    "DOM",
+    "observer",
+    "TypeScript",
+    "utility",
+    "intersection",
+    "resize",
+    "web development"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublish": "npm run build"
+  },
+  "description": "A lightweight TypeScript library providing utilities for observing intersection and resize events of DOM elements with automatic cleanup."
+}
