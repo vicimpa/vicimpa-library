@@ -1,0 +1,7 @@
+{
+  "name": "vicimpa-library",
+  "version": "0.0.0",
+  "dependencies": {
+    "lerna": "^8.1.8"
+  }
+}
