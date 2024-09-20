@@ -6,8 +6,6 @@
       ]
     },
     "target": "ES6", // Устанавливает версию ECMAScript, на которую будет компилироваться TypeScript
-    "moduleResolution": "Bundler",
-    "declaration": true, // Генерирует .d.ts файлы
     "strict": true, // Включает все строгие проверки типов
     "esModuleInterop": true, // Включает поддержку синтаксиса import/export ES6
     "skipLibCheck": true, // Пропускает проверку типов в файлах библиотек

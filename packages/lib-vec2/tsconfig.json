@@ -3,7 +3,6 @@
   "compilerOptions": {
     "outDir": "dist",
     "declaration": true,
-    "moduleResolution": "Bundler",
     "emitDeclarationOnly": true
   },
   "include": [
@@ -11,7 +10,6 @@
   ],
   "exclude": [
     "node_modules",
-    "dist",
-    "@vicimpa"
+    "dist"
   ]
 }

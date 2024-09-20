@@ -1,9 +1,11 @@
 {
   "name": "@vicimpa/lib-vec2",
-  "version": "0.0.10",
+  "version": "0.2.0",
   "private": false,
   "type": "module",
   "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "author": {
     "name": "PromiSe####",
     "url": "https://github.com/vicimpa",
@@ -34,8 +36,7 @@
     "Advanced operations"
   ],
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc --watch",
+    "build": "tsc && rollup --config rollup.config.js",
     "prepublish": "npm run build"
   },
   "description": "A library of decorators and hooks to enhance React components with dependency injection and context management."

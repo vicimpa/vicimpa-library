@@ -1,10 +1,12 @@
 {
   "name": "@vicimpa/easy-drag",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "type": "module",
   "description": "A simple project demonstrating drag-and-drop functionality using @vicimpa/easy-drag.",
   "private": false,
   "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "author": {
     "name": "PromiSe####",
     "url": "https://github.com/vicimpa",
@@ -14,12 +16,12 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && rollup --config rollup.config.js",
     "prepublish": "npm run build"
   },
   "license": "GPL-3.0-only",
   "dependencies": {
-    "@vicimpa/events": "^0.0.1",
-    "@vicimpa/lib-vec2": "^0.0.1"
+    "@vicimpa/events": "^0.0.5",
+    "@vicimpa/lib-vec2": "^0.2.0"
   }
 }
