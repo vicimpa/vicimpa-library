@@ -23,6 +23,6 @@ jobs:
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
       - name: Publish updated packages
-        run: npx lerna publish from-git --yes
+        run: npx lerna publish --no-private --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
