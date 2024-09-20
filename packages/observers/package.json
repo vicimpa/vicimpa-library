@@ -1,6 +1,10 @@
 {
   "name": "@vicimpa/observers",
   "version": "0.0.3",
+  "description": "A lightweight TypeScript library providing utilities for observing intersection and resize events of DOM elements with automatic cleanup.",
+  "repository": "github:vicimpa/vicimpa-library",
+  "funding": "https://boosty.to/vic_dev",
+  "homepage": "https://github.com/vicimpa/vicimpa-library/tree/main/packages/observers",
   "private": false,
   "type": "module",
   "main": "dist/index.js",
@@ -28,6 +32,5 @@
   "scripts": {
     "build": "tsc",
     "prepublish": "npm run build"
-  },
-  "description": "A lightweight TypeScript library providing utilities for observing intersection and resize events of DOM elements with automatic cleanup."
+  }
 }

@@ -1,6 +1,10 @@
 {
   "name": "@vicimpa/shared-state",
   "version": "1.0.3",
+  "description": "A lightweight TypeScript library for managing shared state across different components in a React application.",
+  "repository": "github:vicimpa/vicimpa-library",
+  "funding": "https://boosty.to/vic_dev",
+  "homepage": "https://github.com/vicimpa/vicimpa-library/tree/main/packages/shared-state",
   "main": "dist/index.js",
   "type": "module",
   "private": false,
@@ -34,6 +38,5 @@
   },
   "devDependencies": {
     "@types/react": "^18.3.8"
-  },
-  "description": "A lightweight TypeScript library for managing shared state across different components in a React application."
+  }
 }
