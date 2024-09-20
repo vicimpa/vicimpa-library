@@ -3,9 +3,13 @@
   "version": "0.0.1",
   "description": "A lightweight TypeScript library for managing event listeners on HTML elements, document, and window.",
   "main": "dist/index.js",
+  "private": false,
   "scripts": {
     "build": "tsc",
     "prepublish": "npm install && npm run build"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "keywords": [
     "typescript",
