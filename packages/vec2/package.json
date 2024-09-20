@@ -11,6 +11,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "license": "GPL-3.0-only",
   "keywords": [
     "2D vectors",
     "@vicimpa/lib-vec2",
