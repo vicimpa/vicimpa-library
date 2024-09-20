@@ -1,6 +1,6 @@
 {
   "name": "@vicimpa/lib-vec2",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "private": false,
   "main": "dist/index.js",
   "author": {
@@ -35,7 +35,7 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
-    "prepublish": "npm install && npm run build"
+    "prepublish": "npm run build"
   },
   "description": "A library of decorators and hooks to enhance React components with dependency injection and context management."
 }

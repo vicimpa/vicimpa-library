@@ -1,6 +1,6 @@
 {
   "name": "@vicimpa/math",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "private": false,
   "main": "dist/index.js",
   "author": {
@@ -70,7 +70,7 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
-    "prepublish": "npm install && npm run build"
+    "prepublish": "npm run build"
   },
   "license": "GPL-3.0-only",
   "description": "A collection of mathematical utility functions including operations like clamp, lerp, normalize, and more."
