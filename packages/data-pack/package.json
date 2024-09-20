@@ -1,0 +1,34 @@
+{
+  "name": "@vicimpa/data-pack",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Efficient drag-and-drop library with optimized data serialization.",
+  "keywords": [
+    "data serialization",
+    "binary data",
+    "typescript",
+    "javascript",
+    "optimization",
+    "@vicimpa"
+  ],
+  "private": false,
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "author": {
+    "name": "PromiSe####",
+    "url": "https://github.com/vicimpa",
+    "email": "vicimpa@ya.ru"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc && rollup --config rollup.config.js",
+    "prepublish": "npm run build"
+  },
+  "license": "GPL-3.0-only",
+  "peerDependencies": {
+    "@vicimpa/data-buffer": "*"
+  }
+}
