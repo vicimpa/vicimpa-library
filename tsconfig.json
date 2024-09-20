@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": { // Локальная видимость пакетов
+      "@vicimpa/*": [
+        "./packages/*"
+      ]
+    },
+    "target": "ES6", // Устанавливает версию ECMAScript, на которую будет компилироваться TypeScript
+    "module": "commonjs", // Устанавливает систему модулей
+    "declaration": true, // Генерирует .d.ts файлы
+    "outDir": "./dist", // Указывает директорию для выходных файлов
+    "strict": true, // Включает все строгие проверки типов
+    "esModuleInterop": true, // Включает поддержку синтаксиса import/export ES6
+    "skipLibCheck": true, // Пропускает проверку типов в файлах библиотек
+    "forceConsistentCasingInFileNames": true // Обеспечивает согласованность регистра в именах файлов,
+  }
+}

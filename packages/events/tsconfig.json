@@ -1,14 +1,5 @@
 {
-  "compilerOptions": {
-    "target": "ES5", // Целевая версия JavaScript
-    "module": "CommonJS", // Система модулей
-    "declaration": true, // Генерация .d.ts файлов
-    "outDir": "./dist", // Каталог для выходных файлов
-    "strict": true, // Включение всех строгих проверок
-    "esModuleInterop": true, // Совместимость с модулями ES
-    "skipLibCheck": true, // Пропуск проверки типов библиотек
-    "forceConsistentCasingInFileNames": true // Принудительное соблюдение регистра в именах файлов
-  },
+  "extends": "../../tsconfig.json",
   "include": [
     "src"
   ], // Включение всех файлов в папке src
