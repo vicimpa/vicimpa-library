@@ -39,7 +39,7 @@ const projects = readdirSync('./packages/')
       2
     );
 
-    writeFileSync(join(file, 'package.json'), json);
+    writeFileSync(join(file, 'package.json'), json + '\n');
 
     return {
       file,
