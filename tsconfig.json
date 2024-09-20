@@ -6,7 +6,7 @@
       ]
     },
     "target": "ES6", // Устанавливает версию ECMAScript, на которую будет компилироваться TypeScript
-    "module": "commonjs", // Устанавливает систему модулей
+    "module": "ES6", // Устанавливает систему модулей
     "declaration": true, // Генерирует .d.ts файлы
     "strict": true, // Включает все строгие проверки типов
     "esModuleInterop": true, // Включает поддержку синтаксиса import/export ES6
