@@ -9,6 +9,7 @@
     "strict": true, // Включает все строгие проверки типов
     "esModuleInterop": true, // Включает поддержку синтаксиса import/export ES6
     "skipLibCheck": true, // Пропускает проверку типов в файлах библиотек
-    "forceConsistentCasingInFileNames": true // Обеспечивает согласованность регистра в именах файлов,
+    "forceConsistentCasingInFileNames": true, // Обеспечивает согласованность регистра в именах файлов,
+    "moduleResolution": "Bundler"
   }
 }
