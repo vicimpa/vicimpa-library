@@ -1,8 +1,8 @@
 {
   "name": "@vicimpa/lib-vec2",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": false,
-  "main": "dist",
+  "main": "dist/index.js",
   "author": {
     "name": "PromiSe####",
     "url": "https://github.com/vicimpa",
