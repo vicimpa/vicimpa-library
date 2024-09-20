@@ -1,6 +1,6 @@
 {
   "name": "@vicimpa/events",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A lightweight TypeScript library for managing event listeners on HTML elements, document, and window.",
   "repository": "github:vicimpa/vicimpa-library",
   "funding": "https://boosty.to/vic_dev",
