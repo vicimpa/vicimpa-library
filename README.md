@@ -23,8 +23,8 @@ npm. Теперь все библиотеки можно и нужно буде�
 	- A simple project demonstrating drag-and-drop functionality using @vicimpa/easy-drag.
 - [@vicimpa/events (0.0.7)](packages/events) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/events)
 	- A lightweight TypeScript library for managing event listeners on HTML elements, document, and window.
-- [@vicimpa/lib-vec2 (0.2.3)](packages/lib-vec2) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/lib-vec2)
-	- A library of decorators and hooks to enhance React components with dependency injection and context management.
+- [@vicimpa/lib-vec2 (0.2.4)](packages/lib-vec2) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/lib-vec2)
+	- Библиотека предоставляет обширный набор утилит для работы с2D-векторами
 - [@vicimpa/math (0.0.7)](packages/math) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/math)
 	- A collection of mathematical utility functions including operations like clamp, lerp, normalize, and more.
 - [@vicimpa/nick-name (1.0.7)](packages/nick-name) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/nick-name)
