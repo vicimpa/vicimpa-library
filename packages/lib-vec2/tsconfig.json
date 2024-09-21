@@ -3,7 +3,11 @@
   "compilerOptions": {
     "outDir": "dist",
     "declaration": false,
-    "noEmit": true
+    "noEmit": true,
+    "lib": [
+      "DOM",
+      "ESNext"
+    ]
   },
   "include": [
     "src"

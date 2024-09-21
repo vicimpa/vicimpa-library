@@ -1,12 +1,12 @@
 {
   "name": "@vicimpa/lib-vec2",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Библиотека предоставляет обширный набор утилит для работы с2D-векторами",
   "repository": "github:vicimpa/vicimpa-library",
   "funding": "https://boosty.to/vic_dev",
   "homepage": "https://github.com/vicimpa/vicimpa-library/tree/main/packages/lib-vec2",
   "scripts": {
-    "build:type": "dts-bundle-generator -o dist/index.d.ts src/index.ts",
+    "build:type": "dts-bundle-generator --inline-declare-global -o dist/index.d.ts src/index.ts",
     "build:lib": "rollup --config rollup.config.js",
     "build": "npm run build:type && npm run build:lib",
     "postinstall": "[ -d ./src ] && npm run build || exit 0"
