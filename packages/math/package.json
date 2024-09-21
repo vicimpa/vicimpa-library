@@ -8,7 +8,7 @@
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
-    "postinstall": "[ -d ./src ] && npm run build"
+    "postinstall": "[ -d ./src ] && npm run build || echo \"\""
   },
   "private": false,
   "type": "module",

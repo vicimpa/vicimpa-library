@@ -7,7 +7,7 @@
   "homepage": "https://github.com/vicimpa/vicimpa-library/tree/main/packages/easy-drag",
   "scripts": {
     "build": "tsc && rollup --config rollup.config.js",
-    "postinstall": "[ -d ./src ] && npm run build"
+    "postinstall": "[ -d ./src ] && npm run build || echo \"\""
   },
   "type": "module",
   "private": false,

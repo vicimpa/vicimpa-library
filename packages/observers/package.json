@@ -7,7 +7,7 @@
   "homepage": "https://github.com/vicimpa/vicimpa-library/tree/main/packages/observers",
   "scripts": {
     "build": "tsc",
-    "postinstall": "[ -d ./src ] && npm run build"
+    "postinstall": "[ -d ./src ] && npm run build || echo \"\""
   },
   "private": false,
   "type": "module",

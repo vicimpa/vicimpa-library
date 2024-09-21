@@ -9,7 +9,7 @@
     "build:type": "dts-bundle-generator -o dist/index.d.ts src/index.ts",
     "build:lib": "rollup --config rollup.config.js",
     "build": "npm run build:type && npm run build:lib",
-    "postinstall": "[ -d ./src ] && npm run build"
+    "postinstall": "[ -d ./src ] && npm run build || echo \"\""
   },
   "private": false,
   "type": "module",

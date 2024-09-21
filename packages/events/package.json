@@ -7,7 +7,7 @@
   "homepage": "https://github.com/vicimpa/vicimpa-library/tree/main/packages/events",
   "scripts": {
     "build": "tsc",
-    "postinstall": "[ -d ./src ] && npm run build"
+    "postinstall": "[ -d ./src ] && npm run build || echo \"\""
   },
   "type": "module",
   "main": "dist/index.js",
