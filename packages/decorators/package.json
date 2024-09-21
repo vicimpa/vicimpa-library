@@ -1,6 +1,6 @@
 {
   "name": "@vicimpa/decorators",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A library for creating reactive properties in TypeScript classes using @preact/signals-react",
   "repository": "github:vicimpa/vicimpa-library",
   "funding": "https://boosty.to/vic_dev",
