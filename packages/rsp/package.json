@@ -7,7 +7,7 @@
   "homepage": "https://github.com/vicimpa/vicimpa-library/tree/main/packages/rsp",
   "scripts": {
     "build": "tsc",
-    "postinstall": "[ -d ./src ] && npm run build || echo \"\""
+    "postinstall": "[ -d ./src ] && npm run build || exit 0"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

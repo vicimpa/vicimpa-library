@@ -7,7 +7,7 @@
   "homepage": "https://github.com/vicimpa/vicimpa-library/tree/main/packages/shared-state",
   "scripts": {
     "build": "tsc",
-    "postinstall": "[ -d ./src ] && npm run build || echo \"\""
+    "postinstall": "[ -d ./src ] && npm run build || exit 0"
   },
   "main": "dist/index.js",
   "type": "module",

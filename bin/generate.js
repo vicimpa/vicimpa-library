@@ -37,7 +37,7 @@ const projects = readdirSync('./packages/')
         scripts: {
           ...scripts,
           "prepublish": undefined,
-          "postinstall": "[ -d ./src ] && npm run build || echo \"\"",
+          "postinstall": "[ -d ./src ] && npm run build || exit 0",
         },
         ...other
       },
