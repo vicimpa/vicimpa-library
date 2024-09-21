@@ -661,67 +661,67 @@
     csstype "^3.0.2"
 
 "@vicimpa/data-buffer@*", "@vicimpa/data-buffer@file:/Users/vic/CodeProjects/vicimpa-library/packages/data-buffer":
-  version "0.0.5"
+  version "0.0.6"
   resolved "file:packages/data-buffer"
 
 "@vicimpa/data-pack@file:/Users/vic/CodeProjects/vicimpa-library/packages/data-pack":
-  version "0.0.7"
+  version "0.0.8"
   resolved "file:packages/data-pack"
 
 "@vicimpa/decorators@file:/Users/vic/CodeProjects/vicimpa-library/packages/decorators":
-  version "0.0.3"
+  version "0.0.4"
   resolved "file:packages/decorators"
 
 "@vicimpa/easy-drag@file:/Users/vic/CodeProjects/vicimpa-library/packages/easy-drag":
-  version "0.1.5"
+  version "0.1.6"
   resolved "file:packages/easy-drag"
 
 "@vicimpa/events@*", "@vicimpa/events@file:/Users/vic/CodeProjects/vicimpa-library/packages/events":
-  version "0.0.8"
+  version "0.0.9"
   resolved "file:packages/events"
 
 "@vicimpa/lib-vec2@*", "@vicimpa/lib-vec2@file:/Users/vic/CodeProjects/vicimpa-library/packages/lib-vec2":
-  version "0.2.5"
+  version "0.2.6"
   resolved "file:packages/lib-vec2"
 
 "@vicimpa/math@file:/Users/vic/CodeProjects/vicimpa-library/packages/math":
-  version "0.0.8"
+  version "0.0.9"
   resolved "file:packages/math"
 
 "@vicimpa/nick-name@file:/Users/vic/CodeProjects/vicimpa-library/packages/nick-name":
-  version "1.0.8"
+  version "1.0.9"
   resolved "file:packages/nick-name"
 
 "@vicimpa/observers@file:/Users/vic/CodeProjects/vicimpa-library/packages/observers":
-  version "0.0.6"
+  version "0.0.7"
   resolved "file:packages/observers"
 
 "@vicimpa/perlin-noise@file:/Users/vic/CodeProjects/vicimpa-library/packages/perlin-noize":
-  version "0.0.6"
+  version "0.0.7"
   resolved "file:packages/perlin-noize"
 
 "@vicimpa/proto@file:/Users/vic/CodeProjects/vicimpa-library/packages/proto":
-  version "0.0.4"
+  version "0.0.5"
   resolved "file:packages/proto"
 
 "@vicimpa/react-decorators@file:/Users/vic/CodeProjects/vicimpa-library/packages/react-decorators":
-  version "0.1.4"
+  version "0.1.5"
   resolved "file:packages/react-decorators"
 
 "@vicimpa/rsp@file:/Users/vic/CodeProjects/vicimpa-library/packages/rsp":
-  version "0.0.7"
+  version "0.0.8"
   resolved "file:packages/rsp"
 
 "@vicimpa/rubles@file:/Users/vic/CodeProjects/vicimpa-library/packages/rubles":
-  version "0.1.16"
+  version "0.1.17"
   resolved "file:packages/rubles"
 
 "@vicimpa/shared-state@file:/Users/vic/CodeProjects/vicimpa-library/packages/shared-state":
-  version "1.0.6"
+  version "1.0.7"
   resolved "file:packages/shared-state"
 
 "@vicimpa/week-store@*", "@vicimpa/week-store@file:/Users/vic/CodeProjects/vicimpa-library/packages/week-store":
-  version "0.0.8"
+  version "0.0.9"
   resolved "file:packages/week-store"
 
 "@yarnpkg/lockfile@^1.1.0":
