@@ -15,8 +15,8 @@ npm. Теперь все библиотеки можно и нужно буде�
 
 - [@vicimpa/data-buffer (0.0.4)](packages/data-buffer) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/data-buffer)
 	- Библиотека для работы с буферами данных
-- [@vicimpa/data-pack (0.0.5)](packages/data-pack) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/data-pack)
-	- Efficient drag-and-drop library with optimized data serialization.
+- [@vicimpa/data-pack (0.0.6)](packages/data-pack) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/data-pack)
+	- Efficient library with optimized data serialization.
 - [@vicimpa/decorators (0.0.2)](packages/decorators) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/decorators)
 	- A library for creating reactive properties in TypeScript classes using @preact/signals-react
 - [@vicimpa/easy-drag (0.1.4)](packages/easy-drag) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/easy-drag)

@@ -1,7 +1,7 @@
 {
   "name": "@vicimpa/data-pack",
-  "version": "0.0.5",
-  "description": "Efficient drag-and-drop library with optimized data serialization.",
+  "version": "0.0.6",
+  "description": "Efficient library with optimized data serialization.",
   "repository": "github:vicimpa/vicimpa-library",
   "funding": "https://boosty.to/vic_dev",
   "homepage": "https://github.com/vicimpa/vicimpa-library/tree/main/packages/data-pack",
