@@ -267,7 +267,9 @@ export class Vec2 {
   }
 
   normalize() {
-    return this.div(this.length());
+    const length = this.length()
+    if(!length) return this;
+    return this.div(length);
   }
 
   min() {
