@@ -5,11 +5,11 @@ export default {
   plugins: [typescript()],
   output: [
     {
-      file: 'dist/index.js',
+      file: 'dist/index.cjs',
       format: 'cjs'
     },
     {
-      file: 'dist/index.esm.js',
+      file: 'dist/index.mjs',
       format: 'es'
     }
   ],

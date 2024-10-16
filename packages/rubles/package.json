@@ -1,6 +1,6 @@
 {
   "name": "@vicimpa/rubles",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "Стоимость прописью",
   "repository": "github:vicimpa/vicimpa-library",
   "funding": "https://boosty.to/vic_dev",
@@ -27,8 +27,14 @@
     "Alexey Simonenko <alexey@simonenko.su>",
     "PromiSe#### <vicimpa@ya.ru>"
   ],
-  "main": "./dist/index.js",
-  "module": "./dist/index.esm.js",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "node": "./dist/index.cjs",
+    "require": "./dist/index.cjs",
+    "types": "./dist/index.d.ts"
+  },
   "license": "MIT"
 }

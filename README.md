@@ -39,7 +39,7 @@ npm. Теперь все библиотеки можно и нужно буде�
 	- A library of decorators and hooks to enhance React components with dependency injection and context management.
 - [@vicimpa/rsp (0.0.8)](packages/rsp) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/rsp)
 	- A small layer between react and @preact/signals-react that allows you to use signals for attributes of native elements and bind some input and textarea properties to signals.
-- [@vicimpa/rubles (0.1.17)](packages/rubles) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/rubles)
+- [@vicimpa/rubles (0.1.18)](packages/rubles) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/rubles)
 	- Стоимость прописью
 - [@vicimpa/shared-state (1.0.7)](packages/shared-state) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/shared-state)
 	- A lightweight TypeScript library for managing shared state across different components in a React application.
