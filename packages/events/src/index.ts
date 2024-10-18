@@ -1,8 +1,8 @@
-type Target<T extends HTMLElement> = T | null | undefined | { value?: T | null; } | { current?: T | null; };
+type Target<T extends HTMLElement | SVGElement> = T | null | undefined | { value?: T | null; } | { current?: T | null; };
 
 export const elementEvents = <
   K extends keyof HTMLElementEventMap,
-  T extends HTMLElement
+  T extends HTMLElement | SVGElement
 >(
   element: Target<T>,
   event: K | K[],
