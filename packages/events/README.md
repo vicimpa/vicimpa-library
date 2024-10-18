@@ -54,6 +54,55 @@ const removeClickListener = elementEvents(button, "click", (event, current) => {
 removeClickListener();
 ```
 
+
+### `svgElementEvents`
+
+Эта функция позволяет добавлять обработчики событий к конкретному SVG-элементу.
+Она также поддерживает элементы, обернутые в объекты с свойствами `value` или
+`current`, что полезно при работе с такими фреймворками, как React.
+
+#### Определение типа
+
+```ts
+type TargetSvg<T extends SVGElement> = T | null | undefined | { value?: T | null; } | { current?: T | null; };
+
+export const svgElementEvents = <
+  K extends keyof SVGElementEventMap,
+  T extends SVGElement
+>(
+  element: TargetSvg<T>,
+  event: K | K[],
+  listener: (event: SVGElementEventMap[K], current: T) => void
+) => { ... };
+```
+
+#### Параметры
+
+- `element`: Целевой SVG-элемент или объект, содержащий элемент.
+- `event`: Один тип события или массив типов событий.
+- `listener`: Функция-обработчик события, которая будет вызвана при
+  возникновении события.
+
+#### Возвращает
+
+Функцию, которая при вызове удаляет обработчики событий.
+
+#### Пример
+
+```ts
+import { svgElementEvents } from "@vicimpa/events";
+
+const circle = document.querySelector("circle");
+
+const removeClickListener = svgElementEvents(circle, "click", (event, current) => {
+  console.log("Кнопка нажата!", event, current);
+});
+
+// Для удаления обработчика события
+removeClickListener();
+```
+
+
 ### `documentEvents`
 
 Эта функция позволяет добавлять обработчики событий к документу.

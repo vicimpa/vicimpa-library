@@ -1,8 +1,12 @@
-type Target<T extends HTMLElement | SVGElement> = T | null | undefined | { value?: T | null; } | { current?: T | null; };
+type Target<T extends HTMLElement> = T | null | undefined | { value?: T | null; } | { current?: T | null; };
+type TargetSvg<T extends SVGElement> = T | null | undefined | { value?: T | null; } | { current?: T | null; };
+
+
+
 
 export const elementEvents = <
   K extends keyof HTMLElementEventMap,
-  T extends HTMLElement | SVGElement
+  T extends HTMLElement
 >(
   element: Target<T>,
   event: K | K[],
@@ -22,6 +26,40 @@ export const elementEvents = <
   event = ([] as K[]).concat(event);
 
   const listenerCustom = (event: HTMLElementEventMap[K]) => {
+    listener(event, _element);
+  };
+
+  for (const _event of event)
+    _element.addEventListener(_event, listenerCustom);
+
+  return () => {
+    for (const _event of event)
+      _element.removeEventListener(_event, listenerCustom);
+  };
+};
+
+export const svgElementEvents = <
+  K extends keyof SVGElementEventMap,
+  T extends SVGElement
+>(
+  element: TargetSvg<T>,
+  event: K | K[],
+  listener: (event: SVGElementEventMap[K], current: T) => void
+) => {
+  if (!element) { }
+  else if ('value' in element)
+    element = element.value;
+  else if ('current' in element)
+    element = element.current;
+
+  const _element = element as T | null | undefined;
+
+  if (!_element)
+    return () => { };
+
+  event = ([] as K[]).concat(event);
+
+  const listenerCustom = (event: SVGElementEventMap[K]) => {
     listener(event, _element);
   };
 
