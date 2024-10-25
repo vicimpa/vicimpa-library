@@ -17,7 +17,7 @@ npm. Теперь все библиотеки можно и нужно буде�
 	- Библиотека для работы с буферами данных
 - [@vicimpa/data-pack (0.0.8)](packages/data-pack) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/data-pack)
 	- Efficient library with optimized data serialization.
-- [@vicimpa/decorators (0.0.4)](packages/decorators) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/decorators)
+- [@vicimpa/decorators (0.0.5)](packages/decorators) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/decorators)
 	- A library for creating reactive properties in TypeScript classes using @preact/signals-react
 - [@vicimpa/easy-drag (0.1.6)](packages/easy-drag) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/easy-drag)
 	- A simple project demonstrating drag-and-drop functionality using @vicimpa/easy-drag.
@@ -27,7 +27,7 @@ npm. Теперь все библиотеки можно и нужно буде�
 	- Библиотека предоставляет обширный набор утилит для работы с2D-векторами
 - [@vicimpa/math (0.0.9)](packages/math) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/math)
 	- A collection of mathematical utility functions including operations like clamp, lerp, normalize, and more.
-- [@vicimpa/nick-name (1.0.9)](packages/nick-name) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/nick-name)
+- [@vicimpa/nick-name (1.0.10)](packages/nick-name) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/nick-name)
 	- Nick name generator for JavaScript
 - [@vicimpa/observers (0.0.7)](packages/observers) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/observers)
 	- A lightweight TypeScript library providing utilities for observing intersection and resize events of DOM elements with automatic cleanup.
@@ -37,9 +37,9 @@ npm. Теперь все библиотеки можно и нужно буде�
 	- Библиотека для сериализации и десериализации данных с использованием пользовательского протокола
 - [@vicimpa/react-decorators (0.1.5)](packages/react-decorators) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/react-decorators)
 	- A library of decorators and hooks to enhance React components with dependency injection and context management.
-- [@vicimpa/rsp (0.0.8)](packages/rsp) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/rsp)
+- [@vicimpa/rsp (0.0.9)](packages/rsp) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/rsp)
 	- A small layer between react and @preact/signals-react that allows you to use signals for attributes of native elements and bind some input and textarea properties to signals.
-- [@vicimpa/rubles (0.1.18)](packages/rubles) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/rubles)
+- [@vicimpa/rubles (0.1.19)](packages/rubles) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/rubles)
 	- Стоимость прописью
 - [@vicimpa/shared-state (1.0.7)](packages/shared-state) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/shared-state)
 	- A lightweight TypeScript library for managing shared state across different components in a React application.

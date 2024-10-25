@@ -73,6 +73,33 @@ component.count = 5;
 console.log(component.count); // 5
 ```
 
+Также декоратор `prop` умеет помечать реактивным геттеры. Таким образом можно сделать реактивное свойство зависящее от других реактивных свойств.
+
+#### Пример
+
+```ts
+import { prop, reactive } from "@vicimpa/decorators";
+
+@reactive()
+class MyComponent {
+  @prop
+  public count: number = 0;
+
+  @prop
+  public name: string = "John Doe";
+
+  @prop
+  public get hello() {
+    return `${this.name} ${this.count}`
+  }
+}
+
+const component = new MyComponent();
+console.log(component.hello); // John Doe 0
+component.count = 5;
+console.log(component.hello); // John Doe 5
+```
+
 ## API
 
 ### `reactive`

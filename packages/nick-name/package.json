@@ -1,6 +1,6 @@
 {
   "name": "@vicimpa/nick-name",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Nick name generator for JavaScript",
   "repository": "github:vicimpa/vicimpa-library",
   "funding": "https://boosty.to/vic_dev",
@@ -34,6 +34,10 @@
     "custom-nickname",
     "nick-name-generator"
   ],
-  "author": "",
+  "author": {
+    "name": "PromiSe####",
+    "url": "https://github.com/vicimpa",
+    "email": "vicimpa@ya.ru"
+  },
   "license": "GPL-3.0-only"
 }

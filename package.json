@@ -6,6 +6,7 @@
     "packages/*"
   ],
   "scripts": {
+    "postinstall": "npm run generate",
     "generate": "node bin/generate \"$( git remote get-url origin )\" \"$( git branch --show-current )\""
   },
   "devDependencies": {

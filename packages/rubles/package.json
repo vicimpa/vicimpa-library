@@ -1,6 +1,6 @@
 {
   "name": "@vicimpa/rubles",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "description": "Стоимость прописью",
   "repository": "github:vicimpa/vicimpa-library",
   "funding": "https://boosty.to/vic_dev",
@@ -25,7 +25,11 @@
   ],
   "authors": [
     "Alexey Simonenko <alexey@simonenko.su>",
-    "PromiSe#### <vicimpa@ya.ru>"
+    {
+      "name": "PromiSe####",
+      "url": "https://github.com/vicimpa",
+      "email": "vicimpa@ya.ru"
+    }
   ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",

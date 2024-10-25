@@ -1,12 +1,13 @@
-import { makeWeekStore } from "@vicimpa/week-store";
-import { signal } from "@preact/signals-react";
+import { computed, signal } from "@preact/signals-core";
 
-const store = makeWeekStore(() => new Set<string | symbol>());
+import { makeWeekStore } from "@vicimpa/week-store";
+
+const propStore = makeWeekStore(() => new Set<string | symbol>());
 
 export const reactive = <T extends object, C extends new (...args: any[]) => T>() => {
   return (target: C) => {
     const { prototype } = target;
-    const _store = store(prototype);
+    const _store = propStore(prototype);
 
     return {
       [target.name]: class extends (target as new (...args: any[]) => any) {
@@ -31,7 +32,30 @@ export const reactive = <T extends object, C extends new (...args: any[]) => T>(
 
 export const prop = <T extends object>(
   target: T,
-  key: string | symbol
+  key: string | symbol,
+  descriptor?: PropertyDescriptor
 ) => {
-  store(target).add(key);
+  if (descriptor) {
+    const sym = Symbol();
+    const { get: getValue, set: setValue } = descriptor;
+
+    Object.defineProperty(target, key, {
+      get() {
+        const signal = this[sym] ?? (
+          this[sym] = computed(() => {
+            return getValue.call(this);
+          })
+        );
+
+        return signal.value;
+      },
+      set(value) {
+        setValue.call(this, value);
+      }
+    });
+
+    return;
+  }
+
+  propStore(target).add(key);
 };
