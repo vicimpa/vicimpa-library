@@ -89,6 +89,8 @@ const v4 = new Vec2(v2); // Из другого Vec2
   объект.
 - `toRect(x: number, y: number): DOMRect` - Возвращает DOMRect от вектора до
   заданных координат.
+- `dotProduct(to: Vec2): number` - Возвращает результат скалярного произведения векторов
+- `projectScalar(to: Vec2): number` - Возвращает результат проецирования векторов
 
 ### Статические методы
 
