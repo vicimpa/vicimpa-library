@@ -201,6 +201,14 @@ export class Vec2 {
     return this;
   }
 
+  dotProduct(to: Vec2) {
+    return to.x * this.x + to.y * this.y;
+  }
+  
+  projectScalar(to: Vec2) {
+    return this.dotProduct(to) / to.length();
+  }
+
   clone() {
     return new Vec2(this);
   }
@@ -244,7 +252,6 @@ export class Vec2 {
   cabs() {
     return this.clone().abs();
   }
-
 
   cround() {
     return this.clone().round();
