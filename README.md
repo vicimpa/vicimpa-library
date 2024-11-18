@@ -35,7 +35,7 @@ npm. Теперь все библиотеки можно и нужно буде�
 	- simple perlin noise generator
 - [@vicimpa/proto (0.0.5)](packages/proto) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/proto)
 	- Библиотека для сериализации и десериализации данных с использованием пользовательского протокола
-- [@vicimpa/react-decorators (0.1.5)](packages/react-decorators) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/react-decorators)
+- [@vicimpa/react-decorators (0.1.6)](packages/react-decorators) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/react-decorators)
 	- A library of decorators and hooks to enhance React components with dependency injection and context management.
 - [@vicimpa/rsp (0.0.9)](packages/rsp) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/rsp)
 	- A small layer between react and @preact/signals-react that allows you to use signals for attributes of native elements and bind some input and textarea properties to signals.
