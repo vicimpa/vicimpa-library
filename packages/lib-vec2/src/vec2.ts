@@ -1,25 +1,30 @@
-export type TMutation = (x: number, y: number) => any;
-export type TPointVec2 = { x: number, y: number; };
-export type TTupleVec2 = [x: number, y: number];
-export type TSizeVec2 = { width: number, height: number; };
+export type Vec2Runner = (x: number, y: number) => any;
+export type Vec2Point = { x: number, y: number; };
+export type Vec2Tuple = [x: number, y: number];
+export type Vec2Size = { width: number, height: number; };
 export type TPageXY = { pageX: number, pageY: number; };
 export type TOffsetXY = { offsetX: number, offsetY: number; };
 export type TDeltaXY = { deltaX: number, deltaY: number; };
+export type Vec2Hash = `${number}:${number}`;
 export type TRect2 = [
   ...([x: number, y: number] | [xy: Vec2]),
   ...([w: number, h: number] | [wh: Vec2])
 ];
 
-export type TParameter = (
+export type Vec2Args = (
   never
   | []
   | [vec: Vec2]
-  | [xy: TPointVec2]
+  | [xy: Vec2Point]
   | [xy: number]
-  | TTupleVec2
+  | Vec2Tuple
 );
 
-export function mutation<F extends TMutation>(args: TParameter, mutation: F): ReturnType<F> {
+export function vec2(...args: Vec2Args) {
+  return new Vec2(...args);
+}
+
+export function vec2run<F extends Vec2Runner>(args: Vec2Args, mutation: F): ReturnType<F> {
   var first = args[0] ?? 0;
 
   if (typeof first === 'number') {
@@ -49,33 +54,37 @@ export class Vec2 {
   }
 
   toString() {
-    return `${this.x} ${this.y}`;
+    return `Vec2<${this.x}, ${this.y}>`;
   }
 
-  get tuple(): TTupleVec2 {
+  get tuple(): Vec2Tuple {
     return [this.x, this.y];
   }
 
-  get size(): TSizeVec2 {
+  get size(): Vec2Size {
     return {
       width: this.x,
       height: this.y
     };
   }
 
-  get point(): TPointVec2 {
+  get point(): Vec2Point {
     return {
       x: this.x,
       y: this.y
     };
   }
 
-  constructor(...args: TParameter) {
+  get hash(): Vec2Hash {
+    return `${this.x}:${this.y}`;
+  }
+
+  constructor(...args: Vec2Args) {
     this.set(...args);
   }
 
-  equal(...args: TParameter) {
-    return mutation(args, (x, y) => {
+  equal(...args: Vec2Args) {
+    return vec2run(args, (x, y) => {
       return x === this.x && y === this.y;
     });
   }
@@ -96,67 +105,76 @@ export class Vec2 {
       this.y <= h + y);
   }
 
-  cropMin(...args: TParameter) {
-    mutation(args, (x, y) => {
+  cropMin(...args: Vec2Args) {
+    vec2run(args, (x, y) => {
       this.x = Math.max(this.x, x);
       this.y = Math.max(this.y, y);
     });
     return this;
   }
 
-  cropMax(...args: TParameter) {
-    mutation(args, (x, y) => {
+  cropMax(...args: Vec2Args) {
+    vec2run(args, (x, y) => {
       this.x = Math.min(this.x, x);
       this.y = Math.min(this.y, y);
     });
     return this;
   }
 
-  set(...args: TParameter) {
-    mutation(args, (x, y) => {
+  set(...args: Vec2Args) {
+    vec2run(args, (x, y) => {
       this.x = x;
       this.y = y;
     });
     return this;
   }
 
-  plus(...args: TParameter) {
-    mutation(args, (x, y) => {
+  plus(...args: Vec2Args) {
+    vec2run(args, (x, y) => {
       this.x += x;
       this.y += y;
     });
     return this;
   }
 
-  minus(...args: TParameter) {
-    mutation(args, (x, y) => {
+  minus(...args: Vec2Args) {
+    vec2run(args, (x, y) => {
       this.x -= x;
       this.y -= y;
     });
     return this;
   }
 
-  times(...args: TParameter) {
-    mutation(args, (x, y) => {
+  times(...args: Vec2Args) {
+    vec2run(args, (x, y) => {
       this.x *= x;
       this.y *= y;
     });
     return this;
   }
 
-  div(...args: TParameter) {
-    mutation(args, (x, y) => {
+  div(...args: Vec2Args) {
+    vec2run(args, (x, y) => {
       this.x /= x;
       this.y /= y;
     });
     return this;
   }
 
-  rem(...args: TParameter) {
-    mutation(args, (x, y) => {
+  rem(...args: Vec2Args) {
+    vec2run(args, (x, y) => {
       this.x %= x;
       this.y %= y;
     });
+    return this;
+  }
+
+  pow(...args: Vec2Args) {
+    vec2run(args, (x, y) => {
+      this.x ** x;
+      this.y ** y;
+    });
+
     return this;
   }
 
@@ -204,7 +222,7 @@ export class Vec2 {
   dotProduct(to: Vec2) {
     return to.x * this.x + to.y * this.y;
   }
-  
+
   projectScalar(to: Vec2) {
     return this.dotProduct(to) / to.length();
   }
@@ -213,24 +231,28 @@ export class Vec2 {
     return new Vec2(this);
   }
 
-  cplus(...args: TParameter) {
+  cplus(...args: Vec2Args) {
     return this.clone().plus(...args);
   }
 
-  cminus(...args: TParameter) {
+  cminus(...args: Vec2Args) {
     return this.clone().minus(...args);
   }
 
-  ctimes(...args: TParameter) {
+  ctimes(...args: Vec2Args) {
     return this.clone().times(...args);
   }
 
-  cdiv(...args: TParameter) {
+  cdiv(...args: Vec2Args) {
     return this.clone().div(...args);
   }
 
-  crem(...args: TParameter) {
+  crem(...args: Vec2Args) {
     return this.clone().rem(...args);
+  }
+
+  cpow(...args: Vec2Args) {
+    return this.clone().pow(...args);
   }
 
   cinverse() {
@@ -269,13 +291,13 @@ export class Vec2 {
     return Math.hypot(...this);
   }
 
-  distance(...args: TParameter) {
+  distance(...args: Vec2Args) {
     return this.cminus(...args).length();
   }
 
   normalize() {
-    const length = this.length()
-    if(!length) return this;
+    const length = this.length();
+    if (!length) return this;
     return this.div(length);
   }
 
@@ -287,14 +309,20 @@ export class Vec2 {
     return Math.max(...this);
   }
 
-  toObject(o: { x: number, y: number; }) {
+  toObject(o: Vec2Point) {
     o.x = this.x;
     o.y = this.y;
     return this;
   }
 
-  toRect(...args: TParameter) {
-    return mutation(args, (x, y) => {
+  toObjectSize(o: Vec2Size) {
+    o.width = this.x;
+    o.height = this.y;
+    return this;
+  }
+
+  toRect(...args: Vec2Args) {
+    return vec2run(args, (x, y) => {
       const xRect = Math.min(this.x, x);
       const yRect = Math.min(this.y, y);
       const wRect = Math.abs(Math.max(this.x, x) - xRect);
@@ -303,15 +331,19 @@ export class Vec2 {
     });
   }
 
+  static fromHash(hash: Vec2Hash, vec = new this()) {
+    return vec.set(...hash.split(':').map(Number) as Vec2Tuple);
+  }
+
   static fromAngle(d: number, vec = new this()) {
     return vec.set(Math.sin(d), Math.cos(d));
   }
 
-  static fromPoint(point: TPointVec2, vec = new this()) {
+  static fromPoint(point: Vec2Point, vec = new this()) {
     return vec.set(point.x, point.y);
   }
 
-  static fromSize(size: TSizeVec2, vec = new this()) {
+  static fromSize(size: Vec2Size, vec = new this()) {
     return vec.set(size.width, size.height);
   }
 
