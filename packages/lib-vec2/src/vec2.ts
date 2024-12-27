@@ -343,6 +343,14 @@ export class Vec2 {
     return vec.set(point.x, point.y);
   }
 
+  static fromRandom(vec = new this()) {
+    return vec.set(Math.random(), Math.random());
+  }
+
+  static fromSrandom(vec = new this()) {
+    return vec.set(Math.random(), Math.random()).times(2).minus(1);
+  }
+
   static fromSize(size: Vec2Size, vec = new this()) {
     return vec.set(size.width, size.height);
   }
