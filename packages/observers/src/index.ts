@@ -33,5 +33,6 @@ export function resizeObserver<T extends Element>(target: T | null | undefined, 
 
   return () => {
     observer.unobserve(target);
+    observer.disconnect();
   };
 }
