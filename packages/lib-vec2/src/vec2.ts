@@ -422,9 +422,10 @@ export class Vec2Map<T> {
   private __data = new Map<number, Map<number, T>>();
 
   constructor(points?: Iterable<[Vec2 | Vec2Point | number, T]>) {
-    for (const [key, value] of points) {
-      this.set(key, value);
-    }
+    if (points)
+      for (const [key, value] of points) {
+        this.set(key, value);
+      }
   }
 
   get size() {
@@ -439,7 +440,7 @@ export class Vec2Map<T> {
     });
   }
 
-  get(...args: Vec2ArgsReq) {
+  get(...args: Vec2ArgsReq): T | undefined {
     return vec2run(args, (x, y) => {
       return this.__data.get(y)?.get(x);
     });
@@ -485,9 +486,10 @@ export class Vec2Set {
   private __data = new Map<number, Set<number>>();
 
   constructor(points?: Iterable<Vec2 | Vec2Point | number>) {
-    for (const point of points) {
-      this.add(point);
-    }
+    if (points)
+      for (const point of points) {
+        this.add(point);
+      }
   }
 
   get size() {
