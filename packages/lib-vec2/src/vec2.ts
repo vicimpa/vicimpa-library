@@ -15,9 +15,15 @@ export type Vec2Args = (
   never
   | []
   | [vec: Vec2]
-  | [xy: Vec2Point]
-  | [xy: number]
+  | [xy: Vec2Point | number]
+  | [hash: Vec2Hash]
   | Vec2Tuple
+);
+
+export type Vec2Clamp = (
+  never
+  | [min: Vec2Point | number, max: Vec2Point | number]
+  | [minX: number, minY: number, maxX: number, maxY: number]
 );
 
 export function vec2(...args: Vec2Args) {
@@ -26,6 +32,11 @@ export function vec2(...args: Vec2Args) {
 
 export function vec2run<F extends Vec2Runner>(args: Vec2Args, mutation: F): ReturnType<F> {
   var first = args[0] ?? 0;
+
+  if (typeof first === 'string') {
+    const [x, y] = first.split(':').map(Number);
+    return mutation.call(x, y);
+  }
 
   if (typeof first === 'number') {
     if (typeof args[1] === 'number')
@@ -105,7 +116,17 @@ export class Vec2 {
       this.y <= h + y);
   }
 
-  cropMin(...args: Vec2Args) {
+  clamp(...args: Vec2Clamp) {
+    if (args.length === 2)
+      this.clampMin(args[0]).clampMax(args[1]);
+    else if (args.length === 4)
+      this.clampMin(args[0], args[1]).clampMax(args[2], args[3]);
+    else
+      throw new Error('Invalid arguments');
+    return this;
+  }
+
+  clampMin(...args: Vec2Args) {
     vec2run(args, (x, y) => {
       this.x = Math.max(this.x, x);
       this.y = Math.max(this.y, y);
@@ -113,12 +134,28 @@ export class Vec2 {
     return this;
   }
 
-  cropMax(...args: Vec2Args) {
+  clampMax(...args: Vec2Args) {
     vec2run(args, (x, y) => {
-      this.x = Math.min(this.x, x);
-      this.y = Math.min(this.y, y);
+      this.x = Math.max(this.x, x);
+      this.y = Math.max(this.y, y);
     });
     return this;
+  }
+
+  /** 
+   * @deprecated 
+   * Use clampMin
+   * */
+  cropMin(...args: Vec2Args) {
+    return this.clampMin(...args);
+  }
+
+  /**
+   * @deprecated 
+   * Use clampMax
+   * */
+  cropMax(...args: Vec2Args) {
+    return this.clampMax(...args);
   }
 
   set(...args: Vec2Args) {
@@ -287,6 +324,18 @@ export class Vec2 {
     return this.clone().floor();
   }
 
+  cclamp(...args: Vec2Clamp) {
+    return this.clone().clamp(...args);
+  }
+
+  cclampMin(...args: Vec2Args) {
+    return this.clone().clampMin(...args);
+  }
+
+  cclampMax(...args: Vec2Args) {
+    return this.clone().clampMax(...args);
+  }
+
   length() {
     return Math.hypot(...this);
   }
@@ -332,7 +381,7 @@ export class Vec2 {
   }
 
   static fromHash(hash: Vec2Hash, vec = new this()) {
-    return vec.set(...hash.split(':').map(Number) as Vec2Tuple);
+    return vec.set(hash);
   }
 
   static fromAngle(d: number, vec = new this()) {
