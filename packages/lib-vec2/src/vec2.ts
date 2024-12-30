@@ -495,6 +495,12 @@ export class Vec2Set {
     });
   }
 
+  delete(...args: Vec2Args) {
+    return vec2run(args, (x, y) => {
+      return Boolean(this.__data.get(y)?.delete(x));
+    });
+  }
+
   clear() {
     this.__data.clear();
     return;

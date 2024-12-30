@@ -191,6 +191,7 @@ console.log(v4.toString()); // Выводит "0.707 0.707"
 
 - **has(...args: Vec2Args): boolean** - Проверяет, существует ли элемент `Vec2` в множестве.
 - **add(...args: Vec2Args): this** - Добавляет элемент `Vec2` в множество.
+- **delete(...args: Vec2Args): boolean** - Удаляет элемент с заданным ключом `Vec2`.
 - **clear(): void** - Очищает все элементы в множестве.
 - **forEach(callback: (key: Vec2, self: this) => any): void** - Выполняет указанную функцию один раз для каждого элемента в множестве.
 - **[Symbol.iterator](): Generator<Vec2, void, unknown>** - Возвращает итератор для перебора элементов множества.
