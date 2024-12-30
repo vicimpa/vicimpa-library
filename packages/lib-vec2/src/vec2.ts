@@ -5,7 +5,6 @@ export type Vec2Size = { width: number, height: number; };
 export type TPageXY = { pageX: number, pageY: number; };
 export type TOffsetXY = { offsetX: number, offsetY: number; };
 export type TDeltaXY = { deltaX: number, deltaY: number; };
-export type Vec2Hash = `${number}:${number}`;
 export type TRect2 = [
   ...([x: number, y: number] | [xy: Vec2]),
   ...([w: number, h: number] | [wh: Vec2])
@@ -15,8 +14,7 @@ export type Vec2Args = (
   never
   | []
   | [vec: Vec2]
-  | [xy: Vec2Point | number]
-  | [hash: Vec2Hash]
+  | [xy: Vec2Point | Vec2Tuple | number]
   | Vec2Tuple
 );
 
@@ -33,15 +31,14 @@ export function vec2(...args: Vec2Args) {
 export function vec2run<F extends Vec2Runner>(args: Vec2Args, mutation: F): ReturnType<F> {
   var first = args[0] ?? 0;
 
-  if (typeof first === 'string') {
-    const [x = 0, y = 0] = first.split(':').map(Number);
-    return mutation.call(x, y);
-  }
-
   if (typeof first === 'number') {
     if (typeof args[1] === 'number')
       return mutation.call(null, first, args[1]);
     return mutation.call(null, first, first);
+  }
+
+  if (Array.isArray(first)) {
+    return mutation.call(null, first[0], first[1]);
   }
 
   if (first && ('x' in first) && ('y' in first))
@@ -84,10 +81,6 @@ export class Vec2 {
       x: this.x,
       y: this.y
     };
-  }
-
-  get hash(): Vec2Hash {
-    return `${this.x}:${this.y}`;
   }
 
   constructor(...args: Vec2Args) {
@@ -380,10 +373,6 @@ export class Vec2 {
     });
   }
 
-  static fromHash(hash: Vec2Hash, vec = new this()) {
-    return vec.set(hash);
-  }
-
   static fromAngle(d: number, vec = new this()) {
     return vec.set(Math.sin(d), Math.cos(d));
   }
@@ -428,6 +417,12 @@ export class Vec2 {
 export class Vec2Map<T> {
   private __data = new Map<number, Map<number, T>>();
 
+  constructor(points?: Iterable<[Vec2 | Vec2Point | number, T]>) {
+    for (const [key, value] of points) {
+      this.set(key, value);
+    }
+  }
+
   get size() {
     var count = 0;
     this.__data.forEach(row => count += row.size);
@@ -452,8 +447,8 @@ export class Vec2Map<T> {
     });
   }
 
-  set(value: T, ...args: Vec2Args) {
-    return vec2run(args, (x, y) => {
+  set(vec: Vec2Args[0], value: T) {
+    return vec2run([vec], (x, y) => {
       (this.__data.get(y) ?? (
         this.__data.set(y, new Map()),
         this.__data.get(y)!
@@ -484,6 +479,12 @@ export class Vec2Map<T> {
 
 export class Vec2Set {
   private __data = new Map<number, Set<number>>();
+
+  constructor(points?: Iterable<Vec2 | Vec2Point | number>) {
+    for (const point of points) {
+      this.add(point);
+    }
+  }
 
   get size() {
     var count = 0;
@@ -532,3 +533,4 @@ export class Vec2Set {
     }
   }
 }
+new Vec2Set([1]);
