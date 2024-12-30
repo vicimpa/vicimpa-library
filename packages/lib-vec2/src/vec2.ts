@@ -128,8 +128,8 @@ export class Vec2 {
 
   clampMin(...args: Vec2Args) {
     vec2run(args, (x, y) => {
-      this.x = Math.max(this.x, x);
-      this.y = Math.max(this.y, y);
+      this.x = Math.min(this.x, x);
+      this.y = Math.min(this.y, y);
     });
     return this;
   }
