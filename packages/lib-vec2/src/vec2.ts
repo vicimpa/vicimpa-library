@@ -34,7 +34,7 @@ export function vec2run<F extends Vec2Runner>(args: Vec2Args, mutation: F): Retu
   var first = args[0] ?? 0;
 
   if (typeof first === 'string') {
-    const [x, y] = first.split(':').map(Number);
+    const [x = 0, y = 0] = first.split(':').map(Number);
     return mutation.call(x, y);
   }
 
@@ -128,16 +128,16 @@ export class Vec2 {
 
   clampMin(...args: Vec2Args) {
     vec2run(args, (x, y) => {
-      this.x = Math.min(this.x, x);
-      this.y = Math.min(this.y, y);
+      this.x = Math.max(this.x, x);
+      this.y = Math.max(this.y, y);
     });
     return this;
   }
 
   clampMax(...args: Vec2Args) {
     vec2run(args, (x, y) => {
-      this.x = Math.max(this.x, x);
-      this.y = Math.max(this.y, y);
+      this.x = Math.min(this.x, x);
+      this.y = Math.min(this.y, y);
     });
     return this;
   }
