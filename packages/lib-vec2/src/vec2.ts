@@ -426,38 +426,38 @@ export class Vec2 {
 }
 
 export class Vec2Map<T> {
-  #data = new Map<number, Map<number, T>>();
+  private __data = new Map<number, Map<number, T>>();
 
   has(...args: Vec2Args) {
     return vec2run(args, (x, y) => {
-      return Boolean(this.#data.get(y)?.has(x));
+      return Boolean(this.__data.get(y)?.has(x));
     });
   }
 
   get(...args: Vec2Args) {
     return vec2run(args, (x, y) => {
-      return this.#data.get(y)?.get(x);
+      return this.__data.get(y)?.get(x);
     });
   }
 
   delete(...args: Vec2Args) {
     return vec2run(args, (x, y) => {
-      return Boolean(this.#data.get(y)?.delete(x));
+      return Boolean(this.__data.get(y)?.delete(x));
     });
   }
 
   set(value: T, ...args: Vec2Args) {
     return vec2run(args, (x, y) => {
-      (this.#data.get(y) ?? (
-        this.#data.set(y, new Map()),
-        this.#data.get(y)!
+      (this.__data.get(y) ?? (
+        this.__data.set(y, new Map()),
+        this.__data.get(y)!
       )).set(x, value);
       return this;
     });
   }
 
   clear() {
-    this.#data.clear();
+    this.__data.clear();
     return;
   }
 
@@ -468,7 +468,7 @@ export class Vec2Map<T> {
   }
 
   *[Symbol.iterator]() {
-    for (const [y, row] of this.#data) {
+    for (const [y, row] of this.__data) {
       for (const [x, value] of row) {
         yield [vec2(x, y), value] as [key: Vec2, value: T];
       }
@@ -477,26 +477,26 @@ export class Vec2Map<T> {
 }
 
 export class Vec2Set {
-  #data = new Map<number, Set<number>>();
+  private __data = new Map<number, Set<number>>();
 
   has(...args: Vec2Args) {
     return vec2run(args, (x, y) => {
-      return Boolean(this.#data.get(y)?.has(x));
+      return Boolean(this.__data.get(y)?.has(x));
     });
   }
 
   add(...args: Vec2Args) {
     return vec2run(args, (x, y) => {
-      (this.#data.get(y) ?? (
-        this.#data.set(y, new Set()),
-        this.#data.get(y)!
+      (this.__data.get(y) ?? (
+        this.__data.set(y, new Set()),
+        this.__data.get(y)!
       )).add(x);
       return this;
     });
   }
 
   clear() {
-    this.#data.clear();
+    this.__data.clear();
     return;
   }
 
@@ -507,7 +507,7 @@ export class Vec2Set {
   }
 
   *[Symbol.iterator]() {
-    for (const [y, row] of this.#data) {
+    for (const [y, row] of this.__data) {
       for (const x of row) {
         yield vec2(x, y);
       }
