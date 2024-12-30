@@ -10,12 +10,16 @@ export type TRect2 = [
   ...([w: number, h: number] | [wh: Vec2])
 ];
 
-export type Vec2Args = (
-  never
-  | []
+export type Vec2ArgsReq = (
   | [vec: Vec2]
   | [xy: Vec2Point | Vec2Tuple | number]
   | Vec2Tuple
+);
+
+export type Vec2Args = (
+  never
+  | []
+  | Vec2ArgsReq
 );
 
 export type Vec2Clamp = (
@@ -429,30 +433,30 @@ export class Vec2Map<T> {
     return count;
   }
 
-  has(...args: Vec2Args) {
+  has(...args: Vec2ArgsReq) {
     return vec2run(args, (x, y) => {
       return Boolean(this.__data.get(y)?.has(x));
     });
   }
 
-  get(...args: Vec2Args) {
+  get(...args: Vec2ArgsReq) {
     return vec2run(args, (x, y) => {
       return this.__data.get(y)?.get(x);
     });
   }
 
-  delete(...args: Vec2Args) {
+  delete(...args: Vec2ArgsReq) {
     return vec2run(args, (x, y) => {
       return Boolean(this.__data.get(y)?.delete(x));
     });
   }
 
-  set(vec: Vec2Args[0], value: T) {
-    return vec2run([vec], (x, y) => {
+  set(...args: [...Vec2ArgsReq, value: T]) {
+    return vec2run(args as Vec2ArgsReq, (x, y) => {
       (this.__data.get(y) ?? (
         this.__data.set(y, new Map()),
         this.__data.get(y)!
-      )).set(x, value);
+      )).set(x, args.at(-1) as T);
       return this;
     });
   }
@@ -492,13 +496,13 @@ export class Vec2Set {
     return count;
   }
 
-  has(...args: Vec2Args) {
+  has(...args: Vec2ArgsReq) {
     return vec2run(args, (x, y) => {
       return Boolean(this.__data.get(y)?.has(x));
     });
   }
 
-  add(...args: Vec2Args) {
+  add(...args: Vec2ArgsReq) {
     return vec2run(args, (x, y) => {
       (this.__data.get(y) ?? (
         this.__data.set(y, new Set()),
@@ -508,7 +512,7 @@ export class Vec2Set {
     });
   }
 
-  delete(...args: Vec2Args) {
+  delete(...args: Vec2ArgsReq) {
     return vec2run(args, (x, y) => {
       return Boolean(this.__data.get(y)?.delete(x));
     });
