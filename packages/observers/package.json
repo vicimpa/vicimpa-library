@@ -1,6 +1,6 @@
 {
   "name": "@vicimpa/observers",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A lightweight TypeScript library providing utilities for observing intersection and resize events of DOM elements with automatic cleanup.",
   "repository": "github:vicimpa/vicimpa-library",
   "funding": "https://boosty.to/vic_dev",
