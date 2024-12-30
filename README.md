@@ -29,7 +29,7 @@ npm. Теперь все библиотеки можно и нужно буде�
 	- A collection of mathematical utility functions including operations like clamp, lerp, normalize, and more.
 - [@vicimpa/nick-name (1.0.10)](packages/nick-name) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/nick-name)
 	- Nick name generator for JavaScript
-- [@vicimpa/observers (0.0.7)](packages/observers) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/observers)
+- [@vicimpa/observers (0.0.8)](packages/observers) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/observers)
 	- A lightweight TypeScript library providing utilities for observing intersection and resize events of DOM elements with automatic cleanup.
 - [@vicimpa/perlin-noise (0.0.7)](packages/perlin-noize) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/perlin-noise)
 	- simple perlin noise generator
