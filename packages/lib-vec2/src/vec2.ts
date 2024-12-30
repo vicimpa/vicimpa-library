@@ -428,6 +428,12 @@ export class Vec2 {
 export class Vec2Map<T> {
   private __data = new Map<number, Map<number, T>>();
 
+  get size() {
+    var count = 0;
+    this.__data.forEach(row => count += row.size);
+    return count;
+  }
+
   has(...args: Vec2Args) {
     return vec2run(args, (x, y) => {
       return Boolean(this.__data.get(y)?.has(x));
@@ -478,6 +484,12 @@ export class Vec2Map<T> {
 
 export class Vec2Set {
   private __data = new Map<number, Set<number>>();
+
+  get size() {
+    var count = 0;
+    this.__data.forEach(row => count += row.size);
+    return count;
+  }
 
   has(...args: Vec2Args) {
     return vec2run(args, (x, y) => {
