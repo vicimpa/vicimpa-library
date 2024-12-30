@@ -424,3 +424,93 @@ export class Vec2 {
     return vec.set(x.baseVal.value, y.baseVal.value);
   }
 }
+
+export class Vec2Map<T> {
+  #data = new Map<number, Map<number, T>>();
+
+  has(...args: Vec2Args) {
+    return vec2run(args, (x, y) => {
+      return Boolean(this.#data.get(y)?.has(x));
+    });
+  }
+
+  get(...args: Vec2Args) {
+    return vec2run(args, (x, y) => {
+      return this.#data.get(y)?.get(x);
+    });
+  }
+
+  delete(...args: Vec2Args) {
+    return vec2run(args, (x, y) => {
+      return Boolean(this.#data.get(y)?.delete(x));
+    });
+  }
+
+  set(value: T, ...args: Vec2Args) {
+    return vec2run(args, (x, y) => {
+      (this.#data.get(y) ?? (
+        this.#data.set(y, new Map()),
+        this.#data.get(y)!
+      )).set(x, value);
+      return this;
+    });
+  }
+
+  clear() {
+    this.#data.clear();
+    return;
+  }
+
+  forEach(callback: (key: Vec2, value: T, self: this) => any) {
+    for (const [key, value] of this) {
+      callback(key, value, this);
+    }
+  }
+
+  *[Symbol.iterator]() {
+    for (const [y, row] of this.#data) {
+      for (const [x, value] of row) {
+        yield [vec2(x, y), value] as [key: Vec2, value: T];
+      }
+    }
+  }
+}
+
+export class Vec2Set {
+  #data = new Map<number, Set<number>>();
+
+  has(...args: Vec2Args) {
+    return vec2run(args, (x, y) => {
+      return Boolean(this.#data.get(y)?.has(x));
+    });
+  }
+
+  add(...args: Vec2Args) {
+    return vec2run(args, (x, y) => {
+      (this.#data.get(y) ?? (
+        this.#data.set(y, new Set()),
+        this.#data.get(y)!
+      )).add(x);
+      return this;
+    });
+  }
+
+  clear() {
+    this.#data.clear();
+    return;
+  }
+
+  forEach(callback: (key: Vec2, self: this) => any) {
+    for (const key of this) {
+      callback(key, this);
+    }
+  }
+
+  *[Symbol.iterator]() {
+    for (const [y, row] of this.#data) {
+      for (const x of row) {
+        yield vec2(x, y);
+      }
+    }
+  }
+}
