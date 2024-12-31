@@ -97,6 +97,10 @@ export class Vec2 {
     });
   }
 
+  angle() {
+    return Math.atan2(this.y, this.x);
+  }
+
   inRect(...args: TRect2) {
     const [x, y, w, h] = args.reduce<number[]>((acc, e) => (
       e instanceof Vec2 ? (
@@ -539,4 +543,3 @@ export class Vec2Set {
     }
   }
 }
-new Vec2Set([1]);
