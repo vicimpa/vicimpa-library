@@ -38,6 +38,8 @@ namespace Vec2 {
   export interface Utils {
     angle(this: Vec2): number;
     length(this: Vec2): number;
+    min(this: Vec2): number;
+    max(this: Vec2): number;
     distance(this: Vec2, ...args: Args): number;
     inverse(this: Vec2): this;
     normalize(this: Vec2): this;
@@ -113,6 +115,18 @@ export class Vec2 {
 
   get point(): Vec2.Point {
     return { x: this.x, y: this.y };
+  }
+
+  get t() {
+    return this.tuple;
+  }
+
+  get s() {
+    return this.size;
+  }
+
+  get p() {
+    return this.point;
   }
 
   constructor(...args: Vec2.Args | []) {
@@ -209,6 +223,8 @@ Object.assign(
   {
     angle() { return Math.atan2(this.y, this.x); },
     length() { return Math.hypot(this.x, this.y); },
+    min() { return Math.min(this.x, this.y); },
+    max() { return Math.max(this.x, this.y); },
     distance: $((s, x, y) => Math.hypot(s.x - x, s.y - y)),
     inverse() { return this.set(this.y, this.x); },
     normalize() { return this.equal(0) ? this : this.div(this.length()); }

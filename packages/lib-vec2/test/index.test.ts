@@ -27,6 +27,9 @@ describe('vec2point', () => {
     expect(a.size).toEqual({ width: 1, height: 2 });
     expect(a.tuple).toEqual([1, 2]);
     expect(a.point).toEqual({ x: 1, y: 2 });
+    expect(a.s).toEqual({ width: 1, height: 2 });
+    expect(a.t).toEqual([1, 2]);
+    expect(a.p).toEqual({ x: 1, y: 2 });
     expect([...a]).toEqual([1, 2]);
     expect(a.toString()).toEqual(`Vec2 { x: 1, y: 2 }`);
     expect(c).toEqual({ x: 1, y: 2 });
@@ -56,6 +59,8 @@ describe('vec2point', () => {
     expect(vec2(1, 1).distance(2, 2)).toEqual(Math.hypot(1, 1));
     expect(vec2(1, 2).inverse()).toEqual({ x: 2, y: 1 });
     expect(vec2(0, 4).normalize()).toEqual({ x: 0, y: 1 });
+    expect(vec2(1, 4).min()).toEqual(1);
+    expect(vec2(1, 4).max()).toEqual(4);
   });
 
   test('vec2 clamp', () => {
