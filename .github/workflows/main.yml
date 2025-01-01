@@ -16,14 +16,12 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
 
-      - name: Set up Yarn
-        uses: borales/actions-yarn@v4
-
       - name: Set up Bun.sh
         uses: oven-sh/setup-bun@v2
 
       - name: Run Install
-        run: yarn
+        uses: borales/actions-yarn@v4
+        cmd: install
 
       - name: Run Test
         run: npx lerna exec bun test
