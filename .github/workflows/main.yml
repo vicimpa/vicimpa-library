@@ -16,10 +16,17 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
 
-      - name: Run install
+      - name: Set up Yarn
         uses: borales/actions-yarn@v4
-        with:
-          cmd: install
+
+      - name: Set up Bun.sh
+        uses: oven-sh/setup-bun@v2
+
+      - name: Run Install
+        run: yarn
+
+      - name: Run Test
+        run: npx lerna exec bun test
 
       - name: Configure npm for authentication
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc

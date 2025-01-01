@@ -1,4 +1,4 @@
-const { vec2 } = require('../');
+import { vec2 } from "../src";
 
 describe('vec2point', () => {
   test('vec2 arguments', () => {
