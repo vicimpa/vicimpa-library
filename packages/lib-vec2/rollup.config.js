@@ -1,16 +1,25 @@
 import typescript from "@rollup/plugin-typescript";
 
-export default {
+/** @type {import('rollup').RollupOptions} */
+const config = {
   input: 'src/index.ts',
-  plugins: [typescript()],
+  plugins: [
+    typescript({
+      removeComments: true
+    })
+  ],
   output: [
     {
       file: 'dist/index.js',
-      format: 'cjs'
+      format: 'cjs',
+      compact: true,
+      sourcemap: false,
     },
     {
       file: 'dist/index.esm.js',
-      format: 'es'
+      format: 'es',
+      compact: true,
+      sourcemap: false,
     }
   ],
   external: [
@@ -18,3 +27,5 @@ export default {
     /node_modules/
   ]
 };
+
+export default config;

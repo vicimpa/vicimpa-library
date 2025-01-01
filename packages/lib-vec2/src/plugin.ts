@@ -163,7 +163,6 @@ if (typeof CanvasRenderingContext2D !== 'undefined') {
   }
 }
 
-
 if (typeof Path2D !== 'undefined') {
   const { prototype } = Path2D;
   for (const key of methods) {

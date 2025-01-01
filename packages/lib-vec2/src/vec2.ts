@@ -1,392 +1,129 @@
-export type Vec2Runner = (x: number, y: number) => any;
-export type Vec2Point = { x: number, y: number; };
-export type Vec2Tuple = [x: number, y: number];
-export type Vec2Size = { width: number, height: number; };
-export type TPageXY = { pageX: number, pageY: number; };
-export type TOffsetXY = { offsetX: number, offsetY: number; };
-export type TDeltaXY = { deltaX: number, deltaY: number; };
-export type TRect2 = [
-  ...([x: number, y: number] | [xy: Vec2]),
-  ...([w: number, h: number] | [wh: Vec2])
-];
+namespace Vec2 {
+  export type Point = { x: number, y: number; };
+  export type Tuple = [x: number, y: number];
+  export type Size = { width: number, height: number; };
+  export type PageXY = { pageX: number, pageY: number; };
+  export type OffsetXY = { offsetX: number, offsetY: number; };
+  export type DeltaXY = { deltaX: number, deltaY: number; };
+  export type OffsetSize = { offsetWidth: number, offsetHeight: number; };
+  export type InnerSize = { innerWidth: number, innerHeight: number; };
+  export type Args = [xy: number | Point | Tuple] | Tuple;
+  export type ClampArgs = [min: Args[0], max: Args[0]] | [minX: number, minY: number, maxX: number, maxY: number];
 
-export type Vec2ArgsReq = (
-  | [vec: Vec2]
-  | [xy: Vec2Point | Vec2Tuple | number]
-  | Vec2Tuple
-);
+  export interface Base {
+    set(this: Vec2, ...args: Args): this;
+    equal(this: Vec2, ...args: Args): boolean;
+    clone(this: Vec2): Vec2;
+    toObject(this: Vec2, o: Point): this;
+    toObjectSize(this: Vec2, o: Size): this;
+    toString(this: Vec2): string;
+    [Symbol.iterator](this: Vec2): Iterator<number>;
+    [Symbol.toStringTag](this: Vec2): string;
+  }
 
-export type Vec2Args = (
-  never
-  | []
-  | Vec2ArgsReq
-);
+  export interface Math {
+    plus(this: Vec2, ...args: Args): this;
+    minus(this: Vec2, ...args: Args): this;
+    times(this: Vec2, ...args: Args): this;
+    div(this: Vec2, ...args: Args): this;
+    rem(this: Vec2, ...args: Args): this;
+    pow(this: Vec2, ...args: Args): this;
+    abs(this: Vec2): this;
+    sign(this: Vec2): this;
+    round(this: Vec2): this;
+    ceil(this: Vec2): this;
+    floor(this: Vec2): this;
+  }
 
-export type Vec2Clamp = (
-  never
-  | [min: Vec2Point | number, max: Vec2Point | number]
-  | [minX: number, minY: number, maxX: number, maxY: number]
-);
+  export interface Utils {
+    angle(this: Vec2): number;
+    length(this: Vec2): number;
+    distance(this: Vec2, ...args: Args): number;
+    inverse(this: Vec2): this;
+    normalize(this: Vec2): this;
+  }
 
-export function vec2(...args: Vec2Args) {
-  return new Vec2(...args);
+  export interface Clamp {
+    clampMin(this: Vec2, ...args: Args): this;
+    clampMax(this: Vec2, ...args: Args): this;
+    clamp(this: Vec2, ...args: ClampArgs): this;
+  }
+
+  export interface CopyMath {
+    cplus(this: Vec2, ...args: Args): Vec2;
+    cminus(this: Vec2, ...args: Args): Vec2;
+    ctimes(this: Vec2, ...args: Args): Vec2;
+    cdiv(this: Vec2, ...args: Args): Vec2;
+    crem(this: Vec2, ...args: Args): Vec2;
+    cpow(this: Vec2, ...args: Args): Vec2;
+    cabs(this: Vec2): Vec2;
+    csign(this: Vec2): Vec2;
+    cround(this: Vec2): Vec2;
+    cceil(this: Vec2): Vec2;
+    cfloor(this: Vec2): Vec2;
+  }
+
+  export interface CopyUtils {
+    cinverse(this: Vec2): Vec2;
+    cnormalize(this: Vec2): Vec2;
+  }
+
+  export interface CopyClamp {
+    cclampMin(this: Vec2, ...args: Args): Vec2;
+    cclampMax(this: Vec2, ...args: Args): Vec2;
+    cclamp(this: Vec2, ...args: ClampArgs): Vec2;
+  }
 }
 
-export function vec2run<F extends Vec2Runner>(args: Vec2Args, mutation: F): ReturnType<F> {
-  var first = args[0] ?? 0;
+function $<T, A>(func: (self: T, x: number, y: number) => A) {
+  return function (a, b) {
+    if (typeof a === 'number')
+      return func(this, a, b ?? a);
 
-  if (typeof first === 'number') {
-    if (typeof args[1] === 'number')
-      return mutation.call(null, first, args[1]);
-    return mutation.call(null, first, first);
-  }
+    if (Array.isArray(a))
+      return func(this, a[0], a[1]);
 
-  if (Array.isArray(first)) {
-    return mutation.call(null, first[0], first[1]);
-  }
+    if (a && ('x' in a) && ('y' in a))
+      return func(this, a.x, a.y);
 
-  if (first && ('x' in first) && ('y' in first))
-    return mutation.call(null, first.x, first.y);
+    throw new Error('Invalid arguments');
+  } as (this: T, ...args: Vec2.Args) => A;
+}
 
-  throw new Error('Unknown format');
+export const vec2point = $((_, x, y): Vec2.Point => ({ x, y }));
+export const vec2tuple = $((_, x, y): Vec2.Tuple => [x, y]);
+export const vec2 = (...args: Vec2.Args | []) => new Vec2(...args);
+
+export interface Vec2 extends Vec2.Base, Vec2.Math, Vec2.Utils, Vec2.Clamp, Vec2.CopyMath, Vec2.CopyUtils, Vec2.CopyClamp {
+  x: number;
+  y: number;
 }
 
 export class Vec2 {
-  read = false;
-  x: number = 0;
-  y: number = 0;
+  x = 0;
+  y = 0;
 
-  *[Symbol.iterator]() {
-    yield this.x;
-    yield this.y;
-  }
-
-  [Symbol.toStringTag]() {
-    return this.toString();
-  }
-
-  toString() {
-    return `Vec2<${this.x}, ${this.y}>`;
-  }
-
-  get tuple(): Vec2Tuple {
+  get tuple(): Vec2.Tuple {
     return [this.x, this.y];
+  };
+
+  get size(): Vec2.Size {
+    return { width: this.x, height: this.y };
   }
 
-  get size(): Vec2Size {
-    return {
-      width: this.x,
-      height: this.y
-    };
+  get point(): Vec2.Point {
+    return { x: this.x, y: this.y };
   }
 
-  get point(): Vec2Point {
-    return {
-      x: this.x,
-      y: this.y
-    };
+  constructor(...args: Vec2.Args | []) {
+    if (!args.length)
+      return;
+
+    this.set.apply(this, args);
   }
 
-  constructor(...args: Vec2Args) {
-    this.set(...args);
-  }
-
-  equal(...args: Vec2Args) {
-    return vec2run(args, (x, y) => {
-      return x === this.x && y === this.y;
-    });
-  }
-
-  angle() {
-    return Math.atan2(this.y, this.x);
-  }
-
-  inRect(...args: TRect2) {
-    const [x, y, w, h] = args.reduce<number[]>((acc, e) => (
-      e instanceof Vec2 ? (
-        acc.concat(e.x, e.y)
-      ) : (
-        acc.concat(e)
-      )
-    ), []);
-
-    return (
-      this.x >= x &&
-      this.y >= y &&
-      this.x <= w + x &&
-      this.y <= h + y);
-  }
-
-  clamp(...args: Vec2Clamp) {
-    if (args.length === 2)
-      this.clampMin(args[0]).clampMax(args[1]);
-    else if (args.length === 4)
-      this.clampMin(args[0], args[1]).clampMax(args[2], args[3]);
-    else
-      throw new Error('Invalid arguments');
-    return this;
-  }
-
-  clampMin(...args: Vec2Args) {
-    vec2run(args, (x, y) => {
-      this.x = Math.max(this.x, x);
-      this.y = Math.max(this.y, y);
-    });
-    return this;
-  }
-
-  clampMax(...args: Vec2Args) {
-    vec2run(args, (x, y) => {
-      this.x = Math.min(this.x, x);
-      this.y = Math.min(this.y, y);
-    });
-    return this;
-  }
-
-  /** 
-   * @deprecated 
-   * Use clampMin
-   * */
-  cropMin(...args: Vec2Args) {
-    return this.clampMin(...args);
-  }
-
-  /**
-   * @deprecated 
-   * Use clampMax
-   * */
-  cropMax(...args: Vec2Args) {
-    return this.clampMax(...args);
-  }
-
-  set(...args: Vec2Args) {
-    vec2run(args, (x, y) => {
-      this.x = x;
-      this.y = y;
-    });
-    return this;
-  }
-
-  plus(...args: Vec2Args) {
-    vec2run(args, (x, y) => {
-      this.x += x;
-      this.y += y;
-    });
-    return this;
-  }
-
-  minus(...args: Vec2Args) {
-    vec2run(args, (x, y) => {
-      this.x -= x;
-      this.y -= y;
-    });
-    return this;
-  }
-
-  times(...args: Vec2Args) {
-    vec2run(args, (x, y) => {
-      this.x *= x;
-      this.y *= y;
-    });
-    return this;
-  }
-
-  div(...args: Vec2Args) {
-    vec2run(args, (x, y) => {
-      this.x /= x;
-      this.y /= y;
-    });
-    return this;
-  }
-
-  rem(...args: Vec2Args) {
-    vec2run(args, (x, y) => {
-      this.x %= x;
-      this.y %= y;
-    });
-    return this;
-  }
-
-  pow(...args: Vec2Args) {
-    vec2run(args, (x, y) => {
-      this.x ** x;
-      this.y ** y;
-    });
-
-    return this;
-  }
-
-  round() {
-    this.x = Math.round(this.x);
-    this.y = Math.round(this.y);
-    return this;
-  }
-
-  ceil() {
-    this.x = Math.ceil(this.x);
-    this.y = Math.ceil(this.y);
-    return this;
-  }
-
-  floor() {
-    this.x = Math.floor(this.x);
-    this.y = Math.floor(this.y);
-    return this;
-  }
-
-  inverse() {
-    [this.x, this.y] = [this.y, this.x];
-    return this;
-  }
-
-  lerp(to: Vec2, i: number) {
-    return this.plus(
-      to.cminus(this).times(i)
-    );
-  }
-
-  sign() {
-    this.x = Math.sign(this.x);
-    this.y = Math.sign(this.y);
-    return this;
-  }
-
-  abs() {
-    this.x = Math.abs(this.x);
-    this.y = Math.abs(this.y);
-    return this;
-  }
-
-  dotProduct(to: Vec2) {
-    return to.x * this.x + to.y * this.y;
-  }
-
-  projectScalar(to: Vec2) {
-    return this.dotProduct(to) / to.length();
-  }
-
-  clone() {
-    return new Vec2(this);
-  }
-
-  cplus(...args: Vec2Args) {
-    return this.clone().plus(...args);
-  }
-
-  cminus(...args: Vec2Args) {
-    return this.clone().minus(...args);
-  }
-
-  ctimes(...args: Vec2Args) {
-    return this.clone().times(...args);
-  }
-
-  cdiv(...args: Vec2Args) {
-    return this.clone().div(...args);
-  }
-
-  crem(...args: Vec2Args) {
-    return this.clone().rem(...args);
-  }
-
-  cpow(...args: Vec2Args) {
-    return this.clone().pow(...args);
-  }
-
-  cinverse() {
-    return this.clone().inverse();
-  }
-
-  cnormalize() {
-    return this.clone().normalize();
-  }
-
-  clerp(to: Vec2, i: number) {
-    return this.clone().lerp(to, i);
-  }
-
-  csign() {
-    return this.clone().sign();
-  }
-
-  cabs() {
-    return this.clone().abs();
-  }
-
-  cround() {
-    return this.clone().round();
-  }
-
-  cceil() {
-    return this.clone().ceil();
-  }
-
-  cfloor() {
-    return this.clone().floor();
-  }
-
-  cclamp(...args: Vec2Clamp) {
-    return this.clone().clamp(...args);
-  }
-
-  cclampMin(...args: Vec2Args) {
-    return this.clone().clampMin(...args);
-  }
-
-  cclampMax(...args: Vec2Args) {
-    return this.clone().clampMax(...args);
-  }
-
-  length() {
-    return Math.hypot(...this);
-  }
-
-  distance(...args: Vec2Args) {
-    return this.cminus(...args).length();
-  }
-
-  normalize() {
-    const length = this.length();
-    if (!length) return this;
-    return this.div(length);
-  }
-
-  min() {
-    return Math.min(...this);
-  }
-
-  max() {
-    return Math.max(...this);
-  }
-
-  toObject(o: Vec2Point) {
-    o.x = this.x;
-    o.y = this.y;
-    return this;
-  }
-
-  toObjectSize(o: Vec2Size) {
-    o.width = this.x;
-    o.height = this.y;
-    return this;
-  }
-
-  toRect(...args: Vec2Args) {
-    return vec2run(args, (x, y) => {
-      const xRect = Math.min(this.x, x);
-      const yRect = Math.min(this.y, y);
-      const wRect = Math.abs(Math.max(this.x, x) - xRect);
-      const hRect = Math.abs(Math.max(this.y, y) - yRect);
-      return new DOMRect(xRect, yRect, wRect, hRect);
-    });
-  }
-
-  static fromAngle(d: number, vec = new this()) {
-    return vec.set(Math.sin(d), Math.cos(d));
-  }
-
-  static fromPoint(point: Vec2Point, vec = new this()) {
-    return vec.set(point.x, point.y);
+  static fromAngle(angle: number, vec = new this()) {
+    return vec.set(Math.sin(angle), Math.cos(angle));
   }
 
   static fromRandom(vec = new this()) {
@@ -394,27 +131,31 @@ export class Vec2 {
   }
 
   static fromSrandom(vec = new this()) {
-    return vec.set(Math.random(), Math.random()).times(2).minus(1);
+    return this.fromRandom(vec).times(2).minus(1);
   }
 
-  static fromSize(size: Vec2Size, vec = new this()) {
+  static fromSize(size: Vec2.Size, vec = new this()) {
     return vec.set(size.width, size.height);
   }
 
-  static fromDeltaXY(page: TDeltaXY, vec = new this()) {
+  static fromDeltaXY(page: Vec2.DeltaXY, vec = new this()) {
     return vec.set(page.deltaX, page.deltaY);
   }
 
-  static fromPageXY(page: TPageXY, vec = new this()) {
+  static fromPageXY(page: Vec2.PageXY, vec = new this()) {
     return vec.set(page.pageX, page.pageY);
   }
 
-  static fromOffsetXY(offset: TOffsetXY, vec = new this()) {
+  static fromOffsetXY(offset: Vec2.OffsetXY, vec = new this()) {
     return vec.set(offset.offsetX, offset.offsetY);
   }
 
-  static fromOffsetSize(elem: HTMLElement, vec = new this()) {
-    return vec.set(elem.offsetWidth, elem.offsetHeight);
+  static fromInnerSize(offsetSize: Vec2.InnerSize, vec = new this()) {
+    return vec.set(offsetSize.innerWidth, offsetSize.innerHeight);
+  }
+
+  static fromOffsetSize(offsetSize: Vec2.OffsetSize, vec = new this()) {
+    return vec.set(offsetSize.offsetWidth, offsetSize.offsetHeight);
   }
 
   static fromSvgLength(x: SVGAnimatedLength, y: SVGAnimatedLength, vec = new this()) {
@@ -422,124 +163,90 @@ export class Vec2 {
   }
 }
 
-export class Vec2Map<T> {
-  private __data = new Map<number, Map<number, T>>();
+Object.assign(
+  Vec2.prototype,
+  {
+    set: $((s, x, y) => (s.x = x, s.y = y, s)),
+    equal: $((s, x, y) => s.x === x && s.y === y),
+    clone() { return Object.assign(new Vec2(), this); },
 
-  constructor(points?: Iterable<[Vec2 | Vec2Point | number, T]>) {
-    if (points)
-      for (const [key, value] of points) {
-        this.set(key, value);
-      }
-  }
+    *[Symbol.iterator]() {
+      yield this.x;
+      yield this.y;
+    },
 
-  get size() {
-    var count = 0;
-    this.__data.forEach(row => count += row.size);
-    return count;
-  }
+    [Symbol.toStringTag]() {
+      return this.toString();
+    },
 
-  has(...args: Vec2ArgsReq) {
-    return vec2run(args, (x, y) => {
-      return Boolean(this.__data.get(y)?.has(x));
-    });
-  }
-
-  get(...args: Vec2ArgsReq): T | undefined {
-    return vec2run(args, (x, y) => {
-      return this.__data.get(y)?.get(x);
-    });
-  }
-
-  delete(...args: Vec2ArgsReq) {
-    return vec2run(args, (x, y) => {
-      return Boolean(this.__data.get(y)?.delete(x));
-    });
-  }
-
-  set(...args: [...Vec2ArgsReq, value: T]) {
-    return vec2run(args as Vec2ArgsReq, (x, y) => {
-      (this.__data.get(y) ?? (
-        this.__data.set(y, new Map()),
-        this.__data.get(y)!
-      )).set(x, args.at(-1) as T);
+    toObject(o) {
+      Object.assign(o, this.point);
       return this;
-    });
-  }
+    },
 
-  clear() {
-    this.__data.clear();
-    return;
-  }
-
-  forEach(callback: (key: Vec2, value: T, self: this) => any) {
-    for (const [key, value] of this) {
-      callback(key, value, this);
-    }
-  }
-
-  *[Symbol.iterator]() {
-    for (const [y, row] of this.__data) {
-      for (const [x, value] of row) {
-        yield [vec2(x, y), value] as [key: Vec2, value: T];
-      }
-    }
-  }
-}
-
-export class Vec2Set {
-  private __data = new Map<number, Set<number>>();
-
-  constructor(points?: Iterable<Vec2 | Vec2Point | number>) {
-    if (points)
-      for (const point of points) {
-        this.add(point);
-      }
-  }
-
-  get size() {
-    var count = 0;
-    this.__data.forEach(row => count += row.size);
-    return count;
-  }
-
-  has(...args: Vec2ArgsReq) {
-    return vec2run(args, (x, y) => {
-      return Boolean(this.__data.get(y)?.has(x));
-    });
-  }
-
-  add(...args: Vec2ArgsReq) {
-    return vec2run(args, (x, y) => {
-      (this.__data.get(y) ?? (
-        this.__data.set(y, new Set()),
-        this.__data.get(y)!
-      )).add(x);
+    toObjectSize(o) {
+      Object.assign(o, this.size);
       return this;
-    });
-  }
+    },
 
-  delete(...args: Vec2ArgsReq) {
-    return vec2run(args, (x, y) => {
-      return Boolean(this.__data.get(y)?.delete(x));
-    });
-  }
-
-  clear() {
-    this.__data.clear();
-    return;
-  }
-
-  forEach(callback: (key: Vec2, self: this) => any) {
-    for (const key of this) {
-      callback(key, this);
+    toString() {
+      return `Vec2 { x: ${this.x}, y: ${this.y} }`;
     }
-  }
+  } as Vec2.Base,
+  {
+    plus: $((s, x, y) => (s.x += x, s.y += y, s)),
+    minus: $((s, x, y) => (s.x -= x, s.y -= y, s)),
+    times: $((s, x, y) => (s.x *= x, s.y *= y, s)),
+    div: $((s, x, y) => (s.x /= x, s.y /= y, s)),
+    rem: $((s, x, y) => (s.x %= x, s.y %= y, s)),
+    pow: $((s, x, y) => (s.x **= x, s.y **= y, s)),
+    abs() { return this.set(Math.abs(this.x), Math.abs(this.y)); },
+    sign() { return this.set(Math.sign(this.x), Math.sign(this.y)); },
+    round() { return this.set(Math.round(this.x), Math.round(this.y)); },
+    ceil() { return this.set(Math.ceil(this.x), Math.ceil(this.y)); },
+    floor() { return this.set(Math.floor(this.x), Math.floor(this.y)); }
+  } as Vec2.Math,
+  {
+    angle() { return Math.atan2(this.y, this.x); },
+    length() { return Math.hypot(this.x, this.y); },
+    distance: $((s, x, y) => Math.hypot(s.x - x, s.y - y)),
+    inverse() { return this.set(this.y, this.x); },
+    normalize() { return this.equal(0) ? this : this.div(this.length()); }
+  } as Vec2.Utils,
+  {
+    clampMin: $((s, x, y) => s.set(Math.max(s.x, x), Math.max(s.y, y))),
+    clampMax: $((s, x, y) => s.set(Math.min(s.x, x), Math.min(s.y, y))),
+    clamp(...args: Vec2.ClampArgs) {
+      if (args.length === 2)
+        this.clampMin(args[0]).clampMax(args[1]);
+      else if (args.length === 4)
+        this.clampMin(args[0], args[1]).clampMax(args[2], args[3]);
+      else
+        throw new Error('Invalid arguments');
 
-  *[Symbol.iterator]() {
-    for (const [y, row] of this.__data) {
-      for (const x of row) {
-        yield vec2(x, y);
-      }
+      return this;
     }
-  }
-}
+  } as Vec2.Clamp,
+  {
+    cplus: $((s, x, y) => s.clone().plus(x, y)),
+    cminus: $((s, x, y) => s.clone().minus(x, y)),
+    ctimes: $((s, x, y) => s.clone().times(x, y)),
+    cdiv: $((s, x, y) => s.clone().div(x, y)),
+    crem: $((s, x, y) => s.clone().rem(x, y)),
+    cpow: $((s, x, y) => s.clone().pow(x, y)),
+    cabs() { return this.clone().abs(); },
+    csign() { return this.clone().sign(); },
+    cround() { return this.clone().round(); },
+    cceil() { return this.clone().ceil(); },
+    cfloor() { return this.clone().floor(); }
+  } as Vec2.CopyMath,
+  {
+    cinverse() { return this.clone().inverse(); },
+    cnormalize() { return this.clone().normalize(); }
+  } as Vec2.CopyUtils,
+  {
+    cclampMin: $((s, x, y) => s.clone().clampMin(x, y)),
+    cclampMax: $((s, x, y) => s.clone().clampMax(x, y)),
+    cclamp(...args) { return this.clone().clamp(...args); }
+  } as Vec2.CopyClamp
+);

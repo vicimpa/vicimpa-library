@@ -1,145 +1,124 @@
-# @vicimpa/lib-vec2
+# @vicimpa/lib-vec2 Documentation
+Select language: **`English`** | [Russian](README_RU.md)
 
-Библиотека `@vicimpa/lib-vec2` предоставляет обширный набор утилит для работы с 2D-векторами. Эта библиотека особенно полезна для графических приложений, симуляций физики и любых других областей, где требуется математика 2D-векторов.
+## Overview
 
-## Установка
+The `@vicimpa/lib-vec2` library provides a comprehensive set of tools for working with 2D vectors in TypeScript. It offers a variety of methods for vector manipulation, including arithmetic operations, transformations, and conversions. The library is designed to be compatible with the `CanvasRenderingContext2D` API, allowing for seamless integration with HTML5 canvas operations without the need for tuples.
 
-Чтобы использовать библиотеку Vec2, вам нужно импортировать её в ваш TypeScript проект:
+## API Reference
 
-```ts
-import { Vec2 } from "@vicimpa/lib-vec2";
-```
+### Vec2 Class
 
-## Класс Vec2
+The `Vec2` class represents a 2D vector with `x` and `y` components. It provides a wide range of methods for vector operations.
 
-Класс `Vec2` представляет 2D-вектор и предоставляет различные методы для операций с векторами.
+#### Properties
 
-### Конструктор
+- **x**: `number` - The x-component of the vector.
+- **y**: `number` - The y-component of the vector.
 
-Конструктор может принимать различные типы параметров для инициализации вектора:
+#### Getters
 
-```ts
-const v1 = new Vec2(); // По умолчанию (0, 0)
-const v2 = new Vec2(1, 2); // Из координат
-const v3 = new Vec2({ x: 3, y: 4 }); // Из объекта
-const v4 = new Vec2(v2); // Из другого Vec2
-```
+- **tuple**: `Vec2Tuple` - Returns the vector as a tuple `[x, y]`.
+- **size**: `Vec2Size` - Returns the vector as a size object `{ width: x, height: y }`.
+- **point**: `Vec2Point` - Returns the vector as a point object `{ x, y }`.
 
-Создать новый вектор можно и при помощи функции: `vec2`
+#### Methods
 
-```ts
-import { vec2 } from "@vicimpa/lib-vec2";
-const v1 = vec2(); // По умолчанию (0, 0)
-const v2 = vec2(1, 2); // Из координат
-const v3 = vec2({ x: 3, y: 4 }); // Из объекта
-const v4 = vec2(v2); // Из другого Vec2
-```
+- **equal(...args: Vec2Args): boolean**: Checks if the vector is equal to another vector.
+- **angle(): number**: Calculates the angle of the vector.
+- **clamp(...args: Vec2Clamp): this**: Clamps the vector within the given bounds.
+- **clampMin(...args: Vec2Args): this**: Clamps the vector to a minimum value.
+- **clampMax(...args: Vec2Args): this**: Clamps the vector to a maximum value.
+- **set(...args: Vec2Args): this**: Sets the vector to the given values.
+- **plus(...args: Vec2Args): this**: Adds another vector to this vector.
+- **minus(...args: Vec2Args): this**: Subtracts another vector from this vector.
+- **times(...args: Vec2Args): this**: Multiplies this vector by another vector.
+- **div(...args: Vec2Args): this**: Divides this vector by another vector.
+- **rem(...args: Vec2Args): this**: Calculates the remainder of division of this vector by another vector.
+- **pow(...args: Vec2Args): this**: Raises this vector to the power of another vector.
+- **round(): this**: Rounds the components of the vector.
+- **ceil(): this**: Applies the ceiling function to the components of the vector.
+- **floor(): this**: Applies the floor function to the components of the vector.
+- **inverse(): this**: Inverses the components of the vector.
+- **lerp(to: Vec2, i: number): this**: Linearly interpolates between this vector and another vector.
+- **sign(): this**: Sets the components of the vector to their sign.
+- **abs(): this**: Sets the components of the vector to their absolute values.
+- **dotProduct(to: Vec2): number**: Calculates the dot product with another vector.
+- **projectScalar(to: Vec2): number**: Projects this vector onto another vector and returns the scalar.
+- **clone(): Vec2**: Creates a clone of this vector.
+- **length(): number**: Calculates the length of the vector.
+- **distance(...args: Vec2Args): number**: Calculates the distance to another vector.
+- **normalize(): this**: Normalizes the vector.
+- **min(): number**: Returns the minimum component of the vector.
+- **max(): number**: Returns the maximum component of the vector.
+- **toObject(o: Vec2Point): this**: Converts the vector to an object with x and y properties.
+- **toObjectSize(o: Vec2Size): this**: Converts the vector to an object with width and height properties.
 
-### Свойства
+#### Static Methods
 
-- **x**: number - Координата x вектора.
-- **y**: number - Координата y вектора.
-- **tuple**: [number, number] - Возвращает вектор в виде кортежа.
-- **size**: { width: number, height: number } - Возвращает вектор в виде объекта размера.
-- **point**: { x: number, y: number } - Возвращает вектор в виде объекта точки.
+- **fromAngle(angle: number, vec?: Vec2): Vec2**: Creates a vector from an angle.
+- **fromPoint(point: Vec2Point, vec?: Vec2): Vec2**: Creates a vector from a point.
+- **fromRandom(vec?: Vec2): Vec2**: Creates a vector with random components.
+- **fromSrandom(vec?: Vec2): Vec2**: Creates a vector with signed random components.
+- **fromSize(size: Vec2Size, vec?: Vec2): Vec2**: Creates a vector from a size object.
+- **fromDeltaXY(page: DeltaXY, vec?: Vec2): Vec2**: Creates a vector from deltaX and deltaY.
+- **fromPageXY(page: PageXY, vec?: Vec2): Vec2**: Creates a vector from pageX and pageY.
+- **fromOffsetXY(offset: OffsetXY, vec?: Vec2): Vec2**: Creates a vector from offsetX and offsetY.
+- **fromOffsetSize(elem: HTMLElement, vec?: Vec2): Vec2**: Creates a vector from the offset size of an HTML element.
+- **fromSvgLength(x: SVGAnimatedLength, y: SVGAnimatedLength, vec?: Vec2): Vec2**: Creates a vector from SVG animated lengths.
 
-### Методы
+### Methods with 'c' Prefix
 
-#### Основные операции
+Methods with the 'c' prefix operate on a clone of the vector, leaving the original vector unchanged. These methods are useful for functional programming styles where immutability is preferred.
 
-Эти методы имеют перегрузки, которые позволяют принимать различные типы параметров:
+- **cplus(...args: Vec2Args): Vec2**: Adds another vector to a clone of this vector.
+- **cminus(...args: Vec2Args): Vec2**: Subtracts another vector from a clone of this vector.
+- **ctimes(...args: Vec2Args): Vec2**: Multiplies a clone of this vector by another vector.
+- **cdiv(...args: Vec2Args): Vec2**: Divides a clone of this vector by another vector.
+- **crem(...args: Vec2Args): Vec2**: Calculates the remainder of division of a clone of this vector by another vector.
+- **cpow(...args: Vec2Args): Vec2**: Raises a clone of this vector to the power of another vector.
+- **cinverse(): Vec2**: Inverses the components of a clone of this vector.
+- **cnormalize(): Vec2**: Normalizes a clone of this vector.
+- **clerp(to: Vec2, i: number): Vec2**: Linearly interpolates between a clone of this vector and another vector.
+- **csign(): Vec2**: Sets the components of a clone of this vector to their sign.
+- **cabs(): Vec2**: Sets the components of a clone of this vector to their absolute values.
+- **cround(): Vec2**: Rounds the components of a clone of this vector.
+- **cceil(): Vec2**: Applies the ceiling function to the components of a clone of this vector.
+- **cfloor(): Vec2**: Applies the floor function to the components of a clone of this vector.
+- **cclamp(...args: Vec2Clamp): Vec2**: Clamps a clone of this vector within the given bounds.
+- **cclampMin(...args: Vec2Args): Vec2**: Clamps a clone of this vector to a minimum value.
+- **cclampMax(...args: Vec2Args): Vec2**: Clamps a clone of this vector to a maximum value.
 
-- **set**(...args: Vec2Args): this
-- **plus**(...args: Vec2Args): this
-- **minus**(...args: Vec2Args): this
-- **times**(...args: Vec2Args): this
-- **div**(...args: Vec2Args): this
-- **rem**(...args: Vec2Args): this
-- **pow**(...args: Vec2Args): this
+### Vec2Map and Vec2Set
 
-#### Утилитарные методы
+- **Vec2Map<T>**: A map-like structure where keys are `Vec2` instances.
+  - **constructor(points?: Iterable<[Vec2Point | number, T]>)**: Initializes the map.
+  - **size**: Returns the number of key-value pairs.
+  - **has(...args: Vec2ArgsReq): boolean**: Checks if a key exists.
+  - **get(...args: Vec2ArgsReq): T | undefined**: Retrieves a value by key.
+  - **set(...args: [...Vec2ArgsReq, value: T]): this**: Sets a value for a key.
+  - **delete(...args: Vec2ArgsReq): boolean**: Deletes a key-value pair.
+  - **clear()**: Clears the map.
+  - **forEach(callback: (key: Vec2, value: T, self: this) => any)**: Iterates over entries.
 
-- **angle**(): number - Возвращает направление вектора в радианах.
-- **round**(): this - Округляет координаты вектора.
-- **ceil**(): this - Приводит координаты вектора к ближайшему большему целому.
-- **floor**(): this - Приводит координаты вектора к ближайшему меньшему целому.
-- **inverse**(): this - Инвертирует координаты вектора.
-- **lerp**(to: Vec2, i: number): this - Линейно интерполирует между этим вектором и другим.
-- **sign**(): this - Устанавливает координаты вектора в их знаковое значение.
-- **abs**(): this - Устанавливает координаты вектора в их абсолютные значения.
-- **clone**(): Vec2 - Возвращает клон вектора.
-- **length**(): number - Возвращает длину вектора.
-- **distance**(...args: Vec2Args): number - Возвращает расстояние до другого вектора.
-- **normalize**(): this - Нормализует вектор.
-- **min**(): number - Возвращает минимальную координату.
-- **max**(): number - Возвращает максимальную координату.
-- **toObject**(o: Vec2Point): this - Копирует координаты вектора в объект.
-- **toObjectSize**(o: Vec2Size): this - Копирует координаты вектора в объект размера.
-- **toRect**(...args: Vec2Args): DOMRect - Возвращает DOMRect от вектора до заданных координат.
-- **dotProduct**(to: Vec2): number - Возвращает результат скалярного произведения векторов.
-- **projectScalar**(to: Vec2): number - Возвращает результат проецирования векторов.
+- **Vec2Set**: A set-like structure for `Vec2` instances.
+  - **constructor(points?: Iterable<Vec2Point | number>)**: Initializes the set.
+  - **size**: Returns the number of unique points.
+  - **has(...args: Vec2ArgsReq): boolean**: Checks if a point exists.
+  - **add(...args: Vec2ArgsReq): this**: Adds a point.
+  - **delete(...args: Vec2ArgsReq): boolean**: Deletes a point.
+  - **clear()**: Clears the set.
+  - **forEach(callback: (key: Vec2, self: this) => any)**: Iterates over points.
 
-### Методы с префиксом c
+### Integration with CanvasRenderingContext2D
 
-Эти методы создают клон вектора, выполняют операцию над клоном и возвращают новый вектор. Это полезно, когда нужно сохранить исходный вектор неизменным.
+The library provides seamless integration with the `CanvasRenderingContext2D` API by allowing the use of `Vec2` instances instead of tuples for various canvas operations. This is achieved through type definitions that extend the canvas API to accept `Vec2` objects.
 
-- **cplus**(...args: Vec2Args): Vec2
-- **cminus**(...args: Vec2Args): Vec2
-- **ctimes**(...args: Vec2Args): Vec2
-- **cdiv**(...args: Vec2Args): Vec2
-- **crem**(...args: Vec2Args): Vec2
-- **cpow**(...args: Vec2Args): Vec2
-- **cinverse**(): Vec2
-- **cnormalize**(): Vec2
-- **clerp**(to: Vec2, i: number): Vec2
-- **csign**(): Vec2
-- **cabs**(): Vec2
-- **cround**(): Vec2
-- **cceil**(): Vec2
-- **cfloor**(): Vec2
-- **cclamp**(...args: Vec2Clamp): Vec2
-- **cclampMin**(...args: Vec2Args): Vec2
-- **cclampMax**(...args: Vec2Args): Vec2
+#### Example
 
-### Статические методы
-
-- **fromRandom**(vec?: Vec2): Vec2
-- **fromSrandom**(vec?: Vec2): Vec2
-- **fromAngle**(d: number, vec?: Vec2): Vec2
-- **fromPoint**(point: Vec2Point, vec?: Vec2): Vec2
-- **fromSize**(size: Vec2Size, vec?: Vec2): Vec2
-- **fromDeltaXY**(delta: TDeltaXY, vec?: Vec2): Vec2
-- **fromPageXY**(page: TPageXY, vec?: Vec2): Vec2
-- **fromOffsetXY**(offset: TOffsetXY, vec?: Vec2): Vec2
-- **fromOffsetSize**(elem: HTMLElement, vec?: Vec2): Vec2
-- **fromSvgLength**(x: SVGAnimatedLength, y: SVGAnimatedLength, vec?: Vec2): Vec2
-
-## Примеры
-
-### Основное использование
-
-```ts
-import { Vec2 } from "@vicimpa/lib-vec2";
-
-const v1 = new Vec2(1, 2);
-const v2 = new Vec2(3, 4);
-
-v1.plus(1, 1); // v1 теперь (2, 3)
-v2.minus(v1); // v2 теперь (1, 1)
-
-console.log(v1.length()); // Выводит длину v1
-console.log(v2.distance(v1)); // Выводит расстояние между v2 и v1
-```
-
-### Использование с Canvas
-
-Библиотека также предоставляет патчи для `CanvasRenderingContext2D` и `Path2D`, чтобы они принимали экземпляры Vec2 напрямую.
-
-```ts
-import { Vec2 } from "@vicimpa/lib-vec2";
-
-const canvas = document.getElementById("myCanvas") as HTMLCanvasElement;
-const ctx = canvas.getContext("2d");
+```typescript
+const canvas = document.getElementById('myCanvas') as HTMLCanvasElement;
+const ctx = canvas.getContext('2d');
 
 const start = new Vec2(50, 50);
 const end = new Vec2(200, 200);
@@ -149,118 +128,46 @@ ctx.lineTo(end);
 ctx.stroke();
 ```
 
-### Продвинутые операции
+In this example, `moveTo` and `lineTo` methods accept `Vec2` instances directly, simplifying the code and improving readability.
 
-```ts
-import { Vec2 } from "@vicimpa/lib-vec2";
+## Examples
 
-const v1 = new Vec2(1, 2);
-const v2 = new Vec2(3, 4);
+### Basic Vector Operations
 
-const v3 = v1.clone().plus(v2); // v3 теперь (4, 6)
-const v4 = Vec2.fromAngle(Math.PI / 4); // v4 примерно (0.707, 0.707)
+```typescript
+const v1 = new Vec2(3, 4);
+const v2 = new Vec2(1, 2);
 
-console.log(v3.toString()); // Выводит "4 6"
-console.log(v4.toString()); // Выводит "0.707 0.707"
+const sum = v1.clone().plus(v2);
+console.log(sum.toString()); // Vec2 { x: 4, y: 6 }
+
+const distance = v1.distance(v2);
+console.log(distance); // 2.8284271247461903
 ```
 
-Эта библиотека предоставляет мощные инструменты для работы с 2D-векторами, включая поддержку различных типов данных и интеграцию с Canvas API.
+### Using 'c' Prefix Methods
 
-## Vec2Map
+```typescript
+const v1 = new Vec2(5, 10);
+const v2 = new Vec2(2, 3);
 
-Класс `Vec2Map` предоставляет структуру данных, аналогичную стандартной карте (Map), но с использованием объектов Vec2 в качестве ключей. Это полезно, когда вам нужно сопоставить значения с 2D-векторами.
-
-### Свойства
-- **size**: number - Возвращает размер коллекции.
-
-### Методы
-
-- **has(...args: Vec2Args): boolean** - Проверяет, существует ли элемент с заданным ключом Vec2.
-- **get(...args: Vec2Args): T** - Возвращает значение, связанное с заданным ключом Vec2.
-- **set(vec: Vec2Args[0], value: T): this** - Устанавливает значение для заданного ключа Vec2.
-- **delete(...args: Vec2Args): boolean** - Удаляет элемент с заданным ключом Vec2.
-- **clear(): void** - Очищает все элементы в карте.
-- **forEach(callback: (key: Vec2, value: T, self: this) => any): void** - Выполняет указанную функцию один раз для каждого элемента в карте.
-- **[Symbol.iterator](): Generator<[key: Vec2, value: T], void, unknown>** - Возвращает итератор для перебора элементов карты.
-
-## Vec2Set
-
-Класс `Vec2Set` предоставляет структуру данных, аналогичную стандартному множеству (Set), но с использованием объектов Vec2 в качестве элементов. Это полезно для хранения уникальных 2D-векторов.
-
-### Свойства
-- **size**: number - Возвращает размер коллекции.
-
-### Методы
-
-- **has(...args: Vec2Args): boolean** - Проверяет, существует ли элемент Vec2 в множестве.
-- **add(...args: Vec2Args): this** - Добавляет элемент Vec2 в множество.
-- **delete(...args: Vec2Args): boolean** - Удаляет элемент с заданным ключом Vec2.
-- **clear(): void** - Очищает все элементы в множестве.
-- **forEach(callback: (key: Vec2, self: this) => any): void** - Выполняет указанную функцию один раз для каждого элемента в множестве.
-- **[Symbol.iterator](): Generator<Vec2, void, unknown>** - Возвращает итератор для перебора элементов множества.
-
-Эти классы предоставляют удобные способы работы с коллекциями 2D-векторов, обеспечивая уникальность и быстрый доступ к элементам.
-
-### Пример использования Vec2Map
-
-```ts
-import { Vec2, Vec2Map } from "@vicimpa/lib-vec2";
-
-// Создаем новую карту
-const map = new Vec2Map<number>();
-
-// Создаем векторы
-const v1 = new Vec2(1, 2);
-const v2 = new Vec2(3, 4);
-
-// Устанавливаем значения для векторов
-map.set(v1, 10);
-map.set(v2, 20);
-
-// Получаем значения по ключу
-console.log(map.get(v1)); // Выводит 10
-console.log(map.get(v2)); // Выводит 20
-
-// Проверяем наличие ключа
-console.log(map.has(v1)); // Выводит true
-
-// Удаляем элемент
-map.delete(v1);
-console.log(map.has(v1)); // Выводит false
-
-// Перебираем элементы карты
-map.forEach((key, value) => {
-  console.log(`Key: ${key.toString()}, Value: ${value}`);
-});
+const result = v1.cplus(v2);
+console.log(result.toString()); // Vec2 { x: 7, y: 13 }
+console.log(v1.toString()); // Vec2 { x: 5, y: 10 } - original vector remains unchanged
 ```
 
-### Пример использования Vec2Set
+### Canvas Integration
 
-```ts
-import { Vec2, Vec2Set } from "@vicimpa/lib-vec2";
+```typescript
+const canvas = document.getElementById('canvas') as HTMLCanvasElement;
+const ctx = canvas.getContext('2d');
 
-// Создаем новое множество
-const set = new Vec2Set();
+const position = new Vec2(100, 150);
+const size = new Vec2(50, 50);
 
-// Создаем векторы
-const v1 = new Vec2(1, 2);
-const v2 = new Vec2(3, 4);
-
-// Добавляем векторы в множество
-set.add(v1);
-set.add(v2);
-
-// Проверяем наличие вектора
-console.log(set.has(v1)); // Выводит true
-
-// Перебираем элементы множества
-set.forEach((key) => {
-  console.log(`Key: ${key.toString()}`);
-});
-
-// Очищаем множество
-set.clear();
-console.log(set.has(v1)); // Выводит false
+ctx.fillRect(position, size);
 ```
 
-Эти примеры демонстрируют, как использовать `Vec2Map` и `Vec2Set` для работы с коллекциями 2D-векторов, обеспечивая уникальность и быстрый доступ к элементам.
+In this example, `fillRect` uses `Vec2` instances for position and size, demonstrating the library's compatibility with canvas operations.
+
+This documentation provides a comprehensive overview of the `@vicimpa/lib-vec2` library, detailing its API and usage examples to help developers effectively utilize its capabilities in their projects.
