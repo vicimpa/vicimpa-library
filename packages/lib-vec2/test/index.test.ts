@@ -1,4 +1,4 @@
-import { vec2 } from "../src";
+import { Vec2Map, Vec2Set, vec2 } from "../src";
 
 describe('vec2point', () => {
   test('vec2 arguments', () => {
@@ -129,5 +129,73 @@ describe('vec2point', () => {
 
     expect(base.cclampMax(bmax)).toEqual({ x: Math.min(a.x, bmax.x), y: Math.min(a.y, bmax.y) });
     expect(base).toEqual(a);
+  });
+
+  test('vec2map', () => {
+    const map = new Vec2Map<'a' | 'b' | 'c'>();
+    const args: any[] = [];
+    map.set(0, 'a');
+    map.set(1, 'b');
+    map.set(2, 'c');
+    map.forEach((..._args) => args.push(_args));
+    expect(map.size).toEqual(3);
+    expect([...map]).toEqual([
+      [vec2(0), 'a'],
+      [vec2(1), 'b'],
+      [vec2(2), 'c']
+    ]);
+    expect(args).toEqual([
+      ['a', vec2(0)],
+      ['b', vec2(1)],
+      ['c', vec2(2)]
+    ]);
+    map.clear();
+    expect(map.size).toEqual(0);
+    map.set(0, 'a');
+    expect(map.size).toEqual(1);
+    map.set(0, 'b');
+    expect(map.size).toEqual(1);
+    expect(map.get(0)).toEqual('b');
+    map.set(0, 'c');
+    expect(map.get(0)).toEqual('c');
+    map.delete(0);
+    expect(map.size).toEqual(0);
+    expect(map.has(0)).toEqual(false);
+    map.set(0, 'a');
+    expect(map.has(0)).toEqual(true);
+    expect(map.get(0)).toEqual('a');
+    expect(map.get(1)).toEqual(undefined);
+  });
+
+  test('vec2set', () => {
+    const set = new Vec2Set();
+    const args: any[] = [];
+    set.add(0);
+    set.add(1);
+    set.add(2);
+    set.forEach((..._args) => args.push(_args));
+    expect(set.size).toEqual(3);
+    expect([...set]).toEqual([
+      vec2(0),
+      vec2(1),
+      vec2(2)
+    ]);
+    expect(args).toEqual([
+      [vec2(0)],
+      [vec2(1)],
+      [vec2(2)]
+    ]);
+    set.clear();
+    expect(set.size).toEqual(0);
+    set.add(0);
+    expect(set.size).toEqual(1);
+    set.add(0);
+    expect(set.size).toEqual(1);
+    set.delete(0);
+    expect(set.size).toEqual(0);
+    expect(set.has(0)).toEqual(false);
+    set.add(0);
+    expect(set.has(0)).toEqual(true);
+    expect(set.has(1)).toEqual(false);
   });
 });

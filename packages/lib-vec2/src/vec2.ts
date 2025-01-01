@@ -76,7 +76,7 @@ namespace Vec2 {
 }
 
 function $<T, A>(func: (self: T, x: number, y: number) => A) {
-  return function (a, b) {
+  return function (a, b, ...args) {
     if (typeof a === 'number')
       return func(this, a, b ?? a);
 
@@ -250,3 +250,117 @@ Object.assign(
     cclamp(...args) { return this.clone().clamp(...args); }
   } as Vec2.CopyClamp
 );
+
+export class Vec2Map<T> {
+  private _data = new Map<number, Map<number, T>>();
+
+  get size() {
+    var count = 0;
+    this._data.forEach(row => {
+      count += row.size;
+    });
+    return count;
+  }
+
+  has(...args: Vec2.Args) {
+    var { x, y } = vec2point(...args);
+    return !!this._data.get(y)?.has(x);
+  }
+
+
+  get(...args: Vec2.Args): T | undefined {
+    var { x, y } = vec2point(...args);
+    return this._data.get(y)?.get(x);
+  }
+
+  set(..._args: [...Vec2.Args, value: T]) {
+    var value = _args.at(-1) as T;
+    var args = _args.slice(0, -1) as Vec2.Args;
+    var { x, y } = vec2point(...args);
+    var row = this._data.get(y) ?? (
+      this._data.set(y, new Map()),
+      this._data.get(y)!
+    );
+    row.set(x, value);
+    return this;
+  }
+
+  delete(...args: Vec2.Args) {
+    var { x, y } = vec2point(...args);
+    return !!this._data.get(y)?.delete(x);
+  }
+
+  clear() {
+    this._data.clear();
+    return this;
+  }
+
+  forEach(callback: (value: T, key: Vec2) => any) {
+    this._data.forEach((row, y) => {
+      row.forEach((value, x) => {
+        callback(value, vec2(x, y));
+      });
+    });
+  }
+
+  *[Symbol.iterator](): Iterator<[key: Vec2, value: T]> {
+    for (const a of this._data) {
+      for (const b of a[1]) {
+        yield [vec2(b[0], a[0]), b[1]];
+      }
+    }
+  }
+}
+
+export class Vec2Set {
+  private _data = new Map<number, Set<number>>();
+
+  get size() {
+    var count = 0;
+    this._data.forEach(row => {
+      count += row.size;
+    });
+    return count;
+  }
+
+  has(...args: Vec2.Args) {
+    var { x, y } = vec2point(...args);
+    return !!this._data.get(y)?.has(x);
+  }
+
+  add(...args: Vec2.Args) {
+    var { x, y } = vec2point(...args);
+    var row = this._data.get(y) ?? (
+      this._data.set(y, new Set()),
+      this._data.get(y)!
+    );
+    row.add(x);
+    return this;
+  }
+
+  delete(...args: Vec2.Args) {
+    var { x, y } = vec2point(...args);
+    return !!this._data.get(y)?.delete(x);
+  }
+
+  clear() {
+    this._data.clear();
+    return this;
+  }
+
+  forEach(callback: (key: Vec2) => any) {
+    this._data.forEach((row, y) => {
+      row.forEach((x) => {
+        callback(vec2(x, y));
+      });
+    });
+  }
+
+  *[Symbol.iterator](): Iterator<Vec2> {
+    for (const a of this._data) {
+      for (const b of a[1]) {
+        yield vec2(b, a[0]);
+      }
+    }
+  }
+}
