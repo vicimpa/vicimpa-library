@@ -1,34 +1,34 @@
 import { Vec2 } from "./vec2";
 
-declare global {
-  type TXY = [x: number, y: number] | [xy: Vec2];
-  type TAB = [a: number, b: number] | [ab: Vec2];
-  type TCD = [c: number, d: number] | [cd: Vec2];
-  type TEF = [e: number, f: number] | [cd: Vec2];
-  type TSXY = [sx: number, sy: number] | [xy: Vec2];
-  type TXY0 = [x0: number, y0: number] | [xy0: Vec2];
-  type TXY1 = [x1: number, y1: number] | [xy1: Vec2];
-  type TXY2 = [x2: number, y2: number] | [xy2: Vec2];
-  type TCP = [cpx: number, cpy: number] | [cp: Vec2];
-  type TCP1 = [cp1x: number, cp1y: number] | [cp1: Vec2];
-  type TCP2 = [cp2x: number, cp2y: number] | [cp2: Vec2];
-  type TDXY = [dx: number, dy: number] | [dxy: Vec2];
-  type TWH = [w: number, h: number] | [wh: Vec2];
-  type TSWH = [sw: number, sh: number] | [wh: Vec2];
-  type TDWH = [dw: number, dh: number] | [dwh: Vec2];
-  type TAngles = [startAngle: number, endAngle: number] | [startEndAngle: Vec2];
-  type TRadius = [radiusX: number, radiusY: number] | [radiusXY: Vec2];
-  type TDirtyXY = [dirtyX: number, dirtyY: number] | [dirtyXY: Vec2];
-  type TDirtyWidthHeight = [dirtyWidth: number, dirtyHeight: number] | [dirtyWidthHeight: Vec2];
-  type TABCDEF = [...TAB, ...TCD, ...TEF];
-  type TXY01 = [...TXY0, ...TXY1];
-  type TXY01R = [...TXY0, r0: number, ...TXY1, r1: number];
-  type TXYMaxWidth = [...TXY, maxWidth?: number];
-  type TXYFillRule = [...TXY, fillRule?: CanvasFillRule];
-  type TXYWH = [...TXY, ...TWH];
-  type TDXYWH = [...TDXY, ...TDWH];
-  type TDSXYWH = [...TSXY, ...TSWH, ...TDXYWH];
+type TXY = [x: number, y: number] | [xy: Vec2];
+type TAB = [a: number, b: number] | [ab: Vec2];
+type TCD = [c: number, d: number] | [cd: Vec2];
+type TEF = [e: number, f: number] | [cd: Vec2];
+type TSXY = [sx: number, sy: number] | [xy: Vec2];
+type TXY0 = [x0: number, y0: number] | [xy0: Vec2];
+type TXY1 = [x1: number, y1: number] | [xy1: Vec2];
+type TXY2 = [x2: number, y2: number] | [xy2: Vec2];
+type TCP = [cpx: number, cpy: number] | [cp: Vec2];
+type TCP1 = [cp1x: number, cp1y: number] | [cp1: Vec2];
+type TCP2 = [cp2x: number, cp2y: number] | [cp2: Vec2];
+type TDXY = [dx: number, dy: number] | [dxy: Vec2];
+type TWH = [w: number, h: number] | [wh: Vec2];
+type TSWH = [sw: number, sh: number] | [wh: Vec2];
+type TDWH = [dw: number, dh: number] | [dwh: Vec2];
+type TAngles = [startAngle: number, endAngle: number] | [startEndAngle: Vec2];
+type TRadius = [radiusX: number, radiusY: number] | [radiusXY: Vec2];
+type TDirtyXY = [dirtyX: number, dirtyY: number] | [dirtyXY: Vec2];
+type TDirtyWidthHeight = [dirtyWidth: number, dirtyHeight: number] | [dirtyWidthHeight: Vec2];
+type TABCDEF = [...TAB, ...TCD, ...TEF];
+type TXY01 = [...TXY0, ...TXY1];
+type TXY01R = [...TXY0, r0: number, ...TXY1, r1: number];
+type TXYMaxWidth = [...TXY, maxWidth?: number];
+type TXYFillRule = [...TXY, fillRule?: CanvasFillRule];
+type TXYWH = [...TXY, ...TWH];
+type TDXYWH = [...TDXY, ...TDWH];
+type TDSXYWH = [...TSXY, ...TSWH, ...TDXYWH];
 
+declare global {
   interface CanvasRect {
     clearRect(...args: TXYWH): void;
     fillRect(...args: TXYWH): void;
