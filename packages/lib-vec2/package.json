@@ -1,6 +1,6 @@
 {
   "name": "@vicimpa/lib-vec2",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "A comprehensive TypeScript library for 2D vector manipulation, compatible with CanvasRenderingContext2D.",
   "repository": "github:vicimpa/vicimpa-library",
   "funding": "https://boosty.to/vic_dev",

@@ -6,12 +6,10 @@ export type Vec2OffsetXY = { offsetX: number, offsetY: number; };
 export type Vec2DeltaXY = { deltaX: number, deltaY: number; };
 export type Vec2OffsetSize = { offsetWidth: number, offsetHeight: number; };
 export type Vec2InnerSize = { innerWidth: number, innerHeight: number; };
-export type Vec2Args = [xy: number] | [xy: Vec2Point] | [x: number, y: number];
+export type Vec2Args = [xy: number | Vec2Point] | [x: number, y: number];
 export type Vec2Clamp = [min: Vec2Args[0], max: Vec2Args[0]] | [minX: number, minY: number, maxX: number, maxY: number];
 
-export function vec2(): Vec2;
-export function vec2(xy: number | Vec2Point): Vec2;
-export function vec2(x: number, y: number): Vec2;
+export function vec2(...args: Vec2Args | []): Vec2;
 export function vec2(x?: number | Vec2Point, y?: number) {
   const vec = new Vec2();
   if (x === undefined) return vec;
@@ -41,9 +39,7 @@ export class Vec2 {
     return `Vec2 { x: ${this.x}, y: ${this.y} }`;
   }
 
-  constructor();
-  constructor(xy: number | Vec2Point);
-  constructor(x: number, y: number);
+  constructor(...args: Vec2Args | []);
   constructor(x?: number | Vec2Point, y?: number) {
     if (x === undefined) return;
     if (typeof x === 'object')
@@ -52,15 +48,13 @@ export class Vec2 {
     this.set(x, y ?? x);
   }
 
-  equal(xy: number | Vec2Point): boolean;
-  equal(x: number, y: number): boolean;
+  equal(...args: Vec2Args): boolean;
   equal(x: number | Vec2Point, y?: number): boolean {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return this.x === x && this.y === (y ?? x);
   }
 
-  set(xy: number | Vec2Point): this;
-  set(x: number, y: number): this;
+  set(...args: Vec2Args): this;
   set(x: number | Vec2Point, y?: number): this {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return (this.x = x, this.y = y ?? x, this);
@@ -104,64 +98,55 @@ export class Vec2 {
     return Math.hypot(this.x, this.y);
   }
 
-  distance(xy: number | Vec2Point): number;
-  distance(x: number, y: number): number;
+  distance(...args: Vec2Args): number;
   distance(x: number | Vec2Point, y?: number): number {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return Math.hypot(this.x - x, this.y - (y ?? x));
   }
 
-  dot(xy: number | Vec2Point): number;
-  dot(x: number, y: number): number;
+  dot(...args: Vec2Args): number;
   dot(x: number | Vec2Point, y?: number): number {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return this.x * x + this.y * (y ?? x);
   }
 
-  scalar(xy: number | Vec2Point): number;
-  scalar(x: number, y: number): number;
+  scalar(...args: Vec2Args): number;
   scalar(x: number | Vec2Point, y?: number): number {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return this.dot(x, y ?? x) / Math.hypot(x, y ?? x);
   }
 
-  plus(xy: number | Vec2Point): this;
-  plus(x: number, y: number): this;
+  plus(...args: Vec2Args): this;
   plus(x: number | Vec2Point, y?: number): this {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return (this.x += x, this.y += y ?? x, this);
   }
 
-  minus(xy: number | Vec2Point): this;
-  minus(x: number, y: number): this;
+  minus(...args: Vec2Args): this;
   minus(x: number | Vec2Point, y?: number): this {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return (this.x -= x, this.y -= y ?? x, this);
   }
 
-  times(xy: number | Vec2Point): this;
-  times(x: number, y: number): this;
+  times(...args: Vec2Args): this;
   times(x: number | Vec2Point, y?: number): this {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return (this.x *= x, this.y *= y ?? x, this);
   }
 
-  div(xy: number | Vec2Point): this;
-  div(x: number, y: number): this;
+  div(...args: Vec2Args): this;
   div(x: number | Vec2Point, y?: number): this {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return (this.x /= x, this.y /= y ?? x, this);
   }
 
-  rem(xy: number | Vec2Point): this;
-  rem(x: number, y: number): this;
+  rem(...args: Vec2Args): this;
   rem(x: number | Vec2Point, y?: number): this {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return (this.x %= x, this.y %= y ?? x, this);
   }
 
-  pow(xy: number | Vec2Point): this;
-  pow(x: number, y: number): this;
+  pow(...args: Vec2Args): this;
   pow(x: number | Vec2Point, y?: number): this {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return (this.x **= x, this.y **= y ?? x, this);
@@ -205,8 +190,7 @@ export class Vec2 {
     return this.set(this.y, this.x);
   }
 
-  clampMin(xy: number | Vec2Point): this;
-  clampMin(x: number, y: number): this;
+  clampMin(...args: Vec2Args): this;
   clampMin(x: number | Vec2Point, y?: number): this {
     if (typeof x === 'object') (y = x.y, x = x.x);
     this.x = Math.max(this.x, x);
@@ -214,8 +198,7 @@ export class Vec2 {
     return this;
   }
 
-  clampMax(xy: number | Vec2Point): this;
-  clampMax(x: number, y: number): this;
+  clampMax(...args: Vec2Args): this;
   clampMax(x: number | Vec2Point, y?: number): this {
     if (typeof x === 'object') (y = x.y, x = x.x);
     this.x = Math.min(this.x, x);
@@ -234,43 +217,37 @@ export class Vec2 {
     return this;
   }
 
-  cplus(xy: number | Vec2Point): Vec2;
-  cplus(x: number, y: number): Vec2;
+  cplus(...args: Vec2Args): Vec2;
   cplus(x: number | Vec2Point, y?: number): Vec2 {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return this.clone().plus(x, y ?? x);
   }
 
-  cminus(xy: number | Vec2Point): Vec2;
-  cminus(x: number, y: number): Vec2;
+  cminus(...args: Vec2Args): Vec2;
   cminus(x: number | Vec2Point, y?: number): Vec2 {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return this.clone().minus(x, y ?? x);
   }
 
-  ctimes(xy: number | Vec2Point): Vec2;
-  ctimes(x: number, y: number): Vec2;
+  ctimes(...args: Vec2Args): Vec2;
   ctimes(x: number | Vec2Point, y?: number): Vec2 {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return this.clone().times(x, y ?? x);
   }
 
-  cdiv(xy: number | Vec2Point): Vec2;
-  cdiv(x: number, y: number): Vec2;
+  cdiv(...args: Vec2Args): Vec2;
   cdiv(x: number | Vec2Point, y?: number): Vec2 {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return this.clone().div(x, y ?? x);
   }
 
-  crem(xy: number | Vec2Point): Vec2;
-  crem(x: number, y: number): Vec2;
+  crem(...args: Vec2Args): Vec2;
   crem(x: number | Vec2Point, y?: number): Vec2 {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return this.clone().rem(x, y ?? x);
   }
 
-  cpow(xy: number | Vec2Point): Vec2;
-  cpow(x: number, y: number): Vec2;
+  cpow(...args: Vec2Args): Vec2;
   cpow(x: number | Vec2Point, y?: number): Vec2 {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return this.clone().pow(x, y ?? x);
@@ -304,15 +281,13 @@ export class Vec2 {
     return this.clone().inverse();
   }
 
-  cclampMin(xy: number | Vec2Point): Vec2;
-  cclampMin(x: number, y: number): Vec2;
+  cclampMin(...args: Vec2Args): Vec2;
   cclampMin(x: number | Vec2Point, y?: number) {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return this.clone().clampMin(x, y ?? x);
   }
 
-  cclampMax(xy: number | Vec2Point): Vec2;
-  cclampMax(x: number, y: number): Vec2;
+  cclampMax(...args: Vec2Args): Vec2;
   cclampMax(x: number | Vec2Point, y?: number) {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return this.clone().clampMax(x, y ?? x);
@@ -372,22 +347,19 @@ export class Vec2Map<T> {
     return this._data.size;
   }
 
-  has(xy: number | Vec2Point): boolean;
-  has(x: number, y: number): boolean;
+  has(...args: Vec2Args): boolean;
   has(x: number | Vec2Point, y?: number): boolean {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return this._data.has(this._keys[x]?.[y ?? x]);
   }
 
-  get(xy: number | Vec2Point): T | undefined;
-  get(x: number, y: number): T | undefined;
+  get(...args: Vec2Args): T | undefined;
   get(x: number | Vec2Point, y?: number): T | undefined {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return this._data.get(this._keys[x]?.[y ?? x]);
   }
 
-  set(xy: number | Vec2Point, value: T): this;
-  set(x: number, y: number, value: T): this;
+  set(...args: [...Vec2Args, value: T]): this;
   set(x: number | Vec2Point, y?: number | T, z?: T): this {
     if (z === undefined) (z = y as T, y = undefined);
     if (typeof x === 'object') (y = x.y, x = x.x);
@@ -402,8 +374,7 @@ export class Vec2Map<T> {
     return this;
   }
 
-  delete(xy: number | Vec2Point): boolean;
-  delete(x: number, y: number): boolean;
+  delete(...args: Vec2Args): boolean;
   delete(x: number | Vec2Point, y?: number): boolean {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return !!this._data.delete(this._keys[x]?.[y ?? x]);
@@ -438,15 +409,13 @@ export class Vec2Set {
     return this._data.size;
   }
 
-  has(xy: number | Vec2Point): boolean;
-  has(x: number, y: number): boolean;
+  has(...args: Vec2Args): boolean;
   has(x: number | Vec2Point, y?: number): boolean {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return this._data.has(this._keys[x]?.[y ?? x]);
   }
 
-  add(xy: number | Vec2Point): this;
-  add(x: number, y: number): this;
+  add(...args: Vec2Args): this;
   add(x: number | Vec2Point, y?: number): this {
     if (typeof x === 'object') (y = x.y, x = x.x);
     y = y ?? x;
@@ -461,8 +430,7 @@ export class Vec2Set {
     return this;
   }
 
-  delete(xy: number | Vec2Point): boolean;
-  delete(x: number, y: number): boolean;
+  delete(...args: Vec2Args): boolean;
   delete(x: number | Vec2Point, y?: number): boolean {
     if (typeof x === 'object') (y = x.y, x = x.x);
     return !!this._data.delete(this._keys[x]?.[y ?? x]);
