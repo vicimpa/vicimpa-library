@@ -5,7 +5,6 @@ describe('vec2point', () => {
     expect(vec2()).toEqual({ x: 0, y: 0 });
     expect(vec2(0)).toEqual({ x: 0, y: 0 });
     expect(vec2(1, 2)).toEqual({ x: 1, y: 2 });
-    expect(vec2([1, 2])).toEqual({ x: 1, y: 2 });
     expect(vec2({ x: 1, y: 2 })).toEqual({ x: 1, y: 2 });
   });
 

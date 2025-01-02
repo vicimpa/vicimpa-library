@@ -1,382 +1,489 @@
-namespace Vec2 {
-  export type Point = { x: number, y: number; };
-  export type Tuple = [x: number, y: number];
-  export type Size = { width: number, height: number; };
-  export type PageXY = { pageX: number, pageY: number; };
-  export type OffsetXY = { offsetX: number, offsetY: number; };
-  export type DeltaXY = { deltaX: number, deltaY: number; };
-  export type OffsetSize = { offsetWidth: number, offsetHeight: number; };
-  export type InnerSize = { innerWidth: number, innerHeight: number; };
-  export type Args = [xy: number | Point | Tuple] | Tuple;
-  export type ClampArgs = [min: Args[0], max: Args[0]] | [minX: number, minY: number, maxX: number, maxY: number];
+export type Vec2Point = { x: number; y: number; };
+export type Vec2Tuple = [x: number, y: number];
+export type Vec2Size = { width: number, height: number; };
+export type Vec2PageXY = { pageX: number, pageY: number; };
+export type Vec2OffsetXY = { offsetX: number, offsetY: number; };
+export type Vec2DeltaXY = { deltaX: number, deltaY: number; };
+export type Vec2OffsetSize = { offsetWidth: number, offsetHeight: number; };
+export type Vec2InnerSize = { innerWidth: number, innerHeight: number; };
+export type Vec2Args = [xy: number] | [xy: Vec2Point] | [x: number, y: number];
+export type Vec2Clamp = [min: Vec2Args[0], max: Vec2Args[0]] | [minX: number, minY: number, maxX: number, maxY: number];
 
-  export interface Base {
-    set(this: Vec2, ...args: Args): this;
-    equal(this: Vec2, ...args: Args): boolean;
-    clone(this: Vec2): Vec2;
-    toObject(this: Vec2, o: Point): this;
-    toObjectSize(this: Vec2, o: Size): this;
-    toString(this: Vec2): string;
-    [Symbol.iterator](this: Vec2): Iterator<number>;
-    [Symbol.toStringTag](this: Vec2): string;
-  }
-
-  export interface Math {
-    plus(this: Vec2, ...args: Args): this;
-    minus(this: Vec2, ...args: Args): this;
-    times(this: Vec2, ...args: Args): this;
-    div(this: Vec2, ...args: Args): this;
-    rem(this: Vec2, ...args: Args): this;
-    pow(this: Vec2, ...args: Args): this;
-    abs(this: Vec2): this;
-    sign(this: Vec2): this;
-    round(this: Vec2): this;
-    ceil(this: Vec2): this;
-    floor(this: Vec2): this;
-  }
-
-  export interface Utils {
-    angle(this: Vec2): number;
-    length(this: Vec2): number;
-    min(this: Vec2): number;
-    max(this: Vec2): number;
-    distance(this: Vec2, ...args: Args): number;
-    inverse(this: Vec2): this;
-    normalize(this: Vec2): this;
-  }
-
-  export interface Clamp {
-    clampMin(this: Vec2, ...args: Args): this;
-    clampMax(this: Vec2, ...args: Args): this;
-    clamp(this: Vec2, ...args: ClampArgs): this;
-  }
-
-  export interface CopyMath {
-    cplus(this: Vec2, ...args: Args): Vec2;
-    cminus(this: Vec2, ...args: Args): Vec2;
-    ctimes(this: Vec2, ...args: Args): Vec2;
-    cdiv(this: Vec2, ...args: Args): Vec2;
-    crem(this: Vec2, ...args: Args): Vec2;
-    cpow(this: Vec2, ...args: Args): Vec2;
-    cabs(this: Vec2): Vec2;
-    csign(this: Vec2): Vec2;
-    cround(this: Vec2): Vec2;
-    cceil(this: Vec2): Vec2;
-    cfloor(this: Vec2): Vec2;
-  }
-
-  export interface CopyUtils {
-    cinverse(this: Vec2): Vec2;
-    cnormalize(this: Vec2): Vec2;
-  }
-
-  export interface CopyClamp {
-    cclampMin(this: Vec2, ...args: Args): Vec2;
-    cclampMax(this: Vec2, ...args: Args): Vec2;
-    cclamp(this: Vec2, ...args: ClampArgs): Vec2;
-  }
-}
-
-function $<T, A>(func: (self: T, x: number, y: number) => A) {
-  return function (a, b, ...args) {
-    if (typeof a === 'number')
-      return func(this, a, b ?? a);
-
-    if (Array.isArray(a))
-      return func(this, a[0], a[1]);
-
-    if (a && ('x' in a) && ('y' in a))
-      return func(this, a.x, a.y);
-
-    throw new Error('Invalid arguments');
-  } as (this: T, ...args: Vec2.Args) => A;
-}
-
-export const vec2point = $((_, x, y): Vec2.Point => ({ x, y }));
-export const vec2tuple = $((_, x, y): Vec2.Tuple => [x, y]);
-export const vec2 = (...args: Vec2.Args | []) => new Vec2(...args);
-
-export interface Vec2 extends Vec2.Base, Vec2.Math, Vec2.Utils, Vec2.Clamp, Vec2.CopyMath, Vec2.CopyUtils, Vec2.CopyClamp {
-  x: number;
-  y: number;
+export function vec2(): Vec2;
+export function vec2(xy: number | Vec2Point): Vec2;
+export function vec2(x: number, y: number): Vec2;
+export function vec2(x?: number | Vec2Point, y?: number) {
+  const vec = new Vec2();
+  if (x === undefined) return vec;
+  if (typeof x === 'object')
+    return vec.set(x);
+  return vec.set(x, y ?? x);
 }
 
 export class Vec2 {
   x = 0;
   y = 0;
 
-  get tuple(): Vec2.Tuple {
-    return [this.x, this.y];
-  };
+  get point() { return { ...this } as Vec2Point; }
+  get tuple() { return [...this] as Vec2Tuple; }
+  get size() { return { width: this.x, height: this.y } as Vec2Size; }
 
-  get size(): Vec2.Size {
-    return { width: this.x, height: this.y };
+  get p() { return this.point; }
+  get t() { return this.tuple; }
+  get s() { return this.size; }
+
+  *[Symbol.iterator](): Iterator<number> {
+    yield this.x;
+    yield this.y;
   }
 
-  get point(): Vec2.Point {
-    return { x: this.x, y: this.y };
+  toString(): string {
+    return `Vec2 { x: ${this.x}, y: ${this.y} }`;
   }
 
-  get t() {
-    return this.tuple;
+  constructor();
+  constructor(xy: number | Vec2Point);
+  constructor(x: number, y: number);
+  constructor(x?: number | Vec2Point, y?: number) {
+    if (x === undefined) return;
+    if (typeof x === 'object')
+      return this.set(x);
+
+    this.set(x, y ?? x);
   }
 
-  get s() {
-    return this.size;
+  equal(xy: number | Vec2Point): boolean;
+  equal(x: number, y: number): boolean;
+  equal(x: number | Vec2Point, y?: number): boolean {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return this.x === x && this.y === (y ?? x);
   }
 
-  get p() {
-    return this.point;
+  set(xy: number | Vec2Point): this;
+  set(x: number, y: number): this;
+  set(x: number | Vec2Point, y?: number): this {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return (this.x = x, this.y = y ?? x, this);
   }
 
-  constructor(...args: Vec2.Args | []) {
-    if (!args.length)
-      return;
-
-    this.set.apply(this, args);
+  toObject(o: Vec2Point): this {
+    o.x = this.x;
+    o.y = this.y;
+    return this;
   }
 
-  static fromAngle(angle: number, vec = new this()) {
+  toObjectSize(o: Vec2Size): this {
+    o.width = this.x;
+    o.height = this.y;
+    return this;
+  }
+
+  toTuple(o: Vec2Tuple): this {
+    o[0] = this.x;
+    o[1] = this.y;
+    return this;
+  }
+
+  clone(): Vec2 {
+    return new Vec2(this);
+  }
+
+  min(): number {
+    return Math.min(this.x, this.y);
+  }
+
+  max(): number {
+    return Math.max(this.x, this.y);
+  }
+
+  angle(): number {
+    return Math.atan2(this.y, this.x);
+  }
+
+  length(): number {
+    return Math.hypot(this.x, this.y);
+  }
+
+  distance(xy: number | Vec2Point): number;
+  distance(x: number, y: number): number;
+  distance(x: number | Vec2Point, y?: number): number {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return Math.hypot(this.x - x, this.y - (y ?? x));
+  }
+
+  dot(xy: number | Vec2Point): number;
+  dot(x: number, y: number): number;
+  dot(x: number | Vec2Point, y?: number): number {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return this.x * x + this.y * (y ?? x);
+  }
+
+  scalar(xy: number | Vec2Point): number;
+  scalar(x: number, y: number): number;
+  scalar(x: number | Vec2Point, y?: number): number {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return this.dot(x, y ?? x) / Math.hypot(x, y ?? x);
+  }
+
+  plus(xy: number | Vec2Point): this;
+  plus(x: number, y: number): this;
+  plus(x: number | Vec2Point, y?: number): this {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return (this.x += x, this.y += y ?? x, this);
+  }
+
+  minus(xy: number | Vec2Point): this;
+  minus(x: number, y: number): this;
+  minus(x: number | Vec2Point, y?: number): this {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return (this.x -= x, this.y -= y ?? x, this);
+  }
+
+  times(xy: number | Vec2Point): this;
+  times(x: number, y: number): this;
+  times(x: number | Vec2Point, y?: number): this {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return (this.x *= x, this.y *= y ?? x, this);
+  }
+
+  div(xy: number | Vec2Point): this;
+  div(x: number, y: number): this;
+  div(x: number | Vec2Point, y?: number): this {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return (this.x /= x, this.y /= y ?? x, this);
+  }
+
+  rem(xy: number | Vec2Point): this;
+  rem(x: number, y: number): this;
+  rem(x: number | Vec2Point, y?: number): this {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return (this.x %= x, this.y %= y ?? x, this);
+  }
+
+  pow(xy: number | Vec2Point): this;
+  pow(x: number, y: number): this;
+  pow(x: number | Vec2Point, y?: number): this {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return (this.x **= x, this.y **= y ?? x, this);
+  }
+
+  abs(): this {
+    this.x = Math.abs(this.x);
+    this.y = Math.abs(this.y);
+    return this;
+  }
+
+  sign(): this {
+    this.x = Math.sign(this.x);
+    this.y = Math.sign(this.y);
+    return this;
+  }
+
+  round(): this {
+    this.x = Math.round(this.x);
+    this.y = Math.round(this.y);
+    return this;
+  }
+
+  ceil(): this {
+    this.x = Math.ceil(this.x);
+    this.y = Math.ceil(this.y);
+    return this;
+  }
+
+  floor(): this {
+    this.x = Math.floor(this.x);
+    this.y = Math.floor(this.y);
+    return this;
+  }
+
+  normalize(): this {
+    return this.equal(0) ? this : this.div(this.length());
+  }
+
+  inverse(): this {
+    return this.set(this.y, this.x);
+  }
+
+  clampMin(xy: number | Vec2Point): this;
+  clampMin(x: number, y: number): this;
+  clampMin(x: number | Vec2Point, y?: number): this {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    this.x = Math.max(this.x, x);
+    this.y = Math.max(this.y, y ?? x);
+    return this;
+  }
+
+  clampMax(xy: number | Vec2Point): this;
+  clampMax(x: number, y: number): this;
+  clampMax(x: number | Vec2Point, y?: number): this {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    this.x = Math.min(this.x, x);
+    this.y = Math.min(this.y, y ?? x);
+    return this;
+  }
+
+  clamp(...args: Vec2Clamp): this {
+    if (args.length === 2)
+      this.clampMin(args[0]).clampMax(args[1]);
+    else if (args.length === 4)
+      this.clampMin(args[0], args[1]).clampMax(args[2], args[3]);
+    else
+      throw new Error('Invalid arguments');
+
+    return this;
+  }
+
+  cplus(xy: number | Vec2Point): Vec2;
+  cplus(x: number, y: number): Vec2;
+  cplus(x: number | Vec2Point, y?: number): Vec2 {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return this.clone().plus(x, y ?? x);
+  }
+
+  cminus(xy: number | Vec2Point): Vec2;
+  cminus(x: number, y: number): Vec2;
+  cminus(x: number | Vec2Point, y?: number): Vec2 {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return this.clone().minus(x, y ?? x);
+  }
+
+  ctimes(xy: number | Vec2Point): Vec2;
+  ctimes(x: number, y: number): Vec2;
+  ctimes(x: number | Vec2Point, y?: number): Vec2 {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return this.clone().times(x, y ?? x);
+  }
+
+  cdiv(xy: number | Vec2Point): Vec2;
+  cdiv(x: number, y: number): Vec2;
+  cdiv(x: number | Vec2Point, y?: number): Vec2 {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return this.clone().div(x, y ?? x);
+  }
+
+  crem(xy: number | Vec2Point): Vec2;
+  crem(x: number, y: number): Vec2;
+  crem(x: number | Vec2Point, y?: number): Vec2 {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return this.clone().rem(x, y ?? x);
+  }
+
+  cpow(xy: number | Vec2Point): Vec2;
+  cpow(x: number, y: number): Vec2;
+  cpow(x: number | Vec2Point, y?: number): Vec2 {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return this.clone().pow(x, y ?? x);
+  }
+
+  cabs(): Vec2 {
+    return this.clone().abs();
+  }
+
+  csign(): Vec2 {
+    return this.clone().sign();
+  }
+
+  cround(): Vec2 {
+    return this.clone().round();
+  }
+
+  cceil(): Vec2 {
+    return this.clone().ceil();
+  }
+
+  cfloor(): Vec2 {
+    return this.clone().floor();
+  }
+
+  cnormalize(): Vec2 {
+    return this.clone().normalize();
+  }
+
+  cinverse(): Vec2 {
+    return this.clone().inverse();
+  }
+
+  cclampMin(xy: number | Vec2Point): Vec2;
+  cclampMin(x: number, y: number): Vec2;
+  cclampMin(x: number | Vec2Point, y?: number) {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return this.clone().clampMin(x, y ?? x);
+  }
+
+  cclampMax(xy: number | Vec2Point): Vec2;
+  cclampMax(x: number, y: number): Vec2;
+  cclampMax(x: number | Vec2Point, y?: number) {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return this.clone().clampMax(x, y ?? x);
+  }
+
+  cclamp(...args: Vec2Clamp): Vec2 {
+    return this.clone().clamp(...args);
+  }
+
+  static fromAngle(angle: number, vec = new this()): Vec2 {
     return vec.set(Math.sin(angle), Math.cos(angle));
   }
 
-  static fromRandom(vec = new this()) {
+  static fromRandom(vec = new this()): Vec2 {
     return vec.set(Math.random(), Math.random());
   }
 
-  static fromSrandom(vec = new this()) {
+  static fromSrandom(vec = new this()): Vec2 {
     return this.fromRandom(vec).times(2).minus(1);
   }
 
-  static fromSize(size: Vec2.Size, vec = new this()) {
+  static fromSize(size: Vec2Size, vec = new this()): Vec2 {
     return vec.set(size.width, size.height);
   }
 
-  static fromDeltaXY(page: Vec2.DeltaXY, vec = new this()) {
+  static fromDeltaXY(page: Vec2DeltaXY, vec = new this()): Vec2 {
     return vec.set(page.deltaX, page.deltaY);
   }
 
-  static fromPageXY(page: Vec2.PageXY, vec = new this()) {
+  static fromPageXY(page: Vec2PageXY, vec = new this()): Vec2 {
     return vec.set(page.pageX, page.pageY);
   }
 
-  static fromOffsetXY(offset: Vec2.OffsetXY, vec = new this()) {
+  static fromOffsetXY(offset: Vec2OffsetXY, vec = new this()): Vec2 {
     return vec.set(offset.offsetX, offset.offsetY);
   }
 
-  static fromInnerSize(offsetSize: Vec2.InnerSize, vec = new this()) {
+  static fromInnerSize(offsetSize: Vec2InnerSize, vec = new this()): Vec2 {
     return vec.set(offsetSize.innerWidth, offsetSize.innerHeight);
   }
 
-  static fromOffsetSize(offsetSize: Vec2.OffsetSize, vec = new this()) {
+  static fromOffsetSize(offsetSize: Vec2OffsetSize, vec = new this()): Vec2 {
     return vec.set(offsetSize.offsetWidth, offsetSize.offsetHeight);
   }
 
-  static fromSvgLength(x: SVGAnimatedLength, y: SVGAnimatedLength, vec = new this()) {
+  static fromSvgLength(x: SVGAnimatedLength, y: SVGAnimatedLength, vec = new this()): Vec2 {
     return vec.set(x.baseVal.value, y.baseVal.value);
   }
 }
 
-Object.assign(
-  Vec2.prototype,
-  {
-    set: $((s, x, y) => (s.x = x, s.y = y, s)),
-    equal: $((s, x, y) => s.x === x && s.y === y),
-    clone() { return Object.assign(new Vec2(), this); },
-
-    *[Symbol.iterator]() {
-      yield this.x;
-      yield this.y;
-    },
-
-    [Symbol.toStringTag]() {
-      return this.toString();
-    },
-
-    toObject(o) {
-      Object.assign(o, this.point);
-      return this;
-    },
-
-    toObjectSize(o) {
-      Object.assign(o, this.size);
-      return this;
-    },
-
-    toString() {
-      return `Vec2 { x: ${this.x}, y: ${this.y} }`;
-    }
-  } as Vec2.Base,
-  {
-    plus: $((s, x, y) => (s.x += x, s.y += y, s)),
-    minus: $((s, x, y) => (s.x -= x, s.y -= y, s)),
-    times: $((s, x, y) => (s.x *= x, s.y *= y, s)),
-    div: $((s, x, y) => (s.x /= x, s.y /= y, s)),
-    rem: $((s, x, y) => (s.x %= x, s.y %= y, s)),
-    pow: $((s, x, y) => (s.x **= x, s.y **= y, s)),
-    abs() { return this.set(Math.abs(this.x), Math.abs(this.y)); },
-    sign() { return this.set(Math.sign(this.x), Math.sign(this.y)); },
-    round() { return this.set(Math.round(this.x), Math.round(this.y)); },
-    ceil() { return this.set(Math.ceil(this.x), Math.ceil(this.y)); },
-    floor() { return this.set(Math.floor(this.x), Math.floor(this.y)); }
-  } as Vec2.Math,
-  {
-    angle() { return Math.atan2(this.y, this.x); },
-    length() { return Math.hypot(this.x, this.y); },
-    min() { return Math.min(this.x, this.y); },
-    max() { return Math.max(this.x, this.y); },
-    distance: $((s, x, y) => Math.hypot(s.x - x, s.y - y)),
-    inverse() { return this.set(this.y, this.x); },
-    normalize() { return this.equal(0) ? this : this.div(this.length()); }
-  } as Vec2.Utils,
-  {
-    clampMin: $((s, x, y) => s.set(Math.max(s.x, x), Math.max(s.y, y))),
-    clampMax: $((s, x, y) => s.set(Math.min(s.x, x), Math.min(s.y, y))),
-    clamp(...args: Vec2.ClampArgs) {
-      if (args.length === 2)
-        this.clampMin(args[0]).clampMax(args[1]);
-      else if (args.length === 4)
-        this.clampMin(args[0], args[1]).clampMax(args[2], args[3]);
-      else
-        throw new Error('Invalid arguments');
-
-      return this;
-    }
-  } as Vec2.Clamp,
-  {
-    cplus: $((s, x, y) => s.clone().plus(x, y)),
-    cminus: $((s, x, y) => s.clone().minus(x, y)),
-    ctimes: $((s, x, y) => s.clone().times(x, y)),
-    cdiv: $((s, x, y) => s.clone().div(x, y)),
-    crem: $((s, x, y) => s.clone().rem(x, y)),
-    cpow: $((s, x, y) => s.clone().pow(x, y)),
-    cabs() { return this.clone().abs(); },
-    csign() { return this.clone().sign(); },
-    cround() { return this.clone().round(); },
-    cceil() { return this.clone().ceil(); },
-    cfloor() { return this.clone().floor(); }
-  } as Vec2.CopyMath,
-  {
-    cinverse() { return this.clone().inverse(); },
-    cnormalize() { return this.clone().normalize(); }
-  } as Vec2.CopyUtils,
-  {
-    cclampMin: $((s, x, y) => s.clone().clampMin(x, y)),
-    cclampMax: $((s, x, y) => s.clone().clampMax(x, y)),
-    cclamp(...args) { return this.clone().clamp(...args); }
-  } as Vec2.CopyClamp
-);
-
 export class Vec2Map<T> {
-  private _data = new Map<number, Map<number, T>>();
+  private _data: Map<symbol, T> = new Map();
+  private _keys: Record<number, Record<number, symbol>> = {};
+  private _vectors: Record<symbol, { x: number, y: number; }> = {};
 
-  get size() {
-    var count = 0;
-    this._data.forEach(row => {
-      count += row.size;
-    });
-    return count;
+  get size(): number {
+    return this._data.size;
   }
 
-  has(...args: Vec2.Args) {
-    var { x, y } = vec2point(...args);
-    return !!this._data.get(y)?.has(x);
+  has(xy: number | Vec2Point): boolean;
+  has(x: number, y: number): boolean;
+  has(x: number | Vec2Point, y?: number): boolean {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return this._data.has(this._keys[x]?.[y ?? x]);
   }
 
-
-  get(...args: Vec2.Args): T | undefined {
-    var { x, y } = vec2point(...args);
-    return this._data.get(y)?.get(x);
+  get(xy: number | Vec2Point): T | undefined;
+  get(x: number, y: number): T | undefined;
+  get(x: number | Vec2Point, y?: number): T | undefined {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return this._data.get(this._keys[x]?.[y ?? x]);
   }
 
-  set(..._args: [...Vec2.Args, value: T]) {
-    var value = _args.at(-1) as T;
-    var args = _args.slice(0, -1) as Vec2.Args;
-    var { x, y } = vec2point(...args);
-    var row = this._data.get(y) ?? (
-      this._data.set(y, new Map()),
-      this._data.get(y)!
-    );
-    row.set(x, value);
+  set(xy: number | Vec2Point, value: T): this;
+  set(x: number, y: number, value: T): this;
+  set(x: number | Vec2Point, y?: number | T, z?: T): this {
+    if (z === undefined) (z = y as T, y = undefined);
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    y = (y ?? x) as number;
+
+    const key = (this._keys[x] ?? (
+      this._keys[x] = {})
+    )[y] ?? (this._keys[x][y] = Symbol(''));
+
+    this._vectors[key] = { x, y };
+    this._data.set(key, z);
     return this;
   }
 
-  delete(...args: Vec2.Args) {
-    var { x, y } = vec2point(...args);
-    return !!this._data.get(y)?.delete(x);
+  delete(xy: number | Vec2Point): boolean;
+  delete(x: number, y: number): boolean;
+  delete(x: number | Vec2Point, y?: number): boolean {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return !!this._data.delete(this._keys[x]?.[y ?? x]);
   }
 
-  clear() {
+  clear(): this {
+    this._keys = {};
+    this._vectors = {};
     this._data.clear();
     return this;
   }
 
-  forEach(callback: (value: T, key: Vec2) => any) {
-    this._data.forEach((row, y) => {
-      row.forEach((value, x) => {
-        callback(value, vec2(x, y));
-      });
+  forEach(callback: (value: T, key: Vec2) => any): void {
+    this._data.forEach((value, key) => {
+      callback(value, vec2(this._vectors[key]));
     });
   }
 
   *[Symbol.iterator](): Iterator<[key: Vec2, value: T]> {
-    for (const a of this._data) {
-      for (const b of a[1]) {
-        yield [vec2(b[0], a[0]), b[1]];
-      }
+    for (const item of this._data) {
+      yield [vec2(this._vectors[item[0]]), item[1]];
     }
   }
 }
 
 export class Vec2Set {
-  private _data = new Map<number, Set<number>>();
+  private _data: Set<symbol> = new Set();
+  private _keys: Record<number, Record<number, symbol>> = {};
+  private _vectors: Record<symbol, { x: number, y: number; }> = {};
 
-  get size() {
-    var count = 0;
-    this._data.forEach(row => {
-      count += row.size;
-    });
-    return count;
+  get size(): number {
+    return this._data.size;
   }
 
-  has(...args: Vec2.Args) {
-    var { x, y } = vec2point(...args);
-    return !!this._data.get(y)?.has(x);
+  has(xy: number | Vec2Point): boolean;
+  has(x: number, y: number): boolean;
+  has(x: number | Vec2Point, y?: number): boolean {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return this._data.has(this._keys[x]?.[y ?? x]);
   }
 
-  add(...args: Vec2.Args) {
-    var { x, y } = vec2point(...args);
-    var row = this._data.get(y) ?? (
-      this._data.set(y, new Set()),
-      this._data.get(y)!
-    );
-    row.add(x);
+  add(xy: number | Vec2Point): this;
+  add(x: number, y: number): this;
+  add(x: number | Vec2Point, y?: number): this {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    y = y ?? x;
+
+    const key = (this._keys[x] ?? (
+      this._keys[x] = {})
+    )[y] ?? (this._keys[x][y] = Symbol(''));
+
+    this._vectors[key] = { x, y };
+    this._data.add(key);
+
     return this;
   }
 
-  delete(...args: Vec2.Args) {
-    var { x, y } = vec2point(...args);
-    return !!this._data.get(y)?.delete(x);
+  delete(xy: number | Vec2Point): boolean;
+  delete(x: number, y: number): boolean;
+  delete(x: number | Vec2Point, y?: number): boolean {
+    if (typeof x === 'object') (y = x.y, x = x.x);
+    return !!this._data.delete(this._keys[x]?.[y ?? x]);
   }
 
-  clear() {
+  clear(): this {
+    this._keys = {};
+    this._vectors = {};
     this._data.clear();
     return this;
   }
 
-  forEach(callback: (key: Vec2) => any) {
-    this._data.forEach((row, y) => {
-      row.forEach((x) => {
-        callback(vec2(x, y));
-      });
+  forEach(callback: (value: Vec2) => any): void {
+    this._data.forEach((value) => {
+      callback(vec2(this._vectors[value]));
     });
   }
 
   *[Symbol.iterator](): Iterator<Vec2> {
-    for (const a of this._data) {
-      for (const b of a[1]) {
-        yield vec2(b, a[0]);
-      }
+    for (const item of this._data) {
+      yield vec2(this._vectors[item]);
     }
   }
 }

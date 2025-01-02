@@ -1,236 +1,222 @@
 Select language: **`English`** | [Russian](README_RU.md)
 
-# Documentation for @vicimpa/lib-vec2
+---
 
-The `@vicimpa/lib-vec2` library provides a comprehensive set of utilities for working with 2D vectors. This library is designed to facilitate mathematical operations, transformations, and utility functions for 2D vector manipulation.
+# @vicimpa/lib-vec2
 
-## Types
+`@vicimpa/lib-vec2` is a TypeScript library for working with 2D vectors. It provides various utilities and classes for performing vector operations such as addition, subtraction, normalization, and more. The library supports both mutable and immutable operations, making it suitable for functional programming. Additionally, it offers data structures like `Vec2Map` and `Vec2Set`, which use vectors as keys and elements, respectively.
 
-### Vec2 Types
+### Types
 
-- **Point**
-  ```typescript
-  type Point = {
-      x: number;
-      y: number;
-  };
+- **Vec2Point**: Represents a point in 2D space with x and y coordinates.
+  ```ts
+  type Vec2Point = { x: number; y: number; };
   ```
 
-- **Tuple**
-  ```typescript
-  type Tuple = [x: number, y: number];
+- **Vec2Tuple**: Represents a tuple of x and y coordinates.
+  ```ts
+  type Vec2Tuple = [x: number, y: number];
   ```
 
-- **Size**
-  ```typescript
-  type Size = {
-      width: number;
-      height: number;
-  };
+- **Vec2Size**: Represents a size with width and height.
+  ```ts
+  type Vec2Size = { width: number, height: number; };
   ```
 
-- **PageXY**
-  ```typescript
-  type PageXY = {
-      pageX: number;
-      pageY: number;
-  };
+- **Vec2PageXY**: Represents page coordinates with pageX and pageY.
+  ```ts
+  type Vec2PageXY = { pageX: number, pageY: number; };
   ```
 
-- **OffsetXY**
-  ```typescript
-  type OffsetXY = {
-      offsetX: number;
-      offsetY: number;
-  };
+- **Vec2OffsetXY**: Represents offset coordinates with offsetX and offsetY.
+  ```ts
+  type Vec2OffsetXY = { offsetX: number, offsetY: number; };
   ```
 
-- **DeltaXY**
-  ```typescript
-  type DeltaXY = {
-      deltaX: number;
-      deltaY: number;
-  };
+- **Vec2DeltaXY**: Represents delta coordinates with deltaX and deltaY.
+  ```ts
+  type Vec2DeltaXY = { deltaX: number, deltaY: number; };
   ```
 
-- **OffsetSize**
-  ```typescript
-  type OffsetSize = {
-      offsetWidth: number;
-      offsetHeight: number;
-  };
+- **Vec2OffsetSize**: Represents offset size with offsetWidth and offsetHeight.
+  ```ts
+  type Vec2OffsetSize = { offsetWidth: number, offsetHeight: number; };
   ```
 
-- **InnerSize**
-  ```typescript
-  type InnerSize = {
-      innerWidth: number;
-      innerHeight: number;
-  };
+- **Vec2InnerSize**: Represents inner size with innerWidth and innerHeight.
+  ```ts
+  type Vec2InnerSize = { innerWidth: number, innerHeight: number; };
   ```
 
-- **Args**
-  ```typescript
-  type Args = [xy: number | Point | Tuple] | Tuple;
+- **Vec2Args**: Represents arguments for vector operations, which can be a single number, a Vec2Point, or two numbers.
+  ```ts
+  type Vec2Args = [xy: number] | [xy: Vec2Point] | [x: number, y: number];
   ```
 
-- **ClampArgs**
-  ```typescript
-  type ClampArgs = [min: Args[0], max: Args[0]] | [minX: number, minY: number, maxX: number, maxY: number];
+- **Vec2Clamp**: Represents clamping arguments, which can be two or four numbers.
+  ```ts
+  type Vec2Clamp = [min: Vec2Args[0], max: Vec2Args[0]] | [minX: number, minY: number, maxX: number, maxY: number];
   ```
 
-## Interfaces
+### Functions
 
-### Base Methods
+- **vec2**: Factory function to create a Vec2 instance.
+  ```ts
+  function vec2(): Vec2;
+  function vec2(xy: number | Vec2Point): Vec2;
+  function vec2(x: number, y: number): Vec2;
+  ```
 
-- **set**: Sets the vector's components.
-- **equal**: Checks if two vectors are equal.
-- **clone**: Clones the vector.
-- **toObject**: Converts the vector to a `Point` object.
-- **toObjectSize**: Converts the vector to a `Size` object.
-- **toString**: Converts the vector to a string.
-- **[Symbol.iterator]**: Iterates over the vector components.
-- **[Symbol.toStringTag]**: Returns the string tag of the vector.
+### Classes
 
-### Math Methods
+#### Vec2
 
-- **plus**: Adds vectors.
-- **minus**: Subtracts vectors.
-- **times**: Multiplies vectors.
-- **div**: Divides vectors.
-- **rem**: Computes the remainder of vectors.
-- **pow**: Raises vectors to a power.
-- **abs**: Computes the absolute value of the vector.
-- **sign**: Computes the sign of the vector.
-- **round**: Rounds the vector components.
-- **ceil**: Applies the ceiling function to the vector components.
-- **floor**: Applies the floor function to the vector components.
+Represents a 2D vector with various utility methods.
 
-### Utility Methods
+- **Properties**:
+  - `x`: X-coordinate.
+  - `y`: Y-coordinate.
 
-- **angle**: Computes the angle of the vector.
-- **length**: Computes the length of the vector.
-- **min**: Finds the minimum component of the vector.
-- **max**: Finds the maximum component of the vector.
-- **distance**: Computes the distance between vectors.
-- **inverse**: Inverts the vector.
-- **normalize**: Normalizes the vector.
+- **Getters**:
+  - `point`: Returns the vector as a Vec2Point.
+  - `tuple`: Returns the vector as a Vec2Tuple.
+  - `size`: Returns the vector as a Vec2Size.
 
-### Clamp Methods
+- **Methods**:
+  - `equal(xy: number | Vec2Point): boolean`: Checks if the vector is equal to another vector or point.
+  - `set(xy: number | Vec2Point): this`: Sets the vector's coordinates.
+  - `toObject(o: Vec2Point): this`: Copies the vector's coordinates to a Vec2Point.
+  - `toObjectSize(o: Vec2Size): this`: Copies the vector's coordinates to a Vec2Size.
+  - `toTuple(o: Vec2Tuple): this`: Copies the vector's coordinates to a Vec2Tuple.
+  - `clone(): Vec2`: Returns a new instance with the same coordinates.
+  - `min(): number`: Returns the minimum of the x and y coordinates.
+  - `max(): number`: Returns the maximum of the x and y coordinates.
+  - `angle(): number`: Returns the angle of the vector in radians.
+  - `length(): number`: Returns the length of the vector.
+  - `distance(xy: number | Vec2Point): number`: Calculates the distance to another vector or point.
+  - `dot(xy: number | Vec2Point): number`: Calculates the dot product with another vector or point.
+  - `scalar(xy: number | Vec2Point): number`: Calculates the scalar projection on another vector or point.
+  - `plus(xy: number | Vec2Point): this`: Adds another vector or point.
+  - `minus(xy: number | Vec2Point): this`: Subtracts another vector or point.
+  - `times(xy: number | Vec2Point): this`: Multiplies by another vector or point.
+  - `div(xy: number | Vec2Point): this`: Divides by another vector or point.
+  - `rem(xy: number | Vec2Point): this`: Calculates the remainder with another vector or point.
+  - `pow(xy: number | Vec2Point): this`: Raises to the power of another vector or point.
+  - `abs(): this`: Applies the absolute value to both coordinates.
+  - `sign(): this`: Applies the sign function to both coordinates.
+  - `round(): this`: Rounds both coordinates.
+  - `ceil(): this`: Applies the ceiling function to both coordinates.
+  - `floor(): this`: Applies the floor function to both coordinates.
+  - `normalize(): this`: Normalizes the vector.
+  - `inverse(): this`: Swaps the x and y coordinates.
+  - `clampMin(xy: number | Vec2Point): this`: Clamps the vector to a minimum.
+  - `clampMax(xy: number | Vec2Point): this`: Clamps the vector to a maximum.
+  - `clamp(...args: Vec2Clamp): this`: Clamps the vector between two or four values.
 
-- **clampMin**: Clamps the vector to a minimum value.
-- **clampMax**: Clamps the vector to a maximum value.
-- **clamp**: Clamps the vector between a minimum and maximum value.
+- **Methods with c prefix**:
+  - `cplus(xy: number | Vec2Point): Vec2`: Returns a new vector that is the result of adding another vector or point to the current vector.
+  - `cminus(xy: number | Vec2Point): Vec2`: Returns a new vector that is the result of subtracting another vector or point from the current vector.
+  - `ctimes(xy: number | Vec2Point): Vec2`: Returns a new vector that is the result of multiplying the current vector by another vector or point.
+  - `cdiv(xy: number | Vec2Point): Vec2`: Returns a new vector that is the result of dividing the current vector by another vector or point.
+  - `crem(xy: number | Vec2Point): Vec2`: Returns a new vector that is the result of calculating the remainder of the current vector with another vector or point.
+  - `cpow(xy: number | Vec2Point): Vec2`: Returns a new vector that is the result of raising the current vector to the power of another vector or point.
+  - `cabs(): Vec2`: Returns a new vector with the absolute values of the current vector's coordinates.
+  - `csign(): Vec2`: Returns a new vector with the sign of the current vector's coordinates.
+  - `cround(): Vec2`: Returns a new vector with the rounded values of the current vector's coordinates.
+  - `cceil(): Vec2`: Returns a new vector with the ceiling values of the current vector's coordinates.
+  - `cfloor(): Vec2`: Returns a new vector with the floor values of the current vector's coordinates.
+  - `cnormalize(): Vec2`: Returns a new vector that is the normalized version of the current vector.
+  - `cinverse(): Vec2`: Returns a new vector with the x and y coordinates swapped.
+  - `cclampMin(xy: number | Vec2Point): Vec2`: Returns a new vector that is clamped to a minimum value defined by another vector or point.
+  - `cclampMax(xy: number | Vec2Point): Vec2`: Returns a new vector that is clamped to a maximum value defined by another vector or point.
+  - `cclamp(...args: Vec2Clamp): Vec2`: Returns a new vector that is clamped between two or four values.
 
-### Copy Math Methods
+- **Static Methods**:
+  - `fromAngle(angle: number, vec = new this()): Vec2`: Creates a vector from an angle.
+  - `fromRandom(vec = new this()): Vec2`: Creates a vector with random coordinates.
+  - `fromSrandom(vec = new this()): Vec2`: Creates a vector with signed random coordinates.
+  - `fromSize(size: Vec2Size, vec = new this()): Vec2`: Creates a vector from a size.
+  - `fromDeltaXY(page: Vec2DeltaXY, vec = new this()): Vec2`: Creates a vector from delta coordinates.
+  - `fromPageXY(page: Vec2PageXY, vec = new this()): Vec2`: Creates a vector from page coordinates.
+  - `fromOffsetXY(offset: Vec2OffsetXY, vec = new this()): Vec2`: Creates a vector from offset coordinates.
+  - `fromInnerSize(offsetSize: Vec2InnerSize, vec = new this()): Vec2`: Creates a vector from inner size.
+  - `fromOffsetSize(offsetSize: Vec2OffsetSize, vec = new this()): Vec2`: Creates a vector from offset size.
+  - `fromSvgLength(x: SVGAnimatedLength, y: SVGAnimatedLength, vec = new this()): Vec2`: Creates a vector from SVG lengths.
 
-- **cplus**: Adds vectors and returns a new vector.
-- **cminus**: Subtracts vectors and returns a new vector.
-- **ctimes**: Multiplies vectors and returns a new vector.
-- **cdiv**: Divides vectors and returns a new vector.
-- **crem**: Computes the remainder of vectors and returns a new vector.
-- **cpow**: Raises vectors to a power and returns a new vector.
-- **cabs**: Computes the absolute value of the vector and returns a new vector.
-- **csign**: Computes the sign of the vector and returns a new vector.
-- **cround**: Rounds the vector components and returns a new vector.
-- **cceil**: Applies the ceiling function to the vector components and returns a new vector.
-- **cfloor**: Applies the floor function to the vector components and returns a new vector.
+#### Vec2Map<T>
 
-### Copy Utility Methods
+A map-like structure that uses Vec2 as keys.
 
-- **cinverse**: Inverts the vector and returns a new vector.
-- **cnormalize**: Normalizes the vector and returns a new vector.
+- **Methods**:
+  - `has(xy: number | Vec2Point): boolean`: Checks if a vector is in the map.
+  - `get(xy: number | Vec2Point): T | undefined`: Retrieves a value by vector key.
+  - `set(xy: number | Vec2Point, value: T): this`: Sets a value by vector key.
+  - `delete(xy: number | Vec2Point): boolean`: Deletes a value by vector key.
+  - `clear(): this`: Clears the map.
+  - `forEach(callback: (value: T, key: Vec2) => any): void`: Iterates over the map.
 
-### Copy Clamp Methods
+#### Vec2Set
 
-- **cclampMin**: Clamps the vector to a minimum value and returns a new vector.
-- **cclampMax**: Clamps the vector to a maximum value and returns a new vector.
-- **cclamp**: Clamps the vector between a minimum and maximum value and returns a new vector.
+A set-like structure that uses Vec2 as elements.
 
-## Classes
+- **Methods**:
+  - `has(xy: number | Vec2Point): boolean`: Checks if a vector is in the set.
+  - `add(xy: number | Vec2Point): this`: Adds a vector to the set.
+  - `delete(xy: number | Vec2Point): boolean`: Deletes a vector from the set.
+  - `clear(): this`: Clears the set.
+  - `forEach(callback: (value: Vec2) => any): void`: Iterates over the set.
 
-### Vec2
+### CanvasRenderingContext2D Patch
 
-The `Vec2` class provides a comprehensive set of methods for 2D vector manipulation.
+The library includes a patch for `CanvasRenderingContext2D`, allowing you to use vectors directly in canvas operations. This patch extends the canvas API to accept `Vec2` types in various methods.
 
-#### Constructor
+#### Example Usage
 
-```typescript
-constructor(...args: Vec2.Args | []);
+```ts
+const canvas = document.createElement('canvas');
+const ctx = canvas.getContext('2d');
+const vec = new Vec2(50, 50);
+
+// Using Vec2 with canvas methods
+ctx?.moveTo(vec);
+ctx?.lineTo(new Vec2(100, 100));
+ctx?.stroke();
 ```
 
-#### Static Methods
+### Code Examples
 
-- **fromAngle**: Creates a vector from an angle.
-- **fromRandom**: Creates a vector with random components.
-- **fromSrandom**: Creates a vector with signed random components.
-- **fromSize**: Creates a vector from a `Size` object.
-- **fromDeltaXY**: Creates a vector from `DeltaXY`.
-- **fromPageXY**: Creates a vector from `PageXY`.
-- **fromOffsetXY**: Creates a vector from `OffsetXY`.
-- **fromInnerSize**: Creates a vector from `InnerSize`.
-- **fromOffsetSize**: Creates a vector from `OffsetSize`.
-- **fromSvgLength**: Creates a vector from SVG lengths.
+#### Creating and Manipulating Vectors
 
-### Vec2Map
+```ts
+import { vec2, Vec2 } from '@vicimpa/lib-vec2';
 
-A map-like structure for storing values associated with vectors.
+// Create a new vector
+const v1 = vec2(3, 4);
 
-#### Methods
+// Clone and modify a vector
+const v2 = v1.clone().plus(1, 2);
 
-- **has**: Checks if a vector is in the map.
-- **get**: Retrieves a value associated with a vector.
-- **set**: Associates a value with a vector.
-- **delete**: Removes a vector from the map.
-- **clear**: Clears the map.
-- **forEach**: Iterates over the map.
+// Calculate the distance between two vectors
+const distance = v1.distance(v2);
 
-### Vec2Set
-
-A set-like structure for storing unique vectors.
-
-#### Methods
-
-- **has**: Checks if a vector is in the set.
-- **add**: Adds a vector to the set.
-- **delete**: Removes a vector from the set.
-- **clear**: Clears the set.
-- **forEach**: Iterates over the set.
-
-## Examples
-
-### Basic Vector Operations
-
-```typescript
-import { vec2 } from '@vicimpa/lib-vec2';
-
-const v1 = vec2(1, 2);
-const v2 = vec2(3, 4);
-
-v1.plus(v2); // v1 is now (4, 6)
-v1.minus(v2); // v1 is now (1, 2)
-v1.times(2); // v1 is now (2, 4)
-v1.div(2); // v1 is now (1, 2)
+// Normalize a vector
+const normalized = v1.clone().normalize();
 ```
 
-### Using Vec2Map
+#### Using Vec2Map and Vec2Set
 
-```typescript
-import { Vec2Map, vec2 } from '@vicimpa/lib-vec2';
+```ts
+import { Vec2, Vec2Map, Vec2Set } from '@vicimpa/lib-vec2';
 
-const map = new Vec2Map<number>();
-map.set(vec2(1, 2), 100);
-console.log(map.get(vec2(1, 2))); // Outputs: 100
-```
+// Create a Vec2Map
+const map = new Vec2Map<string>();
+map.set(new Vec2(1, 2), 'Point A');
+console.log(map.get(new Vec2(1, 2))); // Output: 'Point A'
 
-### Using Vec2Set
-
-```typescript
-import { Vec2Set, vec2 } from '@vicimpa/lib-vec2';
-
+// Create a Vec2Set
 const set = new Vec2Set();
-set.add(vec2(1, 2));
-console.log(set.has(vec2(1, 2))); // Outputs: true
+set.add(new Vec2(3, 4));
+console.log(set.has(new Vec2(3, 4))); // Output: true
 ```
 
-This documentation provides an overview of the `@vicimpa/lib-vec2` library, detailing its types, interfaces, classes, and usage examples. The library is designed to simplify 2D vector operations and transformations.
+This library provides a comprehensive set of tools for handling 2D vectors, making it suitable for various applications such as graphics, physics simulations, and more.
