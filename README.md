@@ -5,7 +5,7 @@ npm. Теперь все библиотеки можно и нужно буде�
 Пишите вопросы и предложения:
 
 - [@vic_dev](//t.me/vic_dev) (Telegram)
-- `@vic_dev` (Discord)
+- [@vic_dev](//discord.com/users/658403244749488177) (Discord)
 - [vicimpa](//vk.com/vicimpa) (VK)
 - [vicimpa@ya.ru](mailto:vicimpa@ya.ru)
 
