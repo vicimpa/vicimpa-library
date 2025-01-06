@@ -21,7 +21,7 @@ npm. Теперь все библиотеки можно и нужно буде�
 	- A library for creating reactive properties in TypeScript classes using @preact/signals-react
 - [@vicimpa/easy-drag (0.1.7)](packages/easy-drag) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/easy-drag)
 	- A simple project demonstrating drag-and-drop functionality using @vicimpa/easy-drag.
-- [@vicimpa/events (0.0.11)](packages/events) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/events)
+- [@vicimpa/events (0.0.12)](packages/events) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/events)
 	- A lightweight TypeScript library for managing event listeners on HTML elements, document, and window.
 - [@vicimpa/lib-vec2 (0.4.6)](packages/lib-vec2) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/lib-vec2)
 	- A comprehensive TypeScript library for 2D vector manipulation, compatible with CanvasRenderingContext2D.

@@ -1,9 +1,6 @@
 type Target<T extends HTMLElement> = T | null | undefined | { value?: T | null; } | { current?: T | null; };
 type TargetSvg<T extends SVGElement> = T | null | undefined | { value?: T | null; } | { current?: T | null; };
 
-
-
-
 export const elementEvents = <
   K extends keyof HTMLElementEventMap,
   T extends HTMLElement
@@ -25,16 +22,17 @@ export const elementEvents = <
 
   event = ([] as K[]).concat(event);
 
+  const controller = new AbortController();
+
   const listenerCustom = (event: HTMLElementEventMap[K]) => {
     listener(event, _element);
   };
 
   for (const _event of event)
-    _element.addEventListener(_event, listenerCustom);
+    _element.addEventListener(_event, listenerCustom, controller);
 
   return () => {
-    for (const _event of event)
-      _element.removeEventListener(_event, listenerCustom);
+    controller.abort();
   };
 };
 
@@ -59,16 +57,17 @@ export const svgElementEvents = <
 
   event = ([] as K[]).concat(event);
 
+  const controller = new AbortController();
+
   const listenerCustom = (event: SVGElementEventMap[K]) => {
     listener(event, _element);
   };
 
   for (const _event of event)
-    _element.addEventListener(_event, listenerCustom);
+    _element.addEventListener(_event, listenerCustom, controller);
 
   return () => {
-    for (const _event of event)
-      _element.removeEventListener(_event, listenerCustom);
+    controller.abort();
   };
 };
 
@@ -78,12 +77,13 @@ export const documentEvents = <K extends keyof DocumentEventMap>(
 ) => {
   event = ([] as K[]).concat(event);
 
+  const controller = new AbortController();
+
   for (const _event of event)
-    document.addEventListener(_event, listener);
+    document.addEventListener(_event, listener, controller);
 
   return () => {
-    for (const _event of event)
-      document.removeEventListener(_event, listener);
+    controller.abort();
   };
 };
 
@@ -93,11 +93,12 @@ export const windowEvents = <K extends keyof WindowEventMap>(
 ) => {
   event = ([] as K[]).concat(event);
 
+  const controller = new AbortController();
+
   for (const _event of event)
-    addEventListener(_event, listener);
+    addEventListener(_event, listener, controller);
 
   return () => {
-    for (const _event of event)
-      removeEventListener(_event, listener);
+    controller.abort();
   };
 };
