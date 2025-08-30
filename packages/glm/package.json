@@ -1,6 +1,6 @@
 {
   "name": "@vicimpa/glm",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A lightweight, class-based alternative to gl-matrix providing vector, matrix, and quaternion math utilities for 2D/3D graphics, game development, and WebGL/WebGPU applications.",
   "repository": "github:vicimpa/vicimpa-library",
   "funding": "https://boosty.to/vic_dev",
@@ -18,14 +18,6 @@
   "types": "dist/index.d.ts",
   "publishConfig": {
     "access": "public"
-  },
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "browser": "./dist/index.amd.js",
-      "types": "./dist/index.d.ts"
-    }
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^28.0.6",
