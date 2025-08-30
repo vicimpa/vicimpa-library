@@ -10,6 +10,7 @@
     "build": "tsc && rollup -c",
     "postinstall": "[ -d ./src ] && npm run build || exit 0"
   },
+  "private": false,
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
