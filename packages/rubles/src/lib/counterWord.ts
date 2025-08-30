@@ -1,7 +1,12 @@
 import { joinWord } from "./joinWord";
 
 export function counterWord(input: string[], counter: number) {
+  const lastTwo = counter % 100;
   const units = counter % 10;
+
+  if (lastTwo >= 10 && lastTwo <= 19) {
+    return joinWord(input, 0);
+  }
 
   if (counter > 10 && counter < 20)
     return joinWord(input, 0);
