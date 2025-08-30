@@ -35,6 +35,7 @@ const projects = readdirSync('./packages/')
         funding,
         homepage,
         scripts: {
+          "test": "echo \"Skip\"",
           ...scripts,
           "prepublish": undefined,
           "postinstall": "[ -d ./src ] && npm run build || exit 0",

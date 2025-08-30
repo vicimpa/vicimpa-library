@@ -6,8 +6,8 @@
   "funding": "https://boosty.to/vic_dev",
   "homepage": "https://github.com/ssh:/git@github.com/vicimpa/vicimpa-library.git/tree/main/packages/glm",
   "scripts": {
-    "build": "tsc && rollup -c",
     "test": "bun test",
+    "build": "tsc && rollup -c",
     "postinstall": "[ -d ./src ] && npm run build || exit 0"
   },
   "type": "module",

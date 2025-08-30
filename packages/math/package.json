@@ -1,11 +1,12 @@
 {
   "name": "@vicimpa/math",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A collection of mathematical utility functions including operations like clamp, lerp, normalize, and more.",
   "repository": "github:vicimpa/vicimpa-library",
   "funding": "https://boosty.to/vic_dev",
   "homepage": "https://github.com/vicimpa/vicimpa-library/tree/main/packages/math",
   "scripts": {
+    "test": "echo \"Skip\"",
     "build": "tsc",
     "watch": "tsc --watch",
     "postinstall": "[ -d ./src ] && npm run build || exit 0"
