@@ -25,7 +25,7 @@ jobs:
           cmd: install
 
       - name: Run Test
-        run: npx lerna exec bun test
+        run: npx lerna exec bun run test
 
       - name: Configure npm for authentication
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
