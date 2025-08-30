@@ -1,0 +1,71 @@
+{
+  "name": "@vicimpa/glm",
+  "version": "0.0.1",
+  "description": "A lightweight, class-based alternative to gl-matrix providing vector, matrix, and quaternion math utilities for 2D/3D graphics, game development, and WebGL/WebGPU applications.",
+  "repository": "github:ssh://git@github.com/vicimpa/vicimpa-library.git",
+  "funding": "https://boosty.to/vic_dev",
+  "homepage": "https://github.com/ssh:/git@github.com/vicimpa/vicimpa-library.git/tree/main/packages/glm",
+  "scripts": {
+    "build": "tsc && rollup -c",
+    "test": "bun test",
+    "postinstall": "[ -d ./src ] && npm run build || exit 0"
+  },
+  "type": "module",
+  "private": true,
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "browser": "dist/index.amd.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "browser": "./dist/index.amd.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-typescript": "^12.1.4",
+    "@types/bun": "latest",
+    "bun": "^1.2.21",
+    "rollup": "^4.49.0",
+    "rollup-plugin-dts": "^6.2.3",
+    "tslib": "^2.8.1"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "license": "GPL-3.0-only",
+  "keywords": [
+    "math",
+    "vector",
+    "vec2",
+    "vec3",
+    "vec4",
+    "mat2",
+    "mat3",
+    "mat4",
+    "quat",
+    "geometry",
+    "linear-algebra",
+    "matrix",
+    "algebra",
+    "transforms",
+    "rotation",
+    "translation",
+    "scale",
+    "normalize",
+    "dot",
+    "cross",
+    "glm",
+    "gl-matrix",
+    "graphics",
+    "game-dev",
+    "3d",
+    "2d",
+    "webgl",
+    "webgpu"
+  ]
+}

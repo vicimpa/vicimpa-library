@@ -1,0 +1,7 @@
+src
+test
+dist/library
+.gitignore
+rollup.config.js
+tsconfig.json
+tsconfig.build.json
