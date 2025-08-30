@@ -101,6 +101,57 @@ describe("mat4", () => {
     });
   });
 
+  describe("determinant", () => {
+    it("should return 1 for identity matrix", () => {
+      const identity = new Mat4().identity();
+      expectEqualish(identity.determinant(), 1);
+    });
+
+    it("should return 0 for singular matrix", () => {
+      const singular = new Mat4().set(
+        1, 2, 3, 4,
+        2, 4, 6, 8,
+        3, 6, 9, 12,
+        4, 8, 12, 16
+      );
+      expectEqualish(singular.determinant(), 0);
+    });
+
+    it("should calculate determinant correctly for diagonal matrix", () => {
+      const matrix = new Mat4().set(
+        2, 0, 0, 0,
+        0, 3, 0, 0,
+        0, 0, 4, 0,
+        0, 0, 0, 5
+      );
+      // For diagonal matrix, determinant is product of diagonal elements
+      expectEqualish(matrix.determinant(), 2 * 3 * 4 * 5);
+    });
+
+    it("should handle matrix with negative values", () => {
+      const matrix = new Mat4().set(
+        -1, 2, -3, 4,
+        5, -6, 7, -8,
+        -9, 10, -11, 12,
+        13, -14, 15, -16
+      );
+      const det = matrix.determinant();
+      // Just verify it's a finite number
+      if (!isFinite(det)) throw new Error("Expected determinant to be finite");
+    });
+
+    it("should return correct determinant for triangular matrix", () => {
+      const triangular = new Mat4().set(
+        2, 0, 0, 0,
+        3, 4, 0, 0,
+        5, 6, 7, 0,
+        8, 9, 10, 11
+      );
+      // For triangular matrix, determinant is product of diagonal elements
+      expectEqualish(triangular.determinant(), 2 * 4 * 7 * 11);
+    });
+  });
+
   describe("equals", () => {
     it("should return true for identical matrices", () => {
       if (!matA.equals(matA)) throw new Error("Expected true for identical matrices");

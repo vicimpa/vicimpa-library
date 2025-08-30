@@ -121,6 +121,19 @@ export class Mat4 {
     return this;
   }
 
+  determinant(): number {
+    // Calculate determinant using Laplace expansion
+    // |A| = a*|A11| - b*|A12| + c*|A13| - d*|A14|
+    // where Aij is the 3x3 submatrix obtained by deleting row i and column j
+
+    const a11 = this.f * (this.k * this.p - this.l * this.o) - this.g * (this.j * this.p - this.l * this.n) + this.h * (this.j * this.o - this.k * this.n);
+    const a12 = this.e * (this.k * this.p - this.l * this.o) - this.g * (this.i * this.p - this.l * this.m) + this.h * (this.i * this.o - this.k * this.m);
+    const a13 = this.e * (this.j * this.p - this.l * this.n) - this.f * (this.i * this.p - this.l * this.m) + this.h * (this.i * this.n - this.j * this.m);
+    const a14 = this.e * (this.j * this.o - this.k * this.n) - this.f * (this.i * this.o - this.k * this.m) + this.g * (this.i * this.n - this.j * this.m);
+
+    return this.a * a11 - this.b * a12 + this.c * a13 - this.d * a14;
+  }
+
   equals(o: IMat4, extract = false) {
     if (extract)
       return (true
