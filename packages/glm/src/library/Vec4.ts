@@ -3,6 +3,8 @@ import Cache from "./Cache";
 import { IMat4 } from "./Mat4";
 import { IQuat } from "./Quat";
 import { makeSwizzle } from "./Swizzle";
+import { Vec2 } from "./Vec2";
+import { Vec3 } from "./Vec3";
 
 export interface IVec4 {
   x: number;
@@ -276,3 +278,38 @@ export class Vec4 extends makeSwizzle('x', 'y', 'z', 'w') {
     return this;
   }
 }
+
+function vec4(): Vec4;
+function vec4(xyzw: Vec4): Vec4;
+function vec4(xyz: Vec3, w: number): Vec4;
+function vec4(xy: Vec2, zw: Vec2): Vec4;
+function vec4(xy: Vec2, z: number, w: number): Vec4;
+function vec4(x: number, y: number, zw: Vec2): Vec4;
+function vec4(x: number, yzw: Vec3): Vec4;
+function vec4(xyzw: number): Vec4;
+function vec4(x: number, y: number, z: number, w: number): Vec4;
+function vec4(
+  x?: Vec4 | Vec3 | Vec2 | number,
+  y?: Vec3 | Vec2 | number,
+  z?: Vec2 | number,
+  w?: number
+) {
+  if (x === undefined) x = 0;
+
+  if (x instanceof Vec4) (w = x.w, z = x.z, y = x.y, x = x.x);
+  else if (x instanceof Vec3) (w = y as number, z = x.z, y = x.y, x = x.x);
+  else if (x instanceof Vec2) {
+    if (y instanceof Vec2) (w = y.y, z = y.x, y = x.y, x = x.x);
+    else (w = z as number, z = y as number, y = x.y, x = x.x);
+  } else if (y instanceof Vec3) (w = y.z, z = y.y, y = y.x);
+  else if (y instanceof Vec2) (w = y.y, z = y.x, y = y.x);
+  else if (z instanceof Vec2) (w = z.y, z = z.x);
+
+  if (y === undefined) y = x as number;
+  if (z === undefined) z = x as number;
+  if (w === undefined) w = x as number;
+
+  return new Vec4(x as number, y as number, z as number, w as number);
+}
+
+export { vec4 };

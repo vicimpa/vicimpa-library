@@ -1,5 +1,5 @@
 import { describe, it, beforeEach } from "bun:test";
-import { Vec2, Vec3, Vec4 } from "..";
+import { Vec2, Vec3, Vec4, vec3 } from "..";
 import { expectEqualish } from "./helpers/test-utils";
 
 describe("vec3", () => {
@@ -232,6 +232,48 @@ describe("vec3", () => {
 
       // 4-component should return Vec4
       if (!(vec.xyxy instanceof Vec4)) throw new Error("Expected vec.xyxy to be instance of Vec4");
+    });
+  });
+
+  describe("vec3 function overloads", () => {
+    it("should create Vec3 with no arguments", () => {
+      const result = vec3();
+      expectEqualish([result.x, result.y, result.z], [0, 0, 0]);
+    });
+
+    it("should create Vec3 with single number argument", () => {
+      const result = vec3(5);
+      expectEqualish([result.x, result.y, result.z], [5, 5, 5]);
+    });
+
+    it("should create Vec3 with three number arguments", () => {
+      const result = vec3(1, 2, 3);
+      expectEqualish([result.x, result.y, result.z], [1, 2, 3]);
+    });
+
+    it("should create Vec3 from existing Vec3", () => {
+      const original = new Vec3(3, 4, 5);
+      const result = vec3(original);
+      expectEqualish([result.x, result.y, result.z], [3, 4, 5]);
+      // Should be a new instance, not the same reference
+      if (result === original) throw new Error("Expected new instance");
+    });
+
+    it("should create Vec3 from Vec2 and z component", () => {
+      const vec2 = new Vec2(1, 2);
+      const result = vec3(vec2, 3);
+      expectEqualish([result.x, result.y, result.z], [1, 2, 3]);
+    });
+
+    it("should create Vec3 from x component and Vec2", () => {
+      const vec2 = new Vec2(2, 3);
+      const result = vec3(1, vec2);
+      expectEqualish([result.x, result.y, result.z], [1, 2, 3]);
+    });
+
+    it("should handle undefined arguments correctly", () => {
+      const result = vec3(undefined);
+      expectEqualish([result.x, result.y, result.z], [0, 0, 0]);
     });
   });
 });

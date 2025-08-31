@@ -15,6 +15,7 @@ A **lightweight**, **class-based** alternative to gl-matrix providing comprehens
 - **🌐 Universal Support**: Works in Node.js, browsers, and modern JavaScript environments
 - **📱 Modern ES6+**: Built with modern JavaScript features and iterators
 - **🎨 GLSL-Style Swizzling**: Intuitive component access and reordering like `vec.xy`, `vec.xyz`, `vec.xyxy`
+- **🔄 Smart Factory Functions**: Type-safe vector creation with multiple overloads for flexible instantiation
 
 ## 🚀 Quick Start
 
@@ -107,7 +108,59 @@ vec.clone();            // Create a copy
 vec.copy(otherVec);     // Copy values
 vec.set(1, 2, 3);      // Set values
 vec.equals(otherVec);   // Compare with tolerance
+
+// Factory functions with overloads
+const v2 = vec2();                    // Vec2(0, 0)
+const v2a = vec2(5);                 // Vec2(5, 5)
+const v2b = vec2(1, 2);              // Vec2(1, 2)
+const v2c = vec2(existingVec2);      // Copy from existing Vec2
+
+const v3 = vec3();                    // Vec3(0, 0, 0)
+const v3a = vec3(5);                 // Vec3(5, 5, 5)
+const v3b = vec3(1, 2, 3);          // Vec3(1, 2, 3)
+const v3c = vec3(existingVec3);      // Copy from existing Vec3
+const v3d = vec3(vec2(1, 2), 3);    // Vec3(1, 2, 3)
+const v3e = vec3(1, vec2(2, 3));    // Vec3(1, 2, 3)
+
+const v4 = vec4();                    // Vec4(0, 0, 0, 0)
+const v4a = vec4(5);                 // Vec4(5, 5, 5, 5)
+const v4b = vec4(1, 2, 3, 4);       // Vec4(1, 2, 3, 4)
+const v4c = vec4(existingVec4);      // Copy from existing Vec4
+const v4d = vec4(vec3(1, 2, 3), 4); // Vec4(1, 2, 3, 4)
+const v4e = vec4(vec2(1, 2), vec2(3, 4)); // Vec4(1, 2, 3, 4)
+const v4f = vec4(vec2(1, 2), 3, 4); // Vec4(1, 2, 3, 4)
+const v4g = vec4(1, 2, vec2(3, 4)); // Vec4(1, 2, 3, 4)
+const v4h = vec4(1, vec3(2, 3, 4)); // Vec4(1, 2, 3, 4)
 ```
+
+**Factory Functions with Overloads**
+
+The library provides convenient factory functions with TypeScript overloads for creating vectors:
+
+**vec2()** - Creates 2D vectors:
+- `vec2()` → Vec2(0, 0)
+- `vec2(value)` → Vec2(value, value)
+- `vec2(x, y)` → Vec2(x, y)
+- `vec2(vec2)` → Copy from existing Vec2
+
+**vec3()** - Creates 3D vectors:
+- `vec3()` → Vec3(0, 0, 0)
+- `vec3(value)` → Vec3(value, value, value)
+- `vec3(x, y, z)` → Vec3(x, y, z)
+- `vec3(vec3)` → Copy from existing Vec3
+- `vec3(vec2, z)` → Vec3(vec2.x, vec2.y, z)
+- `vec3(x, vec2)` → Vec3(x, vec2.x, vec2.y)
+
+**vec4()** - Creates 4D vectors:
+- `vec4()` → Vec4(0, 0, 0, 0)
+- `vec4(value)` → Vec4(value, value, value, value)
+- `vec4(x, y, z, w)` → Vec4(x, y, z, w)
+- `vec4(vec4)` → Copy from existing Vec4
+- `vec4(vec3, w)` → Vec4(vec3.x, vec3.y, vec3.z, w)
+- `vec4(vec2, vec2)` → Vec4(vec2a.x, vec2a.y, vec2b.x, vec2b.y)
+- `vec4(vec2, z, w)` → Vec4(vec2.x, vec2.y, z, w)
+- `vec4(x, y, vec2)` → Vec4(x, y, vec2.x, vec2.y)
+- `vec4(x, vec3)` → Vec4(x, vec3.x, vec3.y, vec3.z)
 
 #### Mat2, Mat3, Mat4
 ```typescript

@@ -1,5 +1,5 @@
 import { describe, it, beforeEach } from "bun:test";
-import { Vec2, Vec3, Vec4 } from "..";
+import { Vec2, Vec3, Vec4, vec2 } from "..";
 import { expectEqualish } from "./helpers/test-utils";
 
 describe("vec2", () => {
@@ -432,6 +432,36 @@ describe("vec2", () => {
 
       // 4-component should return Vec4
       if (!(vec.xyxy instanceof Vec4)) throw new Error("Expected vec.xyxy to be instance of Vec4");
+    });
+  });
+
+  describe("vec2 function overloads", () => {
+    it("should create Vec2 with no arguments", () => {
+      const result = vec2();
+      expectEqualish([result.x, result.y], [0, 0]);
+    });
+
+    it("should create Vec2 with single number argument", () => {
+      const result = vec2(5);
+      expectEqualish([result.x, result.y], [5, 5]);
+    });
+
+    it("should create Vec2 with two number arguments", () => {
+      const result = vec2(1, 2);
+      expectEqualish([result.x, result.y], [1, 2]);
+    });
+
+    it("should create Vec2 from existing Vec2", () => {
+      const original = new Vec2(3, 4);
+      const result = vec2(original);
+      expectEqualish([result.x, result.y], [3, 4]);
+      // Should be a new instance, not the same reference
+      if (result === original) throw new Error("Expected new instance");
+    });
+
+    it("should handle undefined arguments correctly", () => {
+      const result = vec2(undefined);
+      expectEqualish([result.x, result.y], [0, 0]);
     });
   });
 });

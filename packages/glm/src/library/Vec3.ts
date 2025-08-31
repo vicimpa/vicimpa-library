@@ -4,6 +4,7 @@ import { IMat3 } from "./Mat3";
 import { IMat4 } from "./Mat4";
 import { IQuat } from "./Quat";
 import { makeSwizzle } from "./Swizzle";
+import { Vec2 } from "./Vec2";
 
 export interface IVec3 {
   x: number;
@@ -311,3 +312,24 @@ export class Vec3 extends makeSwizzle('x', 'y', 'z') {
     return this;
   }
 }
+
+function vec3(): Vec3;
+function vec3(xyz: Vec3): Vec3;
+function vec3(xy: Vec2, z: number): Vec3;
+function vec3(x: number, yz: Vec2): Vec3;
+function vec3(xyz: number): Vec3;
+function vec3(x: number, y: number, z: number): Vec3;
+function vec3(x?: Vec3 | Vec2 | number, y?: Vec2 | number, z?: number) {
+  if (x === undefined) x = 0;
+
+  if (x instanceof Vec3) (z = x.z, y = x.y, x = x.x);
+  else if (x instanceof Vec2) (z = y as number, y = x.y, x = x.x);
+  else if (y instanceof Vec2) (z = y.y, y = y.x);
+
+  if (y === undefined) y = x as number;
+  if (z === undefined) z = x as number;
+
+  return new Vec3(x as number, y as number, z as number);
+}
+
+export { vec3 };

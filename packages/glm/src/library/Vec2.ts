@@ -241,3 +241,16 @@ export class Vec2 extends makeSwizzle('x', 'y') {
     return this;
   }
 }
+
+function vec2(): Vec2;
+function vec2(xy: Vec2): Vec2;
+function vec2(x: number, y: number): Vec2;
+function vec2(xy: number): Vec2;
+function vec2(x?: Vec2 | number, y?: number) {
+  if (x === undefined) x = 0;
+  if (x instanceof Vec2) return new Vec2(x.x, x.y);
+  if (y === undefined) y = x as number;
+  return new Vec2(x as number, y as number);
+}
+
+export { vec2 };
