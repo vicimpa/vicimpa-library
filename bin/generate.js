@@ -1,4 +1,4 @@
-import { readFileSync, readdir, readdirSync, writeFileSync } from "fs";
+import { readFileSync, readdir, readdirSync, stat, statSync, statfs, statfsSync, writeFileSync } from "fs";
 
 import { join } from "path";
 
@@ -12,6 +12,11 @@ const source = readFileSync('./README.md', 'utf-8');
 const projects = readdirSync('./packages/')
   .map(file => {
     file = join('./packages', file);
+    var s = statSync(file);
+
+    if (!s.isDirectory())
+      return;
+
     var {
       name,
       repository = `github:${from}`,
@@ -68,7 +73,7 @@ source.replace(re, (find, _, index) => {
 
 var pre = source.slice(0, start + 1);
 var post = source.slice(end - 1);
-var data = projects.map(project => (
+var data = projects.filter(Boolean).map(project => (
   `- [${project.name} (${project.version})](${project.file}) - [открыть на npm](https://www.npmjs.com/package/${project.name})\n\t- ${project.description}`
 )).join('\n');
 writeFileSync('./README.md', `${pre}\n${data}\n${post}`);
