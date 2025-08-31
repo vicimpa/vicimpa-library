@@ -38,7 +38,7 @@ export class Vec4 extends makeSwizzle('x', 'y', 'z', 'w') {
   set height(v) { this.w = v; }
 
   constructor();
-  constructor(value: number);
+  constructor(xyzw: number);
   constructor(x: number, y: number, z: number, w: number);
   constructor(x = 0.0, y = x, z = x, w = x) {
     super();

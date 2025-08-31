@@ -28,7 +28,7 @@ export class Vec3 extends makeSwizzle('x', 'y', 'z') {
   set 2(v) { this.z = v; }
 
   constructor();
-  constructor(value: number);
+  constructor(xyz: number);
   constructor(x: number, y: number, z: number);
   constructor(x = 0.0, y = x, z = x) {
     super();

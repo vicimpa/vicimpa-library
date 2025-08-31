@@ -1,4 +1,4 @@
-import { equals, EPSILON, EulerOrder, SimpleArrayLike } from "./Common";
+import { EPSILON, EulerOrder, SimpleArrayLike } from "./Common";
 import { IVec3, Vec3 } from "./Vec3";
 import { IMat3 } from "./Mat3";
 import Cache from "./Cache";

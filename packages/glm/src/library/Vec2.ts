@@ -30,7 +30,7 @@ export class Vec2 extends makeSwizzle('x', 'y') {
   set height(v) { this.y = v; }
 
   constructor();
-  constructor(value: number);
+  constructor(xy: number);
   constructor(x: number, y: number);
   constructor(x = 0.0, y = x) {
     super();
