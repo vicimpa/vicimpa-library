@@ -31,12 +31,12 @@ export default [
       format: "amd"
     },
     plugins: [
-      typescript({ tsconfig: "./tsconfig.build.json" })
+      typescript({ tsconfig: "./tsconfig.json" })
     ]
   },
 
   {
-    input: "dist/index.d.ts",
+    input: "src/index.ts",
     output: {
       file: "dist/index.d.ts",
       format: "es"
