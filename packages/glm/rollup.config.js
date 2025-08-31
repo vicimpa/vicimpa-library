@@ -16,7 +16,7 @@ export default [
   {
     input: "src/index.ts",
     output: {
-      file: "dist/index.mjs",
+      file: "dist/index.js",
       format: "esm"
     },
     plugins: [
