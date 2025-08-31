@@ -14,6 +14,7 @@ A **lightweight**, **class-based** alternative to gl-matrix providing comprehens
 - **🔧 TypeScript First**: Full TypeScript support with comprehensive type definitions
 - **🌐 Universal Support**: Works in Node.js, browsers, and modern JavaScript environments
 - **📱 Modern ES6+**: Built with modern JavaScript features and iterators
+- **🎨 GLSL-Style Swizzling**: Intuitive component access and reordering like `vec.xy`, `vec.xyz`, `vec.xyxy`
 
 ## 🚀 Quick Start
 
@@ -39,6 +40,11 @@ const velocity = new Vec3(0.1, 0.2, 0.3);
 // Vector operations
 position.add(velocity);
 const distance = position.length();
+
+// GLSL-style swizzling
+const xy = position.xy;           // Extract 2D position
+const xyz = position.xyz;         // Extract 3D position
+const reversed = position.zyx;    // Reverse component order
 
 // Matrix transformations
 const transform = new Mat4();
@@ -88,6 +94,13 @@ const length = vec.length();
 const distance = vec.distance(otherVec);
 const dot = vec.dot(otherVec);
 const cross = vec.cross(otherVec); 
+
+// Swizzling (GLSL-style component access)
+vec.xy;                 // Get Vec2(x, y)
+vec.xyz;                // Get Vec3(x, y, z)
+vec.xyxy;               // Get Vec4(x, y, x, y)
+vec.yx;                 // Get Vec2(y, x) - component reordering
+vec.xxx;                // Get Vec3(x, x, x) - component repetition
 
 // Utility methods
 vec.clone();            // Create a copy
@@ -154,6 +167,42 @@ const isEqual = equals(a, b, 0.001); // Compare with custom tolerance
 - **🔧 CAD Applications**: Geometric calculations, transformations
 - **📊 Data Visualization**: 3D charts, scientific computing
 - **🎭 Animation Systems**: Skeletal animation, keyframe interpolation
+
+## 🎨 Swizzling
+
+The library provides GLSL-style swizzling for intuitive component access and reordering:
+
+```typescript
+const vec = new Vec3(1, 2, 3);
+
+// Extract components
+const xy = vec.xy;           // Vec2(1, 2)
+const xyz = vec.xyz;         // Vec3(1, 2, 3)
+const xz = vec.xz;           // Vec2(1, 3)
+
+// Reorder components
+const yx = vec.yx;           // Vec2(2, 1)
+const zyx = vec.zyx;         // Vec3(3, 2, 1)
+
+// Repeat components
+const xxx = vec.xxx;         // Vec3(1, 1, 1)
+const xxyy = vec.xxyy;       // Vec4(1, 1, 2, 2)
+
+// Create new vectors from existing components
+const position = new Vec3(10, 20, 30);
+const screenPos = position.xy;        // 2D screen position
+const depth = position.z;             // Z-depth
+const color = position.xyz;           // RGB color
+```
+
+**Supported swizzling patterns:**
+- **2-component**: `xx`, `xy`, `xz`, `xw`, `yx`, `yy`, `yz`, `yw`, `zx`, `zy`, `zz`, `zw`, `wx`, `wy`, `wz`, `ww`
+- **3-component**: `xxx`, `xxy`, `xxz`, `xxw`, `xyx`, `xyy`, `xyz`, `xyw`, etc.
+- **4-component**: `xxxx`, `xxxy`, `xxxz`, `xxxw`, `xxyx`, `xxyy`, `xxyz`, `xxyw`, etc.
+
+**Note**: Swizzling returns new vector instances and doesn't modify the original vector.
+
+**Component naming**: Uses `x`, `y`, `z`, `w` components (similar to GLSL) rather than `r`, `g`, `b`, `a` or `s`, `t`, `p`, `q` for consistency with the library's API.
 
 ## 📊 Performance
 

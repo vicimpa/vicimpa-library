@@ -1,5 +1,5 @@
 import { describe, it, beforeEach } from "bun:test";
-import { Vec2 } from "..";
+import { Vec2, Vec3, Vec4 } from "..";
 import { expectEqualish } from "./helpers/test-utils";
 
 describe("vec2", () => {
@@ -387,6 +387,51 @@ describe("vec2", () => {
     });
     it("should access y via [1]", () => {
       if (vecA[1] !== vecA.y) throw new Error("Expected vecA[1] to equal vecA.y");
+    });
+  });
+
+  describe("swizzling", () => {
+    it("should support 2-component swizzling", () => {
+      const vec = new Vec2(1, 2);
+
+      // Test 2-component swizzling
+      expectEqualish([vec.xx.x, vec.xx.y], [1, 1]);
+      expectEqualish([vec.xy.x, vec.xy.y], [1, 2]);
+      expectEqualish([vec.yx.x, vec.yx.y], [2, 1]);
+      expectEqualish([vec.yy.x, vec.yy.y], [2, 2]);
+    });
+
+    it("should support 3-component swizzling", () => {
+      const vec = new Vec2(1, 2);
+
+      // Test 3-component swizzling
+      expectEqualish([vec.xxx.x, vec.xxx.y, vec.xxx.z], [1, 1, 1]);
+      expectEqualish([vec.xyx.x, vec.xyx.y, vec.xyx.z], [1, 2, 1]);
+      expectEqualish([vec.yxy.x, vec.yxy.y, vec.yxy.z], [2, 1, 2]);
+      expectEqualish([vec.yyy.x, vec.yyy.y, vec.yyy.z], [2, 2, 2]);
+    });
+
+    it("should support 4-component swizzling", () => {
+      const vec = new Vec2(1, 2);
+
+      // Test 4-component swizzling
+      expectEqualish([vec.xxxx.x, vec.xxxx.y, vec.xxxx.z, vec.xxxx.w], [1, 1, 1, 1]);
+      expectEqualish([vec.xyxy.x, vec.xyxy.y, vec.xyxy.z, vec.xyxy.w], [1, 2, 1, 2]);
+      expectEqualish([vec.yxyx.x, vec.yxyx.y, vec.yxyx.z, vec.yxyx.w], [2, 1, 2, 1]);
+      expectEqualish([vec.yyyy.x, vec.yyyy.y, vec.yyyy.z, vec.yyyy.w], [2, 2, 2, 2]);
+    });
+
+    it("should return correct vector types", () => {
+      const vec = new Vec2(1, 2);
+
+      // 2-component should return Vec2
+      if (!(vec.xy instanceof Vec2)) throw new Error("Expected vec.xy to be instance of Vec2");
+
+      // 3-component should return Vec3
+      if (!(vec.xyx instanceof Vec3)) throw new Error("Expected vec.xyx to be instance of Vec3");
+
+      // 4-component should return Vec4
+      if (!(vec.xyxy instanceof Vec4)) throw new Error("Expected vec.xyxy to be instance of Vec4");
     });
   });
 });

@@ -2,6 +2,7 @@ import { equals, round } from "./Common";
 import Cache from "./Cache";
 import { IMat4 } from "./Mat4";
 import { IQuat } from "./Quat";
+import { makeSwizzle } from "./Swizzle";
 
 export interface IVec4 {
   x: number;
@@ -10,7 +11,7 @@ export interface IVec4 {
   w: number;
 }
 
-export class Vec4 {
+export class Vec4 extends makeSwizzle('x', 'y', 'z', 'w') {
   x = 0.0;
   y = 0.0;
   z = 0.0;
@@ -32,6 +33,7 @@ export class Vec4 {
   constructor(value: number);
   constructor(x: number, y: number, z: number, w: number);
   constructor(x = 0.0, y = x, z = x, w = x) {
+    super();
     this.set(x, y, z, w);
   }
 

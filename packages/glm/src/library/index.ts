@@ -1,5 +1,6 @@
 import "./Array";
 import "./Number";
+import "./Swizzle";
 export * from "./Common";
 export * from "./Vec2";
 export * from "./Vec3";

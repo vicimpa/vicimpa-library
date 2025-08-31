@@ -4,13 +4,14 @@ import { IMat2d } from "./Mat2d";
 import { IMat2 } from "./Mat2";
 import { IMat3 } from "./Mat3";
 import { IMat4 } from "./Mat4";
+import { makeSwizzle } from "./Swizzle";
 
 export interface IVec2 {
   x: number;
   y: number;
 }
 
-export class Vec2 {
+export class Vec2 extends makeSwizzle('x', 'y') {
   x = 0.0;
   y = 0.0;
 
@@ -26,6 +27,7 @@ export class Vec2 {
   constructor(value: number);
   constructor(x: number, y: number);
   constructor(x = 0.0, y = x) {
+    super();
     this.set(x, y);
   }
 

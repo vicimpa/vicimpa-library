@@ -3,6 +3,7 @@ import Cache from "./Cache";
 import { IMat3 } from "./Mat3";
 import { IMat4 } from "./Mat4";
 import { IQuat } from "./Quat";
+import { makeSwizzle } from "./Swizzle";
 
 export interface IVec3 {
   x: number;
@@ -10,7 +11,7 @@ export interface IVec3 {
   z: number;
 }
 
-export class Vec3 {
+export class Vec3 extends makeSwizzle('x', 'y', 'z') {
   x = 0.0;
   y = 0.0;
   z = 0.0;
@@ -29,6 +30,7 @@ export class Vec3 {
   constructor(value: number);
   constructor(x: number, y: number, z: number);
   constructor(x = 0.0, y = x, z = x) {
+    super();
     this.set(x, y, z);
   }
 

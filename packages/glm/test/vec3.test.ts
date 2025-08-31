@@ -1,5 +1,5 @@
 import { describe, it, beforeEach } from "bun:test";
-import { Vec3 } from "..";
+import { Vec2, Vec3, Vec4 } from "..";
 import { expectEqualish } from "./helpers/test-utils";
 
 describe("vec3", () => {
@@ -172,6 +172,66 @@ describe("vec3", () => {
     });
     it("should access z via [2]", () => {
       if (vecA[2] !== vecA.z) throw new Error("Expected vecA[2] to equal vecA.z");
+    });
+  });
+
+  describe("swizzling", () => {
+    it("should support 2-component swizzling", () => {
+      const vec = new Vec3(1, 2, 3);
+
+      // Test 2-component swizzling
+      expectEqualish([vec.xx.x, vec.xx.y], [1, 1]);
+      expectEqualish([vec.xy.x, vec.xy.y], [1, 2]);
+      expectEqualish([vec.xz.x, vec.xz.y], [1, 3]);
+      expectEqualish([vec.yx.x, vec.yx.y], [2, 1]);
+      expectEqualish([vec.yy.x, vec.yy.y], [2, 2]);
+      expectEqualish([vec.yz.x, vec.yz.y], [2, 3]);
+      expectEqualish([vec.zx.x, vec.zx.y], [3, 1]);
+      expectEqualish([vec.zy.x, vec.zy.y], [3, 2]);
+      expectEqualish([vec.zz.x, vec.zz.y], [3, 3]);
+    });
+
+    it("should support 3-component swizzling", () => {
+      const vec = new Vec3(1, 2, 3);
+
+      // Test 3-component swizzling
+      expectEqualish([vec.xxx.x, vec.xxx.y, vec.xxx.z], [1, 1, 1]);
+      expectEqualish([vec.xyx.x, vec.xyx.y, vec.xyx.z], [1, 2, 1]);
+      expectEqualish([vec.xzx.x, vec.xzx.y, vec.xzx.z], [1, 3, 1]);
+      expectEqualish([vec.yxy.x, vec.yxy.y, vec.yxy.z], [2, 1, 2]);
+      expectEqualish([vec.yyy.x, vec.yyy.y, vec.yyy.z], [2, 2, 2]);
+      expectEqualish([vec.yzy.x, vec.yzy.y, vec.yzy.z], [2, 3, 2]);
+      expectEqualish([vec.zxz.x, vec.zxz.y, vec.zxz.z], [3, 1, 3]);
+      expectEqualish([vec.zyz.x, vec.zyz.y, vec.zyz.z], [3, 2, 3]);
+      expectEqualish([vec.zzz.x, vec.zzz.y, vec.zzz.z], [3, 3, 3]);
+    });
+
+    it("should support 4-component swizzling", () => {
+      const vec = new Vec3(1, 2, 3);
+
+      // Test 4-component swizzling
+      expectEqualish([vec.xxxx.x, vec.xxxx.y, vec.xxxx.z, vec.xxxx.w], [1, 1, 1, 1]);
+      expectEqualish([vec.xyxy.x, vec.xyxy.y, vec.xyxy.z, vec.xyxy.w], [1, 2, 1, 2]);
+      expectEqualish([vec.xzxz.x, vec.xzxz.y, vec.xzxz.z, vec.xzxz.w], [1, 3, 1, 3]);
+      expectEqualish([vec.yxyx.x, vec.yxyx.y, vec.yxyx.z, vec.yxyx.w], [2, 1, 2, 1]);
+      expectEqualish([vec.yyyy.x, vec.yyyy.y, vec.yyyy.z, vec.yyyy.w], [2, 2, 2, 2]);
+      expectEqualish([vec.yzyz.x, vec.yzyz.y, vec.yzyz.z, vec.yzyz.w], [2, 3, 2, 3]);
+      expectEqualish([vec.zxzx.x, vec.zxzx.y, vec.zxzx.z, vec.zxzx.w], [3, 1, 3, 1]);
+      expectEqualish([vec.zyzy.x, vec.zyzy.y, vec.zyzy.z, vec.zyzy.w], [3, 2, 3, 2]);
+      expectEqualish([vec.zzzz.x, vec.zzzz.y, vec.zzzz.z, vec.zzzz.w], [3, 3, 3, 3]);
+    });
+
+    it("should return correct vector types", () => {
+      const vec = new Vec3(1, 2, 3);
+
+      // 2-component should return Vec2
+      if (!(vec.xy instanceof Vec2)) throw new Error("Expected vec.xy to be instance of Vec2");
+
+      // 3-component should return Vec3
+      if (!(vec.xyx instanceof Vec3)) throw new Error("Expected vec.xyx to be instance of Vec3");
+
+      // 4-component should return Vec4
+      if (!(vec.xyxy instanceof Vec4)) throw new Error("Expected vec.xyxy to be instance of Vec4");
     });
   });
 });
