@@ -1,3 +1,4 @@
+import { Base } from "./Base";
 import { Vec2 } from "./Vec2";
 import { Vec3 } from "./Vec3";
 import { Vec4 } from "./Vec4";
@@ -12,7 +13,7 @@ export function makeSwizzle<const K extends string>(...keys: K[]): new () => Swi
     [k in K]: number
   };
 
-  class Swizzle { }
+  class Swizzle extends Base { }
 
   keys.forEach(a => {
     keys.forEach(b => {
@@ -65,5 +66,5 @@ export function makeSwizzle<const K extends string>(...keys: K[]): new () => Swi
     });
   });
 
-  return Swizzle as new () => SwizzleVariants<K>;
+  return Swizzle as new () => Swizzle & SwizzleVariants<K>;
 }

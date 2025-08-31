@@ -1,7 +1,11 @@
-import { equals, EPSILON, EulerOrder } from "./Common";
-import { IVec3 } from "./Vec3";
+import { equals, EPSILON, EulerOrder, SimpleArrayLike } from "./Common";
+import { IVec3, Vec3 } from "./Vec3";
 import { IMat3 } from "./Mat3";
 import Cache from "./Cache";
+
+const tmp = new Vec3();
+const xUnit = new Vec3(1, 0, 0);
+const yUnit = new Vec3(0, 1, 0);
 
 export interface IQuat {
   x: number;
@@ -33,10 +37,6 @@ export class Quat {
     yield this.y;
     yield this.z;
     yield this.w;
-  }
-
-  toString() {
-    return `Quat(${this.x}, ${this.y}, ${this.z}, ${this.w})`;
   }
 
   copy(o: IQuat) {
@@ -432,5 +432,50 @@ export class Quat {
     }
 
     return this;
+  }
+
+  rotationTo(a: IVec3, b: IVec3): this {
+
+    const dot = a.x * b.x + a.y * b.y + a.z * b.z;
+
+    if (dot < -0.999999) {
+      tmp.copy(xUnit).cross(a);
+      if (tmp.length() < 0.000001) tmp.copy(yUnit).cross(a);
+      tmp.normalize();
+      this.setAxisAngle(tmp, Math.PI);
+      return this;
+    } else if (dot > 0.999999) {
+      this.x = 0;
+      this.y = 0;
+      this.z = 0;
+      this.w = 1;
+      return this;
+    } else {
+      tmp.copy(a).cross(b);
+      this.x = tmp.x;
+      this.y = tmp.y;
+      this.z = tmp.z;
+      this.w = 1 + dot;
+      return this.normalize();
+    }
+  }
+
+  fromArray(array: SimpleArrayLike, offset = 0) {
+    this.x = array[offset];
+    this.y = array[offset + 1];
+    this.z = array[offset + 2];
+    this.w = array[offset + 3];
+    return this;
+  }
+
+  toArray(): number[];
+  toArray<T extends SimpleArrayLike>(array: T): T;
+  toArray<T extends SimpleArrayLike>(array: T, offset: number): T;
+  toArray(array: number[] = [], offset = 0) {
+    array[offset] = this.x;
+    array[offset + 1] = this.y;
+    array[offset + 2] = this.z;
+    array[offset + 3] = this.w;
+    return array;
   }
 }

@@ -1,4 +1,4 @@
-import { equals, round } from "./Common";
+import { equals, round, SimpleArrayLike } from "./Common";
 import Cache from "./Cache";
 import { IMat2d } from "./Mat2d";
 import { IMat2 } from "./Mat2";
@@ -23,6 +23,12 @@ export class Vec2 extends makeSwizzle('x', 'y') {
   set 0(v) { this.x = v; }
   set 1(v) { this.y = v; }
 
+  get width() { return this.x; }
+  get height() { return this.y; }
+
+  set width(v) { this.x = v; }
+  set height(v) { this.y = v; }
+
   constructor();
   constructor(value: number);
   constructor(x: number, y: number);
@@ -34,10 +40,6 @@ export class Vec2 extends makeSwizzle('x', 'y') {
   *[Symbol.iterator]() {
     yield this.x;
     yield this.y;
-  }
-
-  toString() {
-    return `Vec2(${this.x}, ${this.y})`;
   }
 
   copy(a: IVec2) {
@@ -239,6 +241,21 @@ export class Vec2 extends makeSwizzle('x', 'y') {
     this.x = mat.a * x + mat.e * y;
     this.y = mat.b * x + mat.f * y;
     return this;
+  }
+
+  fromArray(array: SimpleArrayLike, offset = 0) {
+    this.x = array[offset];
+    this.y = array[offset + 1];
+    return this;
+  }
+
+  toArray(): number[];
+  toArray<T extends SimpleArrayLike>(array: T): T;
+  toArray<T extends SimpleArrayLike>(array: T, offset: number): T;
+  toArray(array: number[] = [], offset = 0) {
+    array[offset] = this.x;
+    array[offset + 1] = this.y;
+    return array;
   }
 }
 

@@ -1,4 +1,4 @@
-import { equals, round } from "./Common";
+import { equals, round, SimpleArrayLike, toString } from "./Common";
 import Cache from "./Cache";
 import { IMat3 } from "./Mat3";
 import { IMat4 } from "./Mat4";
@@ -42,7 +42,7 @@ export class Vec3 extends makeSwizzle('x', 'y', 'z') {
   }
 
   toString() {
-    return `Vec3(${this.x}, ${this.y}, ${this.z})`;
+    return toString(this);
   }
 
   copy(a: IVec3) {
@@ -310,6 +310,23 @@ export class Vec3 extends makeSwizzle('x', 'y', 'z') {
     this.z = iz * qw + iw * -qz + ix * -qy - iy * -qx;
 
     return this;
+  }
+
+  fromArray(array: SimpleArrayLike, offset = 0) {
+    this.x = array[offset];
+    this.y = array[offset + 1];
+    this.z = array[offset + 2];
+    return this;
+  }
+
+  toArray(): number[];
+  toArray<T extends SimpleArrayLike>(array: T): T;
+  toArray<T extends SimpleArrayLike>(array: T, offset: number): T;
+  toArray(array: number[] = [], offset = 0) {
+    array[offset] = this.x;
+    array[offset + 1] = this.y;
+    array[offset + 2] = this.z;
+    return array;
   }
 }
 

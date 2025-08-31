@@ -1,11 +1,12 @@
-import { equals } from "./Common";
+import { Base } from "./Base";
+import { equals, SimpleArrayLike } from "./Common";
 
 export interface IMat2 {
   a: number; b: number;
   c: number; d: number;
 }
 
-export class Mat2 {
+export class Mat2 extends Base {
   a = 1; b = 0;
   c = 0; d = 1;
 
@@ -20,10 +21,6 @@ export class Mat2 {
   *[Symbol.iterator]() {
     yield this.a; yield this.b;
     yield this.c; yield this.d;
-  }
-
-  toString() {
-    return `Mat2(${this.a}, ${this.b}, ${this.c}, ${this.d})`;
   }
 
   copy(o: IMat2) {
@@ -142,5 +139,24 @@ export class Mat2 {
       && equals(this.a, o.a) && equals(this.b, o.b)
       && equals(this.c, o.c) && equals(this.d, o.d)
     );
+  }
+
+  fromArray(array: SimpleArrayLike, offset = 0) {
+    this.a = array[offset];
+    this.b = array[offset + 1];
+    this.c = array[offset + 2];
+    this.d = array[offset + 3];
+    return this;
+  }
+
+  toArray(): number[];
+  toArray<T extends SimpleArrayLike>(array: T): T;
+  toArray<T extends SimpleArrayLike>(array: T, offset: number): T;
+  toArray(array: number[] = [], offset = 0) {
+    array[offset] = this.a;
+    array[offset + 1] = this.b;
+    array[offset + 2] = this.c;
+    array[offset + 3] = this.d;
+    return array;
   }
 }

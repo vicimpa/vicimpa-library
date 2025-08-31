@@ -284,9 +284,9 @@ npm test
 
 ## 📦 Bundle Sizes
 
-- **ES Module**: ~45KB (minified + gzipped)
-- **CommonJS**: ~45KB (minified + gzipped)
-- **AMD**: ~45KB (minified + gzipped)
+- **ES Module**: ~10KB (minified + gzipped)
+- **CommonJS**: ~10KB (minified + gzipped)
+- **AMD**: ~10KB (minified + gzipped)
 
 ## 🤝 Contributing
 

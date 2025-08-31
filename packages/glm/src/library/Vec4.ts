@@ -1,4 +1,4 @@
-import { equals, round } from "./Common";
+import { equals, round, SimpleArrayLike } from "./Common";
 import Cache from "./Cache";
 import { IMat4 } from "./Mat4";
 import { IQuat } from "./Quat";
@@ -31,6 +31,12 @@ export class Vec4 extends makeSwizzle('x', 'y', 'z', 'w') {
   set 2(v) { this.z = v; }
   set 3(v) { this.w = v; }
 
+  get width() { return this.z; }
+  get height() { return this.w; }
+
+  set width(v) { this.z = v; }
+  set height(v) { this.w = v; }
+
   constructor();
   constructor(value: number);
   constructor(x: number, y: number, z: number, w: number);
@@ -44,10 +50,6 @@ export class Vec4 extends makeSwizzle('x', 'y', 'z', 'w') {
     yield this.y;
     yield this.z;
     yield this.w;
-  }
-
-  toString() {
-    return `Vec4(${this.x}, ${this.y}, ${this.z}, ${this.w})`;
   }
 
   copy(a: IVec4) {
@@ -276,6 +278,25 @@ export class Vec4 extends makeSwizzle('x', 'y', 'z', 'w') {
     this.w = w;
 
     return this;
+  }
+
+  fromArray(array: SimpleArrayLike, offset = 0) {
+    this.x = array[offset];
+    this.y = array[offset + 1];
+    this.z = array[offset + 2];
+    this.w = array[offset + 3];
+    return this;
+  }
+
+  toArray(): number[];
+  toArray<T extends SimpleArrayLike>(array: T): T;
+  toArray<T extends SimpleArrayLike>(array: T, offset: number): T;
+  toArray(array: number[] = [], offset = 0) {
+    array[offset] = this.x;
+    array[offset + 1] = this.y;
+    array[offset + 2] = this.z;
+    array[offset + 3] = this.w;
+    return array;
   }
 }
 

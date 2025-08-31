@@ -26,4 +26,21 @@ export function cache<T>(fn: () => T) {
   return () => value ?? (value = fn());
 }
 
+export function toString(iterator: Iterable<any>) {
+  let out = '', current = iterator[Symbol.iterator]();
+
+  do {
+    const now = current.next();
+
+    if (now.done)
+      return out;
+
+    if (out)
+      out += ',';
+
+    out += now.value;
+  } while (true);
+}
+
 export type EulerOrder = 'xyz' | 'xzy' | 'yxz' | 'yzx' | 'zxy' | 'zyx';
+export type SimpleArrayLike = { [n: number]: number; };

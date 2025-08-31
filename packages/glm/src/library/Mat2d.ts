@@ -1,4 +1,6 @@
-import { equals } from "./Common";
+import { Base } from "./Base";
+import { equals, SimpleArrayLike } from "./Common";
+import { IVec2 } from "./Vec2";
 
 export interface IMat2d {
   a: number; b: number;
@@ -6,7 +8,7 @@ export interface IMat2d {
   e: number; f: number;
 }
 
-export class Mat2d {
+export class Mat2d extends Base {
   a = 1; b = 0;
   c = 0; d = 1;
   e = 0; f = 0;
@@ -27,8 +29,16 @@ export class Mat2d {
     yield this.e; yield this.f;
   }
 
-  toString() {
-    return `Mat2d(${this.a}, ${this.b}, ${this.c}, ${this.d}, ${this.e}, ${this.f})`;
+  frob() {
+    return Math.sqrt(
+      this.a * this.a + this.b * this.b +
+      this.c * this.c + this.d * this.d +
+      this.e * this.e + this.f * this.f
+    );
+  }
+
+  toCSS() {
+    return `matrix(${this})`;
   }
 
   copy(o: IMat2d) {
@@ -144,5 +154,60 @@ export class Mat2d {
       && equals(this.c, o.c) && equals(this.d, o.d)
       && equals(this.e, o.e) && equals(this.f, o.f)
     );
+  }
+
+  fromTranslation(v: IVec2): this {
+    this.a = 1;
+    this.b = 0;
+    this.c = 0;
+    this.d = 1;
+    this.e = v.x;
+    this.f = v.y;
+    return this;
+  }
+
+  fromScaling(v: IVec2): this {
+    this.a = v.x;
+    this.b = 0;
+    this.c = 0;
+    this.d = v.y;
+    this.e = 0;
+    this.f = 0;
+    return this;
+  }
+
+  fromRotation(rad: number): this {
+    const s = Math.sin(rad);
+    const c = Math.cos(rad);
+    this.a = c;
+    this.b = s;
+    this.c = -s;
+    this.d = c;
+    this.e = 0;
+    this.f = 0;
+    return this;
+  }
+
+  fromArray(array: SimpleArrayLike, offset = 0) {
+    this.a = array[offset];
+    this.b = array[offset + 1];
+    this.c = array[offset + 2];
+    this.d = array[offset + 3];
+    this.e = array[offset + 4];
+    this.f = array[offset + 5];
+    return this;
+  }
+
+  toArray(): number[];
+  toArray<T extends SimpleArrayLike>(array: T): T;
+  toArray<T extends SimpleArrayLike>(array: T, offset: number): T;
+  toArray(array: number[] = [], offset = 0) {
+    array[offset] = this.a;
+    array[offset + 1] = this.b;
+    array[offset + 2] = this.c;
+    array[offset + 3] = this.d;
+    array[offset + 4] = this.e;
+    array[offset + 5] = this.f;
+    return array;
   }
 }
