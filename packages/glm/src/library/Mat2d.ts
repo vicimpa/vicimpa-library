@@ -210,4 +210,8 @@ export class Mat2d extends Base {
     array[offset + 5] = this.f;
     return array;
   }
+
+  hash(): number {
+    return super.hash(6);
+  }
 }

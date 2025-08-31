@@ -374,4 +374,8 @@ export class Mat3 extends Base {
     array[offset + 8] = this.i;
     return array;
   }
+
+  hash(): number {
+    return super.hash(9);
+  }
 }

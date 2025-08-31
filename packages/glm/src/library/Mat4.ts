@@ -904,4 +904,8 @@ export class Mat4 extends Base {
     array[offset + 15] = this.p;
     return array;
   }
+
+  hash(): number {
+    return super.hash(16);
+  }
 }

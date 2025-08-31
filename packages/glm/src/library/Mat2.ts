@@ -159,4 +159,8 @@ export class Mat2 extends Base {
     array[offset + 3] = this.d;
     return array;
   }
+
+  hash(): number {
+    return super.hash(4);
+  }
 }

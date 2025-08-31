@@ -2,6 +2,7 @@ import { EPSILON, EulerOrder, SimpleArrayLike } from "./Common";
 import { IVec3, Vec3 } from "./Vec3";
 import { IMat3 } from "./Mat3";
 import Cache from "./Cache";
+import { Base } from "./Base";
 
 const tmp = new Vec3();
 const xUnit = new Vec3(1, 0, 0);
@@ -14,7 +15,7 @@ export interface IQuat {
   w: number;
 }
 
-export class Quat {
+export class Quat extends Base {
   x = 0;
   y = 0;
   z = 0;
@@ -477,5 +478,9 @@ export class Quat {
     array[offset + 2] = this.z;
     array[offset + 3] = this.w;
     return array;
+  }
+
+  hash(): number {
+    return super.hash(4);
   }
 }

@@ -48,39 +48,25 @@ export type SimpleArrayLike = { [n: number]: number; };
 const f32 = new Float32Array(1);
 const u32 = new Uint32Array(f32.buffer);
 
-function canonical(x: number, i = 0) {
-  if (Object.is(x, -0)) x = 0;
-  if (Number.isNaN(x)) x = NaN;
-  f32[0] = x;
-  return u32[i];
-}
-
-function mix(z: number) {
-  z = (z + 0x9e3779b9) >>> 0;
-  z ^= z >>> 16;
-  z = (z * 0x85ebca6b) >>> 0;
-  z ^= z >>> 13;
-  z = (z * 0xc2b2ae35) >>> 0;
-  z ^= z >>> 16;
-  return z >>> 0;
-}
-
-const GOLDEN = 0x9e3779b9 >>> 0;
-const SEED = 0x243f6a88 >>> 0;
-
-export function hash(arr: ArrayLike<number>) {
-  let h1 = SEED;
+export function hash(arr: ArrayLike<number>, size = arr.length) {
+  let h = 0x811c9dc5;
 
   for (let i = 0; i < arr.length; i++) {
-    let a = canonical(arr[i]);
-    a = (a ^ ((i * GOLDEN) >>> 0)) >>> 0;
-    const m1 = mix(a);
-    h1 = (h1 ^ ((m1 + GOLDEN) >>> 0)) >>> 0;
-    h1 = (((h1 << 13) | (h1 >>> 19)) >>> 0); // rotate left 13
-    h1 = (h1 * 0x9e3779b9) >>> 0;
+    let x = arr[i];
+
+    if (x === 0 || Number.isNaN(x)) x = 0;
+
+    f32[0] = x;
+    let b = u32[0];
+
+    h ^= b;
+    h = Math.imul(h, 0x5bd1e995) >>> 0;
+    h ^= h >>> 15;
   }
 
-  h1 = (h1 ^ ((16 * GOLDEN) >>> 0)) >>> 0;
+  h ^= h >>> 13;
+  h = Math.imul(h, 0x5bd1e995) >>> 0;
+  h ^= h >>> 15;
 
-  return mix(h1);
+  return h >>> 0;
 }

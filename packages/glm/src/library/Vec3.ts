@@ -324,6 +324,10 @@ export class Vec3 extends makeSwizzle('x', 'y', 'z') {
     array[offset + 2] = this.z;
     return array;
   }
+
+  hash(): number {
+    return super.hash(3);
+  }
 }
 
 function vec3(): Vec3;

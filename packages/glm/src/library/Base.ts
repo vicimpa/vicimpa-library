@@ -18,8 +18,8 @@ export class Base {
     return array;
   }
 
-  hash() {
-    return hash(this.toArray(f32.fill(0)));
+  hash(size = f32.length) {
+    return hash(this.toArray(f32.fill(0)), size);
   }
 
   toString() {

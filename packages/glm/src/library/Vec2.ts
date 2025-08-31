@@ -257,6 +257,10 @@ export class Vec2 extends makeSwizzle('x', 'y') {
     array[offset + 1] = this.y;
     return array;
   }
+
+  hash(): number {
+    return super.hash(2);
+  }
 }
 
 function vec2(): Vec2;

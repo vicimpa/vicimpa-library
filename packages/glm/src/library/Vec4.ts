@@ -298,6 +298,10 @@ export class Vec4 extends makeSwizzle('x', 'y', 'z', 'w') {
     array[offset + 3] = this.w;
     return array;
   }
+
+  hash(): number {
+    return super.hash(4);
+  }
 }
 
 function vec4(): Vec4;
