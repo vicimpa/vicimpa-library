@@ -8,7 +8,7 @@ type SwizzleVariants<K extends string> =
   & { [_ in `${K}${K}${K}`]: Vec3 }
   & { [_ in `${K}${K}${K}${K}`]: Vec4 };
 
-export function makeSwizzle<const K extends string>(...keys: K[]): new () => SwizzleVariants<K> {
+export function makeSwizzle<const K extends string>(...keys: K[]) {
   type SwizzleObject = {
     [k in K]: number
   };

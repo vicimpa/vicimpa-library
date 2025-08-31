@@ -1,7 +1,6 @@
-import { SimpleArrayLike, toString } from "./Common";
+import { hash, SimpleArrayLike, toString } from "./Common";
 
-const f64 = new Float64Array(16);
-const decoder = new TextDecoder('utf-8');
+const f32 = new Float32Array(16);
 
 export class Base {
   *[Symbol.iterator]() {
@@ -20,7 +19,7 @@ export class Base {
   }
 
   hash() {
-    return decoder.decode(this.toArray(f64.fill(0)).buffer);
+    return hash(this.toArray(f32.fill(0)));
   }
 
   toString() {
