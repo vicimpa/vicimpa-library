@@ -51,7 +51,7 @@ const u32 = new Uint32Array(f32.buffer);
 export function hash(arr: ArrayLike<number>, size = arr.length) {
   let h = 0x811c9dc5;
 
-  for (let i = 0; i < arr.length; i++) {
+  for (let i = 0; i < size; i++) {
     let x = arr[i];
 
     if (x === 0 || Number.isNaN(x)) x = 0;
