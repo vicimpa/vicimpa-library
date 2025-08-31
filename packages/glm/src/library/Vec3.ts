@@ -1,4 +1,4 @@
-import { equals, round, SimpleArrayLike, toString } from "./Common";
+import { equals, round, SimpleArrayLike } from "./Common";
 import Cache from "./Cache";
 import { IMat3 } from "./Mat3";
 import { IMat4 } from "./Mat4";
@@ -39,10 +39,6 @@ export class Vec3 extends makeSwizzle('x', 'y', 'z') {
     yield this.x;
     yield this.y;
     yield this.z;
-  }
-
-  toString() {
-    return toString(this);
   }
 
   copy(a: IVec3) {
