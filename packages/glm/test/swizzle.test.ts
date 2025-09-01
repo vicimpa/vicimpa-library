@@ -1,5 +1,5 @@
 import { describe, it } from "bun:test";
-import { Vec2, Vec3, Vec4 } from "..";
+import { Vec2, Vec3, Vec4 } from "../src";
 import { expectEqualish } from "./helpers/test-utils";
 
 describe("swizzling examples", () => {

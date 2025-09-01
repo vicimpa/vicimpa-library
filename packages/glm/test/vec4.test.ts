@@ -1,5 +1,5 @@
 import { describe, it, beforeEach } from "bun:test";
-import { Vec2, Vec3, Vec4, vec4 } from "..";
+import { Vec2, Vec3, Vec4, vec4 } from "../src";
 import { expectEqualish } from "./helpers/test-utils";
 
 describe("vec4", () => {
@@ -300,8 +300,8 @@ describe("vec4", () => {
       expectEqualish([result.x, result.y, result.z, result.w], [1, 2, 3, 4]);
     });
 
-    it("should handle undefined arguments correctly", () => {
-      const result = vec4(undefined);
+    it("should handle without arguments correctly", () => {
+      const result = vec4();
       expectEqualish([result.x, result.y, result.z, result.w], [0, 0, 0, 0]);
     });
   });

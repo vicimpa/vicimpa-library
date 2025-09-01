@@ -1,5 +1,5 @@
 import { describe, it, beforeEach } from "bun:test";
-import { Quat } from "..";
+import { Quat } from "../src";
 import { expectEqualish } from "./helpers/test-utils";
 
 describe("quat", () => {

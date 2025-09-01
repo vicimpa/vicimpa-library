@@ -2,9 +2,14 @@ import { hash, SimpleArrayLike, toString } from "./Common";
 
 const f32 = new Float32Array(16);
 
+
 export class Base {
   *[Symbol.iterator]() {
     yield 0;
+  }
+
+  freeze() {
+    return Object.freeze(this);
   }
 
   fromArray(array: SimpleArrayLike, offset = 0) {

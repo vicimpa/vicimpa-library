@@ -1,5 +1,5 @@
 import { describe, it, beforeEach } from "bun:test";
-import { toRadian, toDegree, equals, EPSILON } from "..";
+import { toRadian, toDegree, equals, EPSILON } from "../src";
 import { expectEqualish } from "./helpers/test-utils";
 
 describe("common", () => {

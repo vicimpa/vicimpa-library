@@ -328,6 +328,18 @@ export class Vec3 extends makeSwizzle('x', 'y', 'z') {
   hash(): number {
     return super.hash(3);
   }
+
+  static ZERO = new Vec3(0, 0, 0).freeze();
+  static ONE = new Vec3(1, 1, 1).freeze();
+
+  static UP = new Vec3(0, 1, 0).freeze();
+  static DOWN = new Vec3(0, -1, 0).freeze();
+
+  static LEFT = new Vec3(-1, 0, 0).freeze();
+  static RIGHT = new Vec3(1, 0, 0).freeze();
+
+  static FORWARD = new Vec3(0, 0, 1).freeze();
+  static BACK = new Vec3(0, 0, -1).freeze();
 }
 
 function vec3(): Vec3;

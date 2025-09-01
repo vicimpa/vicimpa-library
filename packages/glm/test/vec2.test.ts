@@ -1,5 +1,5 @@
 import { describe, it, beforeEach } from "bun:test";
-import { Vec2, Vec3, Vec4, vec2 } from "..";
+import { Vec2, Vec3, Vec4, vec2 } from "../src";
 import { expectEqualish } from "./helpers/test-utils";
 
 describe("vec2", () => {
@@ -459,8 +459,8 @@ describe("vec2", () => {
       if (result === original) throw new Error("Expected new instance");
     });
 
-    it("should handle undefined arguments correctly", () => {
-      const result = vec2(undefined);
+    it("should handle whithout arguments correctly", () => {
+      const result = vec2();
       expectEqualish([result.x, result.y], [0, 0]);
     });
   });

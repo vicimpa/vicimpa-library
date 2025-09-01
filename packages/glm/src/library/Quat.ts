@@ -129,6 +129,16 @@ export class Quat extends Base {
     return this;
   }
 
+  setAxes(view: IVec3, right: IVec3, up: IVec3) {
+    return this.fromMat3(
+      Cache.mat3.set(
+        right.x, up.x, -view.x,
+        right.y, up.y, -view.y,
+        right.z, up.z, -view.z
+      )
+    ).normalize();
+  }
+
   getAngle(o: IQuat): number {
     let dotproduct = this.x * o.x + this.y * o.y + this.z * o.z + this.w * o.w;
     return Math.acos(2 * dotproduct * dotproduct - 1);

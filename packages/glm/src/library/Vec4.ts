@@ -302,6 +302,14 @@ export class Vec4 extends makeSwizzle('x', 'y', 'z', 'w') {
   hash(): number {
     return super.hash(4);
   }
+
+  static ZERO = new Vec4(0, 0, 0, 0).freeze();
+  static ONE = new Vec4(1, 1, 1, 1).freeze();
+
+  static UNIT_X = new Vec4(1, 0, 0, 0).freeze();
+  static UNIT_Y = new Vec4(0, 1, 0, 0).freeze();
+  static UNIT_Z = new Vec4(0, 0, 1, 0).freeze();
+  static UNIT_W = new Vec4(0, 0, 0, 1).freeze();
 }
 
 function vec4(): Vec4;

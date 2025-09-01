@@ -261,6 +261,13 @@ export class Vec2 extends makeSwizzle('x', 'y') {
   hash(): number {
     return super.hash(2);
   }
+
+  static ZERO = new Vec2(0, 0).freeze();
+  static UP = new Vec2(0, 1).freeze();
+  static DOWN = new Vec2(0, -1).freeze();
+  static LEFT = new Vec2(-1, 0).freeze();
+  static RIGHT = new Vec2(1, 0).freeze();
+  static ONE = new Vec2(1, 1).freeze();
 }
 
 function vec2(): Vec2;

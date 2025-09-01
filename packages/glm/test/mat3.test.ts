@@ -1,5 +1,5 @@
 import { describe, it, beforeEach } from "bun:test";
-import { Mat3 } from "..";
+import { Mat3 } from "../src";
 import { expectEqualish } from "./helpers/test-utils";
 
 describe("mat3", () => {
