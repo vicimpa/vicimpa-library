@@ -14,46 +14,19 @@ const tsopts = {
 export default [
   {
     input: "src/index.ts",
-    output: {
-      file: "dist/index.cjs",
-      format: "cjs",
-    },
+    output: [
+      { file: "dist/index.js", format: "esm" },
+      { file: "dist/index.cjs", format: "cjs" },
+      { file: "dist/index.amd.js", format: "amd" },
+    ],
     plugins: [
       typescript(tsopts),
       terser(terseropts),
     ]
   },
-
   {
     input: "src/index.ts",
-    output: {
-      file: "dist/index.js",
-      format: "esm",
-    },
-    plugins: [
-      typescript(tsopts),
-      terser(terseropts),
-    ]
-  },
-
-  {
-    input: "src/index.ts",
-    output: {
-      file: "dist/index.amd.js",
-      format: "amd",
-    },
-    plugins: [
-      typescript(tsopts),
-      terser(terseropts),
-    ]
-  },
-
-  {
-    input: "src/index.ts",
-    output: {
-      file: "dist/index.d.ts",
-      format: "es"
-    },
+    output: { file: "dist/index.d.ts", format: "esm" },
     plugins: [dts({})]
   }
 ];
