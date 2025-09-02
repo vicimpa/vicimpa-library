@@ -1,20 +1,38 @@
 import typescript from "@rollup/plugin-typescript";
+import dts from "rollup-plugin-dts";
+import terser from '@rollup/plugin-terser';
 
-export default {
-  input: 'src/index.ts',
-  plugins: [typescript()],
-  output: [
-    {
-      file: 'dist/index.js',
-      format: 'cjs'
-    },
-    {
-      file: 'dist/index.esm.js',
-      format: 'es'
-    }
-  ],
-  external: [
-    /@vicimpa/,
-    /node_modules/
-  ]
+const terseropts = {
+  keep_classnames: true,
+  keep_fnames: true,
 };
+
+const tsopts = {
+  tsconfig: "./tsconfig.json"
+};
+
+export default [
+  {
+    input: 'src/index.ts',
+    plugins: [typescript(tsopts), terser(terseropts)],
+    output: [
+      {
+        file: 'dist/index.js',
+        format: 'cjs'
+      },
+      {
+        file: 'dist/index.esm.js',
+        format: 'es'
+      }
+    ],
+    external: [
+      /@vicimpa/,
+      /node_modules/
+    ]
+  },
+  {
+    input: "src/index.ts",
+    output: { file: "dist/index.d.ts", format: "esm" },
+    plugins: [dts({})]
+  }
+];

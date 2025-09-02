@@ -2,6 +2,15 @@ import typescript from "@rollup/plugin-typescript";
 import terser from '@rollup/plugin-terser';
 import dts from "rollup-plugin-dts";
 
+const terseropts = {
+  keep_classnames: true,
+  keep_fnames: true,
+};
+
+const tsopts = {
+  tsconfig: "./tsconfig.json"
+};
+
 export default [
   {
     input: 'src/index.ts',
@@ -19,7 +28,7 @@ export default [
         format: 'amd'
       },
     ],
-    plugins: [typescript(), terser()],
+    plugins: [typescript(tsopts), terser(terseropts)],
     external: [
       /@vicimpa/,
       /node_modules/
