@@ -1,43 +1,41 @@
-import { FC, PropsWithoutRef, RefObject, SyntheticEvent, createElement, forwardRef } from "react";
+import React, { Component, FC, ReactNode, SyntheticEvent, createElement, RefObject, RefCallback } from "react";
 
-import { Signal } from "@preact/signals-react";
+import { effect, Signal } from "@preact/signals-react";
 import { useSignals } from "@preact/signals-react/runtime";
 
 type Elements = React.JSX.IntrinsicElements;
 
 type bind = typeof bind;
+
+type MaybeChange = {
+  onChange?: (e: any) => any;
+};
+
 const bind = {
-  ['bind-value'](input: Signal<string>) {
+  ['bind-value'](input: Signal<string>, props: MaybeChange) {
+    const { onChange } = props;
     return {
       value: input.value,
       onChange(e: SyntheticEvent<{ value: string; }>) {
         input.value = e.currentTarget.value;
+        onChange?.(e);
       }
     };
   },
-  ['bind-checked'](input: Signal<boolean>) {
+  ['bind-checked'](input: Signal<boolean>, props: MaybeChange) {
+    const { onChange } = props;
     return {
       checked: input.value,
       onChange(e: SyntheticEvent<{ checked: boolean; }>) {
         input.value = e.currentTarget.checked;
+        onChange?.(e);
       }
     };
   }
 } as const;
 
-const rename = <T extends (...args: any[]) => any>(
-  func: T,
-  name: string
-) => {
-  return ({
-    [name](...args: Parameters<T>) {
-      return func(...args);
-    }
-  })[name] as T;
-};
-
 const { assign, entries } = Object;
-const _props = <T extends object>(props: T, ref: RefObject<any>) => (
+const _props = <T extends object>(props: T) => (
   entries(props).reduce((acc, [key, signal]) => {
     if (/(key|ref|children)/.test(key))
       return acc;
@@ -47,45 +45,169 @@ const _props = <T extends object>(props: T, ref: RefObject<any>) => (
         [key]: undefined,
         ...(
           signal instanceof Signal ? (
-            bind[key as keyof bind](signal as any)
+            bind[key as keyof bind](signal as any, acc)
           ) : {}
         )
       });
       return acc;
-    }
-
-    if (signal instanceof Signal) {
-      assign(acc, {
-        [key]: signal.value
-      });
+    } else {
+      assign(acc, { [key]: getValue(signal) });
     }
 
     return acc;
-  }, assign({ ref }, props))
+  }, props)
 );
 
-export type RSP = {
-  [K in keyof Elements]: FC<{
-    [P in keyof Elements[K]]: Elements[K][P] | Signal<Elements[K][P]>
-  } & {
-    [B in keyof bind]?: ReturnType<bind[B]> extends Elements[K] ? (
-      Parameters<bind[B]>[0]
-    ) : never
-  }>
+type $Props<T extends object> = {
+  $target: FC<T> | Component<T>;
 };
 
-export const rsp = new Proxy({} as RSP, {
+type ShortInput = Exclude<React.JSX.IntrinsicElements['input'], 'value' | 'type' | 'checked'>;
+
+type RadioProps<T> = {
+  value: T | Signal<T>;
+  group: Signal<T>;
+} & ShortInput;
+
+type CheckboxProps<T> = {
+  value: T | Signal<T>;
+  group: Signal<T[]>;
+} & ShortInput;
+
+const getValue = <T>(value: T | Signal<T>) => {
+  if (value instanceof Signal)
+    return value.value;
+
+  return value;
+};
+
+const applyRef = <T>(ref: RefObject<T | null> | RefCallback<T | null> | null | undefined, current: T | null): () => void => {
+  if (!ref) return () => { };
+
+  if (typeof ref === 'function') {
+    const dispose = ref(current);
+
+    return () => {
+      if (typeof dispose === 'function')
+        dispose();
+      else
+        ref(null);
+    };
+  }
+
+  assign(ref, { current });
+
+  return () => {
+    assign(ref, { current: null });
+  };
+};
+
+const $value = Symbol('value');
+const $group = Symbol('group');
+
+function updateGroup<T>(group: Signal<T[]>) {
+  const out: T[] = [];
+
+  for (const input of document.getElementsByTagName('input')) {
+    if (!($value in input)) continue;
+    if (!($group in input)) continue;
+    if (input[$group] !== group) continue;
+    if (!input.checked) continue;
+    out.push(getValue(input[$value] as any));
+  }
+  console.log(out);
+
+  group.value = out;
+}
+
+const RSP = {
+  $<const T extends object>({ $target, ...props }: $Props<T> & RSPProps<T>): ReactNode {
+    return (useSignals(), createElement($target as any, _props(props)));
+  },
+  radio<T>({ value, group, ref, onChange, ...props }: RadioProps<T>) {
+    useSignals();
+
+    return createElement('input', {
+      ..._props(props),
+      type: 'radio',
+      checked: group.value === getValue(value),
+      ref(current) {
+        if (current) {
+          Object.assign(current, {
+            [$value]: value,
+            [$group]: group,
+          });
+        }
+        return applyRef(ref, current);
+      },
+      onChange(e) {
+        group.value = getValue(value);
+        onChange?.(e);
+      }
+    } as React.JSX.IntrinsicElements['input']);
+  },
+  checkbox<T>({ value, group, ref, onChange, ...props }: CheckboxProps<T>) {
+    useSignals();
+
+    return createElement('input', _props({
+      ...props,
+      type: 'checkbox',
+      checked: undefined,
+      ref(current) {
+        const ctrl = new AbortController();
+
+        if (current) {
+          Object.assign(current, {
+            [$value]: value,
+            [$group]: group,
+          });
+
+          current.addEventListener('input', () => {
+            updateGroup(group);
+          }, ctrl);
+
+          ctrl.signal.addEventListener('abort',
+            effect(() => {
+              current.checked = group.value.includes(getValue(value));
+            })
+          );
+        }
+
+        const dispose = applyRef(ref, current);
+
+        return () => {
+          dispose();
+          ctrl.abort();
+        };
+      },
+    } as React.JSX.IntrinsicElements['input']));
+  },
+};
+
+type RSPProps<T extends object> = {
+  [P in keyof T]: T[P] extends Signal<any> ? T[P] : T[P] | Signal<T[P]>
+};
+
+type RSPBindProps<T extends object> = {
+  [B in keyof bind]?: ReturnType<bind[B]> extends T ? (
+    Parameters<bind[B]>[0]
+  ) : never
+};
+
+type RSP = {
+  [K in keyof Elements]: FC<
+    & RSPProps<Elements[K]>
+    & RSPBindProps<Elements[K]>
+  >
+} & typeof RSP;
+
+export const rsp = new Proxy(RSP as RSP, {
   get<K extends keyof RSP>(target: RSP, key: K) {
     return target[key] ?? (
       assign(target, {
-        [key]: forwardRef(
-          rename(
-            (props: PropsWithoutRef<RSP[K]>, ref: any) => {
-              useSignals();
-              return createElement(key, _props(props, ref));
-            }, key
-          )
-        )
+        [key](props: RSP[K]) {
+          return (useSignals(), createElement(key, _props(props)));
+        }
       })[key]
     );
   }

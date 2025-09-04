@@ -1,6 +1,6 @@
 {
   "name": "@vicimpa/rsp",
-  "version": "0.0.11",
+  "version": "0.1.0",
   "description": "A small layer between react and @preact/signals-react that allows you to use signals for attributes of native elements and bind some input and textarea properties to signals.",
   "repository": "github:vicimpa/vicimpa-library",
   "funding": "https://boosty.to/vic_dev",
@@ -34,7 +34,7 @@
     "email": "vicimpa@ya.ru"
   },
   "license": "MIT",
-  "peerDependencies": {
+  "dependencies": {
     "@preact/signals-react": "*"
   },
   "devDependencies": {
