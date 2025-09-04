@@ -186,7 +186,9 @@ const RSP = {
 };
 
 type RSPProps<T extends object> = {
-  [P in keyof T]: T[P] extends Signal<any> ? T[P] : T[P] | Signal<T[P]>
+  [P in keyof T]: T[P] extends Signal<any> ? T[P] : (
+    P extends 'key' | 'ref' | 'children' ? T[P] : T[P] | Signal<T[P]>
+  )
 };
 
 type RSPBindProps<T extends object> = {
