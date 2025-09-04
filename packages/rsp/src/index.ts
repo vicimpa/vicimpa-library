@@ -36,6 +36,7 @@ const bind = {
 
 const { assign, entries } = Object;
 const _props = <T extends object>(props: T) => (
+  props = assign({}, props),
   entries(props).reduce((acc, [key, signal]) => {
     if (/(key|ref|children)/.test(key))
       return acc;
@@ -50,10 +51,9 @@ const _props = <T extends object>(props: T) => (
         )
       });
       return acc;
-    } else {
-      assign(acc, { [key]: getValue(signal) });
     }
 
+    assign(acc, { [key]: getValue(signal) });
     return acc;
   }, props)
 );
