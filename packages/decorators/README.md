@@ -200,6 +200,24 @@ component.count = 5;
 component.name = "Jane Doe";
 ```
 
+#### Настоящий сигнал
+
+```ts
+import { prop, reactive, real } from "@vicimpa/decorators";
+
+@reactive()
+class MyComponent {
+  @prop
+  public count: number = 0;
+
+  @prop
+  public name: string = "John Doe";
+}
+
+const component = new MyComponent();
+const nameSignal = real(component, 'name');
+```
+
 ## Заключение
 
 `@vicimpa/decorators` — это мощная библиотека, которая упрощает создание

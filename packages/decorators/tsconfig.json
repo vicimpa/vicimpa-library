@@ -3,7 +3,8 @@
   "compilerOptions": {
     "outDir": "./dist",
     "declaration": false,
-    "noEmit": true
+    "noEmit": true,
+    "experimentalDecorators": true
   },
   "include": [
     "./src"
