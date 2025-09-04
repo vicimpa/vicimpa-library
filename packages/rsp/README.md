@@ -1,18 +1,40 @@
-# React-Signals-Props (rsp)
-A small layer between react and @preact/signals-react that allows you to use signals for attributes of native elements and bind some input and textarea properties to signals.
+# @vicimpa/rsp – React-Signals-Props 🚀
 
-### Requirements
-- [react](https://react.dev)
-- [@preact/signals-react](https://preactjs.com/guide/v10/signals/)
+A **lightweight layer between React and [@preact/signals-react](https://preactjs.com/guide/v10/signals/)**.
+It lets you **use signals directly as props for native elements** and **bind input/textarea state** without boilerplate.
 
-### Install
+🔗 Feels like JSX has built-in signal support.
+
+---
+
+## ✨ Why?
+
+Working with `signals` in React usually means juggling `.value` everywhere and manually wiring up `onChange` or `useState`.
+
+With `@vicimpa/rsp`:
+
+* Pass a **signal directly into props**, no `.value`.
+* `<input>` and `<textarea>` support **bind props** (`bind-value`, `bind-checked`).
+* **Radio/checkbox groups** just work.
+* Wrap your own components, and their props can also be signals.
+
+👉 **Less code, less boilerplate, more reactivity.**
+
+---
+
+## 📦 Installation
+
 ```bash
-> npm i @vicimpa/rsp
+npm i @vicimpa/rsp
 ```
 
-### Using
+---
+
+## ⚡ Examples
+
+### 1. Basic usage
+
 ```tsx
-// Basic usage
 import { rsp } from "@vicimpa/rsp";
 import { useSignal } from "@preact/signals-react";
 
@@ -24,107 +46,148 @@ export const App = () => {
       disabled={disabled}
       onClick={() => disabled.value = true}
     >
-      Button
+      Click me
     </rsp.button>
   );
 };
 ```
 
+👉 `disabled` is a `Signal<boolean>`, passed directly as a prop.
+
+---
+
+### 2. Binding inputs
+
 ```tsx
-// Binding
-import { rsp } from "@vicimpa/rsp";
-import { useSignal } from "@preact/signals-react";
+const text = useSignal('');
+const checkbox = useSignal(false);
 
-export const App = () => {
-  const text = useSignal('');
-  const checkbox = useSignal(false);
-
-  return (
-    <>
-      <rsp.input type="text" bind-value={text} />
-      <rsp.input type="checkbox" bind-checked={checkbox} />
-    </>
-  );
-};
+return (
+  <>
+    <rsp.input type="text" bind-value={text} />
+    <rsp.input type="checkbox" bind-checked={checkbox} />
+  </>
+);
 ```
 
+👉 `bind-value` and `bind-checked` keep signals and DOM fields in sync automatically.
+
+---
+
+### 3. Reactive styles and computed props
+
 ```tsx
-// Composite
-import { useComputed, useSignal } from "@preact/signals-react";
+const text = useSignal('Some text');
+const color = useSignal('#333');
+const font = useSignal('14');
 
-import { rsp } from "@vicimpa/rsp";
+const style = useComputed(() => ({
+  color: color.value,
+  fontSize: font.value + 'px',
+}));
 
-export const App = () => {
-  const text = useSignal('Some text');
-  const color = useSignal('#333');
-  const font = useSignal('14');
+return (
+  <>
+    <rsp.input bind-value={text} />
+    <rsp.input bind-value={color} />
+    <rsp.input type="range" bind-value={font} />
 
-  const style = useComputed(() => ({
-    color: color.value,
-    fontSize: font.value + 'px',
-  }));
-
-  return (
-    <>
-      <rsp.input bind-value={text} />
-      <rsp.input bind-value={color} />
-      <rsp.input type="range" bind-value={font} />
-
-      <p>
-        Text:
-        <rsp.b style={style}>{text}</rsp.b>
-      </p>
-    </>
-  );
-};
+    <p>
+      Text: <rsp.b style={style}>{text}</rsp.b>
+    </p>
+  </>
+);
 ```
 
+---
+
+### 4. Radio and checkbox groups
+
 ```tsx
-// Radio and Checkbox
-import { useComputed, useSignal } from "@preact/signals-react";
+const choice = useSignal('A');
+const selected = useSignal<string[]>([]);
 
-import { rsp } from "@vicimpa/rsp";
+return (
+  <>
+    <p>Choice: {choice}</p>
+    <label><rsp.radio value="A" group={choice}/> A</label>
+    <label><rsp.radio value="B" group={choice}/> B</label>
+    <label><rsp.radio value="C" group={choice}/> C</label>
 
-export const App = () => {
-  const choise = useSignal('A');
-  const selected = useSignal<string[]>([]);
-  const selectedView = useComputed(() => selected.value.join(', ') || 'Empty');
-
-  return (
-    <>
-      <p>Choise: "{choise}"</p>
-      <label><rsp.radio value="A" group={choise} /> A</label>
-      <label><rsp.radio value="B" group={choise} /> B</label>
-      <label><rsp.radio value="C" group={choise} /> C</label>
-
-      <p>Select: "{selectedView}"</p>
-      <label><rsp.checkbox value="A" group={selected} /> A</label>
-      <label><rsp.checkbox value="B" group={selected} /> B</label>
-      <label><rsp.checkbox value="C" group={selected} /> C</label>
-    </>
-  );
-};
+    <p>Selected: {selected}</p>
+    <label><rsp.checkbox value="A" group={selected}/> A</label>
+    <label><rsp.checkbox value="B" group={selected}/> B</label>
+    <label><rsp.checkbox value="C" group={selected}/> C</label>
+  </>
+);
 ```
 
+👉 Groups are handled out of the box via `Signal`.
+
+---
+
+### 5. Signals in custom components
 
 ```tsx
-// Component
-import { useComputed, useSignal } from "@preact/signals-react";
+const Test = ({ test }) => <p>Value: {test}</p>;
 
-import { rsp } from "@vicimpa/rsp";
-
-const Test = ({test}) => {
-
-  return <p>Value: "{test}"</p>
-}
-
-export const App = () => {
+const App = () => {
   const test = useSignal(0);
 
   return (
-    <>
-      <rsp.$ $target={Test} test={test} />
-    </>
+    <rsp.$ $target={Test} test={test} />
   );
 };
 ```
+
+👉 Custom components wrapped with `<rsp.$>` also accept signals as props.
+
+---
+
+## 🔀 Before vs After
+
+### Without `@vicimpa/rsp`
+
+```tsx
+const text = useSignal("");
+
+return (
+  <input
+    value={text.value}
+    onChange={e => text.value = e.currentTarget.value}
+  />
+);
+```
+
+### With `@vicimpa/rsp`
+
+```tsx
+const text = useSignal("");
+
+return <rsp.input bind-value={text} />;
+```
+
+---
+
+## 🎯 Features
+
+* 🟢 **Use signals as props** — no `.value`
+* 🟢 **Bind props** for `<input>` and `<textarea>`
+* 🟢 **Radio/checkbox groups** supported natively
+* 🟢 **Computed props/styles** in JSX
+* 🟢 **Works with custom components**
+
+---
+
+## 🚀 Why is it awesome?
+
+`@vicimpa/rsp` turns React + Signals into a **declarative, reactive style**:
+no `useEffect`, no repetitive `onChange`, no constant `.value`.
+Just write JSX as if signals were part of React itself.
+
+---
+
+## 📖 Requirements
+
+* [React](https://react.dev)
+* [@preact/signals-react](https://preactjs.com/guide/v10/signals/)
