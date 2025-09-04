@@ -62,7 +62,8 @@ type $Props<T extends object> = {
   $target: FC<T> | Component<T>;
 };
 
-type ShortInput = Exclude<React.JSX.IntrinsicElements['input'], 'value' | 'type' | 'checked'>;
+type InputProps = React.JSX.IntrinsicElements['input'];
+type ShortInput = Omit<InputProps, 'value' | 'type' | 'checked'>;
 
 type RadioProps<T> = {
   value: T | Signal<T>;
