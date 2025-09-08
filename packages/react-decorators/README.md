@@ -1,31 +1,40 @@
 # @vicimpa/react-decorators
 
-`@vicimpa/react-decorators` — это библиотека, которая предоставляет набор
-декораторов и хуков для улучшения компонентов React с помощью возможностей
-внедрения зависимостей и управления контекстом. Эта библиотека позволяет легко
-внедрять зависимости в ваши компоненты и управлять провайдерами и потребителями
-контекста с минимальным количеством шаблонного кода.
+`@vicimpa/react-decorators` is a library that provides a set of decorators and hooks for enhancing React components with **dependency injection** and **context management**.
+It makes it easy to inject dependencies into your components and manage context providers/consumers with minimal boilerplate.
 
-## Использование
+## Installation
+
+```bash
+npm install @vicimpa/react-decorators
+```
+
+or
+
+```bash
+yarn add @vicimpa/react-decorators
+```
+
+## Usage
 
 ### `connect`
 
-Декоратор `connect` позволяет прикреплять плагины (миксины) к компоненту React.
-Эти плагины могут изменять экземпляр компонента или выполнять побочные эффекты.
+The `connect` decorator allows you to attach plugins (mixins) to a React component.
+These plugins can modify the component instance or perform side effects when the component is mounted/unmounted.
 
-#### Пример
+#### Example
 
 ```tsx
 import React, { Component } from "react";
 import { connect } from "@vicimpa/react-decorators";
 
-// Определяем плагин
+// Define a plugin
 const loggerPlugin = (target: any) => {
-  console.log("Компонент смонтирован:", target);
-  return () => console.log("Компонент размонтирован:", target);
+  console.log("Component mounted:", target);
+  return () => console.log("Component unmounted:", target);
 };
 
-// Используем плагин
+// Use the plugin
 @connect(loggerPlugin)
 class SomeComponent extends Component {
   render() {
@@ -34,62 +43,58 @@ class SomeComponent extends Component {
 }
 ```
 
+---
+
 ### `provide`
 
-Декоратор `provide` позволяет предоставлять значение контекста из компонента.
-Это полезно для создания провайдеров контекста в виде компонентов.
+The `provide` decorator allows you to expose a context value from a component.
+This is useful for creating provider components.
 
-#### Пример
+#### Example
 
 ```tsx
 import React, { Component, PropsWithChildren } from "react";
 import { provide } from "@vicimpa/react-decorators";
 
-// Определяем компонент-провайдер
+// Define a provider component
 @provide()
 class ProviderComponent extends Component<PropsWithChildren> {
   render() {
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    );
+    return <div>{this.props.children}</div>;
   }
 }
 
 const App = () => {
   return (
     <ProviderComponent>
-      {/** Using component context */}
+      {/** Components using this provider’s context */}
     </ProviderComponent>
   );
 };
 ```
 
+---
+
 ### `inject`
 
-Декоратор `inject` позволяет внедрять значение контекста провайдер компонента в
-свойство компонента. Это полезно для внедрения зависимостей.
+The `inject` decorator allows you to inject the context value from a provider component into a property of another component.
+This enables **dependency injection** in class components.
 
-#### Пример
+#### Example
 
 ```tsx
 import React, { Component } from "react";
 import { inject, provide } from "@vicimpa/react-decorators";
 
-// Определяем компонент-провайдер
+// Define a provider component
 @provide()
 class ProviderComponent extends Component {
   render() {
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    );
+    return <div>{this.props.children}</div>;
   }
 }
 
-// Определяем компонент-потребитель
+// Define a consumer component
 class ConsumerComponent extends Component {
   @inject(() => ProviderComponent)
   provider!: ProviderComponent;
@@ -114,13 +119,14 @@ const App = () => {
 };
 ```
 
+---
+
 ### `useInject`
 
-Хук `useInject` позволяет использовать значение контекста провайдер компонента в
-функциональном компоненте. Это полезно для доступа к значениям контекста без
-использования классовых компонентов.
+The `useInject` hook allows you to access a provider’s context inside a functional component.
+This is a lightweight alternative to using class components with `inject`.
 
-#### Пример
+#### Example
 
 ```tsx
 import React from "react";
@@ -130,6 +136,7 @@ import { ProviderComponent } from "./path-to-provider-component";
 const ConsumerComponent = () => {
   const provider = useInject(ProviderComponent);
   console.log(provider);
+
   return <p>Using inject</p>;
 };
 
@@ -141,3 +148,37 @@ const App = () => {
   );
 };
 ```
+
+---
+
+### `strict` mode (optional)
+
+Both `inject` and `useInject` accept an optional second argument: `strict` (default: `true`).
+
+* If `strict: true` (default), calling them outside of the corresponding provider will throw an error.
+* If `strict: false`, they will return `undefined` instead of throwing.
+
+#### Example
+
+```tsx
+const provider = useInject(ProviderComponent, false);
+
+if (!provider) {
+  console.log("Provider is missing, but no error was thrown");
+}
+```
+
+---
+
+## Features
+
+* 🚀 Simple decorators for React context management
+* 🔌 Dependency injection for class and functional components
+* 🧩 Plugin system with `connect`
+* ⚡ Minimal boilerplate
+
+---
+
+## License
+
+MIT © [vicimpa](https://github.com/vicimpa)
