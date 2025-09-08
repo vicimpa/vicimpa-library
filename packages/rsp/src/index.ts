@@ -118,8 +118,8 @@ function updateGroup<T>(group: Signal<T[]>) {
 }
 
 type $Props<C extends FC<any> | typeof Component<any>> = (
-  { $target: C; } & React.ComponentPropsWithRef<C>
-);
+  { $target: C; }
+) & RSPProps<React.ComponentPropsWithRef<C>>;
 
 function $<const C extends FC<any> | typeof Component<any>>({ $target, ...props }: $Props<C>): ReactNode {
   return (useSignals(), createElement($target as any, _props(props)));

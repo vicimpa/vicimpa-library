@@ -1,6 +1,6 @@
 {
   "name": "@vicimpa/rsp",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "A lightweight React layer for @preact/signals-react that lets you use signals as props and bind inputs, textareas, radios, and checkboxes without boilerplate.",
   "repository": "github:vicimpa/vicimpa-library",
   "funding": "https://boosty.to/vic_dev",
