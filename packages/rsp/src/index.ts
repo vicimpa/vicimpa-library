@@ -38,7 +38,7 @@ const { assign, entries } = Object;
 const _props = <T extends object>(props: T) => (
   props = assign({}, props),
   entries(props).reduce((acc, [key, signal]) => {
-    if (/(key|ref|children)/.test(key))
+    if (/(ref|children)/.test(key))
       return acc;
 
     if (key in bind) {
@@ -189,7 +189,7 @@ const RSP = { $, radio, checkbox };
 
 type RSPProps<T extends object> = {
   [P in keyof T]: T[P] extends Signal<any> ? T[P] : (
-    P extends 'key' | 'ref' | 'children' ? T[P] : T[P] | Signal<T[P]>
+    P extends 'ref' | 'children' ? T[P] : T[P] | Signal<T[P]>
   )
 };
 
