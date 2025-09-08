@@ -1,33 +1,31 @@
 # @vicimpa/decorators
 
-`@vicimpa/decorators` — это библиотека для TypeScript, которая предоставляет
-декораторы для создания реактивных свойств в классах с использованием
-`@preact/signals-react`. Эта библиотека позволяет легко создавать реактивные
-свойства в ваших классах, обеспечивая автоматическое обновление и реактивность.
+`@vicimpa/decorators` is a TypeScript library that provides decorators for creating **reactive properties** in classes using `@preact/signals-react`.  
+It allows you to easily build reactive properties inside your classes with automatic updates and reactivity.
 
-## Установка
+## Installation
 
-Для установки библиотеки необходимо иметь зависимости `@vicimpa/week-store` и
-`@preact/signals-react`. Вы можете установить их с помощью npm или yarn:
+This library requires `@vicimpa/week-store` and `@preact/signals-react` as peer dependencies.  
+You can install them via npm or yarn:
 
 ```bash
 npm install @vicimpa/week-store @preact/signals-react
-```
+````
 
-или
+or
 
 ```bash
 yarn add @vicimpa/week-store @preact/signals-react
 ```
 
-## Использование
+## Usage
 
-### Декоратор `reactive`
+### `reactive` decorator
 
-Декоратор `reactive` используется для создания реактивного класса. Он
-гарантирует, что все свойства, помеченные декоратором `prop`, будут реактивными.
+The `reactive` decorator is used to mark a class as reactive.
+It ensures that all properties marked with the `prop` decorator become reactive.
 
-#### Пример
+#### Example
 
 ```ts
 import { prop, reactive } from "@vicimpa/decorators";
@@ -48,13 +46,14 @@ class MyComponent {
 }
 ```
 
-### Декоратор `prop`
+---
 
-Декоратор `prop` используется для пометки свойства класса как реактивного. Когда
-свойство помечено декоратором `prop`, оно автоматически обновляет свое значение
-и уведомляет всех слушателей при изменении.
+### `prop` decorator
 
-#### Пример
+The `prop` decorator is used to mark a class property as reactive.
+When a property is decorated with `prop`, it automatically updates and notifies listeners on change.
+
+#### Example
 
 ```ts
 import { prop, reactive } from "@vicimpa/decorators";
@@ -73,9 +72,9 @@ component.count = 5;
 console.log(component.count); // 5
 ```
 
-Также декоратор `prop` умеет помечать реактивным геттеры. Таким образом можно сделать реактивное свойство зависящее от других реактивных свойств.
+The `prop` decorator can also be used on getters, allowing you to define computed reactive properties based on other reactive props.
 
-#### Пример
+#### Example
 
 ```ts
 import { prop, reactive } from "@vicimpa/decorators";
@@ -90,7 +89,7 @@ class MyComponent {
 
   @prop
   public get hello() {
-    return `${this.name} ${this.count}`
+    return `${this.name} ${this.count}`;
   }
 }
 
@@ -100,36 +99,40 @@ component.count = 5;
 console.log(component.hello); // John Doe 5
 ```
 
+---
+
 ## API
 
 ### `reactive`
 
-Декоратор `reactive` — это функция высшего порядка, которая возвращает декоратор
-класса. Он делает все свойства, помеченные декоратором `prop`, реактивными.
+A higher-order function that returns a class decorator.
+It makes all properties decorated with `prop` reactive.
 
-#### Синтаксис
+#### Syntax
 
 ```ts
 reactive(): ClassDecorator
 ```
 
+---
+
 ### `prop`
 
-Декоратор `prop` — это декоратор свойства, который помечает свойство класса как
-реактивное.
+A property decorator that marks a class property as reactive.
 
-#### Синтаксис
+#### Syntax
 
 ```ts
 prop(target: Object, key: string | symbol): void
 ```
 
-## Примеры с использованием `effect`
+---
 
-Для демонстрации реактивной природы свойств, помеченных декоратором `prop`,
-можно использовать функцию `effect` из `@preact/signals-react`.
+## Using with `effect`
 
-#### Пример
+You can use the `effect` function from `@preact/signals-react` to demonstrate the reactive nature of properties decorated with `prop`.
+
+#### Example
 
 ```ts
 import { prop, reactive } from "@vicimpa/decorators";
@@ -152,23 +155,23 @@ class MyComponent {
 
 const component = new MyComponent();
 
-// Реактивное отслеживание изменений свойства count
+// Reactively track changes to `count`
 effect(() => {
   console.log(`Count has changed: ${component.count}`);
 });
 
-// Реактивное отслеживание изменений свойства name
+// Reactively track changes to `name`
 effect(() => {
   console.log(`Name has changed: ${component.name}`);
 });
 
-// Изменение свойства name через 3 секунды
+// Change name after 3 seconds
 setTimeout(() => {
   component.name = "Jane Doe";
 }, 3000);
 ```
 
-#### Пример
+#### Example
 
 ```ts
 import { prop, reactive } from "@vicimpa/decorators";
@@ -185,22 +188,24 @@ class MyComponent {
 
 const component = new MyComponent();
 
-// Реактивное отслеживание изменений свойства count
 effect(() => {
   console.log(`Count has changed: ${component.count}`);
 });
 
-// Реактивное отслеживание изменений свойства name
 effect(() => {
   console.log(`Name has changed: ${component.name}`);
 });
 
-// Ручное изменение свойств
+// Manual updates
 component.count = 5;
 component.name = "Jane Doe";
 ```
 
-#### Настоящий сигнал
+---
+
+### Real signal
+
+You can extract the underlying signal of a property using the `real` helper.
 
 ```ts
 import { prop, reactive, real } from "@vicimpa/decorators";
@@ -215,14 +220,21 @@ class MyComponent {
 }
 
 const component = new MyComponent();
-const nameSignal = real(component, 'name');
+const nameSignal = real(component, "name");
 ```
 
-## Заключение
+---
 
-`@vicimpa/decorators` — это мощная библиотека, которая упрощает создание
-реактивных свойств в классах TypeScript. Используя декораторы `reactive` и
-`prop`, вы можете легко сделать свойства вашего класса реактивными и
-автоматически обновлять их значения. Эта библиотека особенно полезна для
-создания реактивных пользовательских интерфейсов и управления состоянием в
-современных веб-приложениях.
+## Conclusion
+
+`@vicimpa/decorators` is a powerful library that simplifies creating reactive properties in TypeScript classes.
+Using the `reactive` and `prop` decorators, you can easily make your class properties reactive and automatically updated.
+This library is especially useful for building **reactive UIs** and managing state in modern web applications.
+
+---
+
+## License
+
+MIT © [vicimpa](https://github.com/vicimpa)
+
+```
