@@ -59,7 +59,7 @@ const _props = <T extends object>(props: T) => (
 );
 
 type $Props<T extends object> = {
-  $target: FC<T> | Component<T>;
+  $target: FC<T> | typeof Component<T>;
 };
 
 type InputProps = React.JSX.IntrinsicElements['input'];
@@ -121,7 +121,7 @@ function updateGroup<T>(group: Signal<T[]>) {
   group.value = out;
 }
 
-function $<const T extends object>({ $target, ...props }: { $target: Component<T>; } & RSPProps<T>): ReactNode;
+function $<const T extends object>({ $target, ...props }: { $target: typeof Component<T>; } & RSPProps<T>): ReactNode;
 function $<const T extends object>({ $target, ...props }: { $target: FC<T>; } & RSPProps<T>): ReactNode;
 function $<const T extends object>({ $target, ...props }: $Props<T> & RSPProps<T>): ReactNode {
   return (useSignals(), createElement($target as any, _props(props)));
