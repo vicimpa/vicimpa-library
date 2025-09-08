@@ -121,69 +121,73 @@ function updateGroup<T>(group: Signal<T[]>) {
   group.value = out;
 }
 
-const RSP = {
-  $<const T extends object>({ $target, ...props }: $Props<T> & RSPProps<T>): ReactNode {
-    return (useSignals(), createElement($target as any, _props(props)));
-  },
-  radio<T>({ value, group, ref, onChange, ...props }: RadioProps<T>) {
-    useSignals();
+function $<const T extends object>({ $target, ...props }: { $target: Component<T>; } & RSPProps<T>): ReactNode;
+function $<const T extends object>({ $target, ...props }: { $target: FC<T>; } & RSPProps<T>): ReactNode;
+function $<const T extends object>({ $target, ...props }: $Props<T> & RSPProps<T>): ReactNode {
+  return (useSignals(), createElement($target as any, _props(props)));
+}
 
-    return createElement('input', {
-      ..._props(props),
-      type: 'radio',
-      checked: group.value === getValue(value),
-      ref(current) {
-        if (current) {
-          Object.assign(current, {
-            [$value]: value,
-            [$group]: group,
-          });
-        }
-        return applyRef(ref, current);
-      },
-      onChange(e) {
-        group.value = getValue(value);
-        onChange?.(e);
+function radio<T>({ value, group, ref, onChange, ...props }: RadioProps<T>) {
+  useSignals();
+
+  return createElement('input', {
+    ..._props(props),
+    type: 'radio',
+    checked: group.value === getValue(value),
+    ref(current) {
+      if (current) {
+        Object.assign(current, {
+          [$value]: value,
+          [$group]: group,
+        });
       }
-    } as React.JSX.IntrinsicElements['input']);
-  },
-  checkbox<T>({ value, group, ref, onChange, ...props }: CheckboxProps<T>) {
-    useSignals();
+      return applyRef(ref, current);
+    },
+    onChange(e) {
+      group.value = getValue(value);
+      onChange?.(e);
+    }
+  } as React.JSX.IntrinsicElements['input']);
+}
 
-    return createElement('input', _props({
-      ...props,
-      type: 'checkbox',
-      checked: undefined,
-      ref(current) {
-        const ctrl = new AbortController();
+function checkbox<T>({ value, group, ref, onChange, ...props }: CheckboxProps<T>) {
+  useSignals();
 
-        if (current) {
-          Object.assign(current, {
-            [$value]: value,
-            [$group]: group,
-          });
+  return createElement('input', _props({
+    ...props,
+    type: 'checkbox',
+    checked: undefined,
+    ref(current) {
+      const ctrl = new AbortController();
 
-          current.addEventListener('input', () => {
-            updateGroup(group);
-          }, ctrl);
+      if (current) {
+        Object.assign(current, {
+          [$value]: value,
+          [$group]: group,
+        });
 
-          ctrl.signal.addEventListener('abort',
-            effect(() => {
-              current.checked = group.value.includes(getValue(value));
-            })
-          );
-        }
+        current.addEventListener('input', () => {
+          updateGroup(group);
+        }, ctrl);
 
-        const dispose = applyRef(ref, current);
+        ctrl.signal.addEventListener('abort',
+          effect(() => {
+            current.checked = group.value.includes(getValue(value));
+          })
+        );
+      }
 
-        return () => {
-          dispose();
-          ctrl.abort();
-        };
-      },
-    } as React.JSX.IntrinsicElements['input']));
-  },
-};
+      const dispose = applyRef(ref, current);
+
+      return () => {
+        dispose();
+        ctrl.abort();
+      };
+    },
+  } as React.JSX.IntrinsicElements['input']));
+}
+
+const RSP = { $, radio, checkbox };
 
 type RSPProps<T extends object> = {
   [P in keyof T]: T[P] extends Signal<any> ? T[P] : (
