@@ -11,7 +11,7 @@ function useInject<T extends typeof Component>(target: T, strict = true) {
   if (!ctx)
     throw new Error(`No find ctx for "${target}"`);
 
-  const value = useContext(ctx);
+  const value = useContext(ctx)?.at(-1);
 
   if (!value && strict)
     throw new Error(`No provide ${target}CTX`);
