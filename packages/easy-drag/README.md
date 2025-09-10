@@ -53,13 +53,13 @@ const dragHandler = makeDrag(
 ## Example Usage
 
 ```ts
-document.getElementById("draggable")!.addEventListener("pointerdown", dragHandler);
+document.getElementById("draggable")!.addEventListener("mousedown", dragHandler);
 ```
 
 ## Parameters of `makeDrag`
 
 * `dragStart: TDragStart<T>` — function called when dragging starts.
-* `btn: number` — mouse/pointer button that initiates dragging (default `0` — left button).
+* `btn: number` — mouse button that initiates dragging (default `0` — left button).
 * `fromOffset: boolean` — whether to use element-relative coordinates (`offsetX/Y`) instead of page coordinates (`pageX/Y`).
 
 ## Conclusion
