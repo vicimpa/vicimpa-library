@@ -1,14 +1,16 @@
-### Установка
+# @vicimpa/easy-drag
 
-Установите библиотеку с помощью npm:
+## Installation
+
+Install the library via npm:
 
 ```sh
 npm install @vicimpa/easy-drag
-```
+````
 
-### Импорт
+## Import
 
-Импортируйте необходимые функции и типы:
+Import the required functions and types:
 
 ```ts
 import {
@@ -17,23 +19,22 @@ import {
   TDragMove,
   TDragStart,
   TDragStop,
+  Point,
 } from "@vicimpa/easy-drag";
-import { Vec2 } from "@vicimpa/lib-vec2";
 import { windowEvents } from "@vicimpa/events";
 ```
 
-### Типы
+## Types
 
-- **TDragEvent**: Описывает событие перетаскивания.
-- **TDragStop**: Функция, вызываемая при остановке перетаскивания.
-- **TDragMove**: Функция, вызываемая при перемещении элемента. Может вернуть
-  функцию `TDragStop`.
-- **TDragStart**: Функция, вызываемая при начале перетаскивания. Может вернуть
-  функцию `TDragMove`.
+* **Point**: A simple structure `{ x: number; y: number }` representing a 2D point.
+* **TDragEvent**: Describes a drag event.
+* **TDragStop**: A function called when dragging stops.
+* **TDragMove**: A function called during dragging. May return a `TDragStop` function.
+* **TDragStart**: A function called when dragging starts. May return a `TDragMove` function.
 
-### Функция `makeDrag`
+## Function `makeDrag`
 
-Создает обработчик для событий перетаскивания.
+Creates a handler for drag events.
 
 ```ts
 const dragHandler = makeDrag(
@@ -49,23 +50,20 @@ const dragHandler = makeDrag(
 );
 ```
 
-### Пример использования
+## Example Usage
 
 ```ts
-document.getElementById("draggable").addEventListener("mousedown", dragHandler);
+document.getElementById("draggable")!.addEventListener("pointerdown", dragHandler);
 ```
 
-### Параметры функции `makeDrag`
+## Parameters of `makeDrag`
 
-- `dragStart: TDragStart<T>` — функция, вызываемая при начале перетаскивания.
-- `btn: number` — кнопка мыши, которая инициирует перетаскивание (по умолчанию
-  `0` — левая кнопка).
-- `fromOffset: boolean` — использовать ли смещение элемента относительно окна
-  (по умолчанию `false`).
+* `dragStart: TDragStart<T>` — function called when dragging starts.
+* `btn: number` — mouse/pointer button that initiates dragging (default `0` — left button).
+* `fromOffset: boolean` — whether to use element-relative coordinates (`offsetX/Y`) instead of page coordinates (`pageX/Y`).
 
-### Заключение
+## Conclusion
 
-Библиотека `@vicimpa/easy-drag` предоставляет простой и гибкий способ реализации
-функционала перетаскивания элементов на веб-странице. Используя предоставленные
-типы и функции, вы можете легко настроить обработку событий перетаскивания в
-вашем приложении.
+The `@vicimpa/easy-drag` library provides a simple and flexible way to implement drag functionality on web pages. Using the provided types and functions, you can easily configure drag event handling in your application.
+
+```
