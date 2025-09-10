@@ -66,5 +66,5 @@ export function makeSwizzle<const K extends string>(...keys: K[]) {
     });
   });
 
-  return Swizzle as new () => Swizzle & SwizzleVariants<K>;
+  return Swizzle as new () => Base & SwizzleVariants<K>;
 }
