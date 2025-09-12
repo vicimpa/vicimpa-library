@@ -44,12 +44,9 @@ export const makeDrag = <T extends any[] = []>(
   let used = false;
 
   return (e: MouseEvent | { nativeEvent: MouseEvent; }, ...meta: T) => {
-    if (used) return;
-    used = true;
-
     if ("nativeEvent" in e) e = e.nativeEvent;
-
-    if (e.button !== btn) return;
+    if (used || e.button !== btn) return;
+    used = true;
 
     const getPosition = (e: MouseEvent, out = point()) =>
       fromOffset ? fromOffsetXY(e, out) : fromPageXY(e, out);
@@ -85,10 +82,7 @@ export const makeDrag = <T extends any[] = []>(
     update();
 
     const unsub = [
-      windowEvents(["mouseup", "blur"], (e) => {
-        const me = e as MouseEvent;
-        if (me.button !== btn) return;
-
+      windowEvents(["mouseup", "blur"], () => {
         stop && stop(event, ...meta);
         unsub.forEach((u) => u?.());
       }),

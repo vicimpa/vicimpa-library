@@ -19,7 +19,7 @@ npm. Теперь все библиотеки можно и нужно буде�
 	- Efficient library with optimized data serialization.
 - [@vicimpa/decorators (0.0.12)](packages/decorators) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/decorators)
 	- A library for creating reactive properties in TypeScript classes using @preact/signals-react
-- [@vicimpa/easy-drag (0.1.10)](packages/easy-drag) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/easy-drag)
+- [@vicimpa/easy-drag (0.1.11)](packages/easy-drag) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/easy-drag)
 	- A simple project demonstrating drag-and-drop functionality using @vicimpa/easy-drag.
 - [@vicimpa/events (0.0.13)](packages/events) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/events)
 	- A lightweight TypeScript library for managing event listeners on HTML elements, document, and window.
