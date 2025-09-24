@@ -10,7 +10,11 @@ const formatRegExp = /\$([a-z]+)/gi;
 export function format(input: number | string, format = '$summString $summCurrency $pennyString $pennyCurrency') {
   let [base = '0', dop = '00'] = parseNumber(input);
 
-  dop = dop.slice(0, 2);
+  if (dop.length === 1) {
+    dop = `${dop}0`;
+  } else {
+    dop = dop.slice(0, 2);
+  }
   dop = ('00' + dop).slice(-2);
 
   return format.replace(formatRegExp, (find, arg) => {

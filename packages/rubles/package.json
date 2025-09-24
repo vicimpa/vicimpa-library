@@ -6,9 +6,10 @@
   "funding": "https://boosty.to/vic_dev",
   "homepage": "https://github.com/vicimpa/vicimpa-library/tree/main/packages/rubles",
   "scripts": {
-    "test": "echo \"Skip\"",
+    "test": "bun test",
     "build": "rollup -c",
-    "postinstall": "[ -d ./src ] && npm run build || exit 0"
+    "postinstall": "[ -d ./src ] && npm run build || exit 0",
+    "prepublishOnly": "yarn test"
   },
   "type": "module",
   "keywords": [
