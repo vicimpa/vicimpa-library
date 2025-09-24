@@ -9,7 +9,7 @@
     "test": "jest",
     "build": "rollup -c",
     "postinstall": "[ -d ./src ] && npm run build || exit 0",
-    "prepublishOnly": "yarn test"
+    "prepublishOnly": "yarn test && yarn build"
   },
   "type": "module",
   "keywords": [
