@@ -14,7 +14,7 @@ export default cached(() => {
       data: ''
     }),
     store: {
-      write: ({ data }) => encoder.encode(data),
+      write: ({ data }) => encoder.encode(data).buffer,
       read: (buffer) => ({
         data: decoder.decode(buffer)
       }),

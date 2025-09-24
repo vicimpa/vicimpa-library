@@ -81,7 +81,7 @@ export const makeDataPack = <T extends TypeStruct>(schema: T) => {
 
       return schema.read.call(contextWith(schema, store));
     },
-    equal(data: any) {
+    equal(data: any): data is TypeValue<T> {
       return schema.equal(data);
     }
   };
