@@ -64,6 +64,12 @@ export class Vec2 extends makeSwizzle('x', 'y') {
     return this;
   }
 
+  scaleAdd(o: IVec2, scale: number): this {
+    this.x += o.x * scale;
+    this.y += o.y * scale;
+    return this;
+  }
+
   sub(o: IVec2): this {
     this.x -= o.x;
     this.y -= o.y;
