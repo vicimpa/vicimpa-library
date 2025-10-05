@@ -17,13 +17,13 @@ npm. Теперь все библиотеки можно и нужно буде�
 	- Библиотека для работы с буферами данных
 - [@vicimpa/data-pack (0.0.12)](packages/data-pack) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/data-pack)
 	- Efficient library with optimized data serialization.
-- [@vicimpa/decorators (0.0.14)](packages/decorators) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/decorators)
+- [@vicimpa/decorators (0.0.15)](packages/decorators) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/decorators)
 	- A library for creating reactive properties in TypeScript classes using @preact/signals-react
 - [@vicimpa/easy-drag (0.1.12)](packages/easy-drag) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/easy-drag)
 	- A simple project demonstrating drag-and-drop functionality using @vicimpa/easy-drag.
 - [@vicimpa/events (0.0.13)](packages/events) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/events)
 	- A lightweight TypeScript library for managing event listeners on HTML elements, document, and window.
-- [@vicimpa/glm (0.1.9)](packages/glm) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/glm)
+- [@vicimpa/glm (0.1.10)](packages/glm) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/glm)
 	- A lightweight, class-based alternative to gl-matrix providing vector, matrix, and quaternion math utilities for 2D/3D graphics, game development, and WebGL/WebGPU applications.
 - [@vicimpa/lib-vec2 (0.4.8)](packages/lib-vec2) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/lib-vec2)
 	- A comprehensive TypeScript library for 2D vector manipulation, compatible with CanvasRenderingContext2D.

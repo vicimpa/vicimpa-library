@@ -23,10 +23,6 @@ export default [
         file: 'dist/index.cjs',
         format: 'cjs'
       },
-      {
-        file: 'dist/index.amd.js',
-        format: 'amd'
-      },
     ],
     plugins: [typescript(tsopts), terser(terseropts)],
     external: [
