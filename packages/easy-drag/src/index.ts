@@ -1,5 +1,3 @@
-import { windowEvents } from "@vicimpa/events";
-
 export type Point = { x: number; y: number; };
 
 const point = (x = 0, y = 0): Point => ({ x, y });
@@ -79,25 +77,26 @@ export const makeDrag = <T extends any[] = []>(
     let move = dragStart(event, ...meta);
     let stop: TDragStop<T> | void;
 
+    const ctrl = new AbortController();
+
+    const dispose = () => {
+      stop && stop(event, ...meta);
+      move = undefined;
+      stop = undefined;
+      used = false;
+      ctrl.abort();
+    };
+
     update();
 
-    const unsub = [
-      windowEvents(["mouseup", "blur"], () => {
-        stop && stop(event, ...meta);
-        unsub.forEach((u) => u?.());
-      }),
-      windowEvents(["mousemove"], (e) => {
-        const me = e as MouseEvent;
-        getPosition(me, current);
-        set(delta, start);
-        minus(delta, current);
-        update();
-      }),
-      () => {
-        move = undefined;
-        stop = undefined;
-        used = false;
-      },
-    ];
+    addEventListener('mouseup', dispose);
+    addEventListener('blur', dispose);
+    addEventListener('mousemove', (e) => {
+      const me = e as MouseEvent;
+      getPosition(me, current);
+      set(delta, start);
+      minus(delta, current);
+      update();
+    });
   };
 };

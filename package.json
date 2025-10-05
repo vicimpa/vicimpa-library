@@ -10,12 +10,19 @@
     "generate": "node bin/generate \"$( git remote get-url origin )\" \"$( git branch --show-current )\""
   },
   "devDependencies": {
-    "@rollup/plugin-typescript": "^11.1.6",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.5.5",
     "dts-bundle-generator": "^9.5.1",
     "lerna": "^8.1.8",
-    "rollup": "^4.22.2",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.2",
+    "@rollup/plugin-commonjs": "^28.0.6",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.4",
+    "@types/bun": "latest",
+    "bun": "^1.2.21",
+    "rollup": "^4.49.0",
+    "rollup-plugin-dts": "^6.2.3",
+    "tslib": "^2.8.1"
   }
 }

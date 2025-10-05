@@ -1,6 +1,6 @@
 {
   "name": "@vicimpa/nick-name",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Nick name generator for JavaScript",
   "repository": "github:vicimpa/vicimpa-library",
   "funding": "https://boosty.to/vic_dev",
@@ -37,17 +37,6 @@
     "name": "PromiSe####",
     "url": "https://github.com/vicimpa",
     "email": "vicimpa@ya.ru"
-  },
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^28.0.6",
-    "@rollup/plugin-node-resolve": "^16.0.1",
-    "@rollup/plugin-typescript": "^12.1.4",
-    "@types/bun": "latest",
-    "bun": "^1.2.21",
-    "rollup": "^4.49.0",
-    "rollup-plugin-dts": "^6.2.3",
-    "@rollup/plugin-terser": "^0.4.4",
-    "tslib": "^2.8.1"
   },
   "license": "GPL-3.0-only"
 }

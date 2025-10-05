@@ -1,6 +1,6 @@
 {
   "name": "@vicimpa/easy-drag",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "A simple project demonstrating drag-and-drop functionality using @vicimpa/easy-drag.",
   "repository": "github:vicimpa/vicimpa-library",
   "funding": "https://boosty.to/vic_dev",
@@ -23,8 +23,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "license": "GPL-3.0-only",
-  "peerDependencies": {
-    "@vicimpa/events": "*"
-  }
+  "license": "GPL-3.0-only"
 }
