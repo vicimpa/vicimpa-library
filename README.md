@@ -15,7 +15,7 @@ npm. Теперь все библиотеки можно и нужно буде�
 
 - [@vicimpa/data-buffer (0.0.7)](packages/data-buffer) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/data-buffer)
 	- Библиотека для работы с буферами данных
-- [@vicimpa/data-pack (0.0.12)](packages/data-pack) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/data-pack)
+- [@vicimpa/data-pack (0.0.13)](packages/data-pack) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/data-pack)
 	- Efficient library with optimized data serialization.
 - [@vicimpa/decorators (0.0.15)](packages/decorators) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/decorators)
 	- A library for creating reactive properties in TypeScript classes using @preact/signals-react

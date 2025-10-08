@@ -1,5 +1,4 @@
 import { cached } from "../lib/cached";
-import { ceil } from "@vicimpa/math";
 import { defineType } from "../lib/defineType";
 
 export default cached(() => (
@@ -26,7 +25,7 @@ export default cached(() => (
       },
       write({ data }) {
         const array = new Uint8Array(
-          ceil(data.length / 8)
+          Math.ceil(data.length / 8)
         );
 
         for (let i = 0; i < array.length; i++) {
