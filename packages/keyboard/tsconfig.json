@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "lib": [
+      "DOM",
+      "ESNext",
+      "DOM.Iterable"
+    ]
+  },
+  "include": [
+    "src/"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
