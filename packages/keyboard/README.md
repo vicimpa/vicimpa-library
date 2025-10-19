@@ -120,11 +120,11 @@ Like `keysAxis`, but requires **all keys** on each side to be pressed.
 
 ## 🪄 Why It’s Great
 
-✅ Zero dependencies
-✅ Works with any key codes (`KeyW`, `Space`, `ArrowLeft`)
-✅ Supports combinations and input axes
-✅ Fully synchronous and deterministic
-✅ Safe blur handling (auto reset)
+- ✅ Zero dependencies
+- ✅ Works with any key codes (`KeyW`, `Space`, `ArrowLeft`)
+- ✅ Supports combinations and input axes
+- ✅ Fully synchronous and deterministic
+- ✅ Safe blur handling (auto reset)
 
 ---
 
