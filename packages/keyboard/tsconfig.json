@@ -5,7 +5,8 @@
       "DOM",
       "ESNext",
       "DOM.Iterable"
-    ]
+    ],
+    "outDir": "./dist"
   },
   "include": [
     "src/"
