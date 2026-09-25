@@ -1,4 +1,4 @@
-import { alphalow, alphaup, rnd } from './utils';
+import { alphalow, alphaup, rnd, selectIndex } from './utils';
 
 import letters1 from './static/letters1';
 import letters2 from './static/letters2';
@@ -9,21 +9,18 @@ export default function getName(length = rnd(12) + 3) {
 
   const curchar = rnd(26);
   let nam = alphaup(curchar);
-  let ran, curar, firstchar, secondchar, nextchar;
+  let firstchar, secondchar, nextchar;
 
   firstchar = curchar;
 
-  ran = rnd(1000);
-  secondchar = 0;
-  curar = letters1[firstchar];
-  while (ran >= curar[secondchar]) secondchar++;
+  secondchar = selectIndex(letters1[firstchar], rnd(1000));
   nam += alphalow(secondchar);
 
   for (var cnt = 2; cnt < length; cnt++) {
-    ran = rnd(1000);
-    nextchar = 0;
-    curar = letters2[firstchar][secondchar];
-    while (ran >= (curar[nextchar] ?? 0)) nextchar++;
+    nextchar = selectIndex(
+      letters2[firstchar][secondchar],
+      rnd(1000),
+    );
 
     firstchar = secondchar;
     secondchar = nextchar;

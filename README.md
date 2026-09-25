@@ -31,7 +31,7 @@ npm. Теперь все библиотеки можно и нужно буде�
 	- A comprehensive TypeScript library for 2D vector manipulation, compatible with CanvasRenderingContext2D.
 - [@vicimpa/math (0.0.10)](packages/math) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/math)
 	- A collection of mathematical utility functions including operations like clamp, lerp, normalize, and more.
-- [@vicimpa/nick-name (1.0.13)](packages/nick-name) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/nick-name)
+- [@vicimpa/nick-name (1.0.14)](packages/nick-name) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/nick-name)
 	- Nick name generator for JavaScript
 - [@vicimpa/observers (0.0.9)](packages/observers) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/observers)
 	- A lightweight TypeScript library providing utilities for observing intersection and resize events of DOM elements with automatic cleanup.
