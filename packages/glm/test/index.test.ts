@@ -8,5 +8,11 @@ import "./mat2d.test";
 import "./mat3.test";
 import "./mat4.test";
 import "./quat.test";
+import "./swizzle.test";
+import "./swizzle-write.test";
+import "./vector-advanced.test";
+import "./mat3-advanced.test";
+import "./mat4-advanced.test";
+import "./quat-advanced.test";
 
 // Этот файл просто импортирует все тесты для bun:test

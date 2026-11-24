@@ -85,7 +85,9 @@ export class Mat3 extends Base {
   }
 
   invert(o: IMat3 = this) {
-    const det = this.determinant();
+    const det = o.a * (o.e * o.i - o.f * o.h)
+      - o.d * (o.b * o.i - o.c * o.h)
+      + o.g * (o.b * o.f - o.c * o.e);
     if (!det) throw new Error("Cannot invert matrix");
     const idet = 1 / det;
 
@@ -188,15 +190,15 @@ export class Mat3 extends Base {
     det = 1 / det;
 
     this.a = (a11 * a22 - a12 * a21) * det;
-    this.b = (a02 * a21 - a01 * a22) * det;
-    this.c = (a01 * a12 - a02 * a11) * det;
+    this.b = (a12 * a20 - a10 * a22) * det;
+    this.c = (a10 * a21 - a11 * a20) * det;
 
-    this.d = (a12 * a20 - a10 * a22) * det;
+    this.d = (a02 * a21 - a01 * a22) * det;
     this.e = (a00 * a22 - a02 * a20) * det;
-    this.f = (a02 * a10 - a00 * a12) * det;
+    this.f = (a01 * a20 - a00 * a21) * det;
 
-    this.g = (a10 * a21 - a11 * a20) * det;
-    this.h = (a01 * a20 - a00 * a21) * det;
+    this.g = (a01 * a12 - a02 * a11) * det;
+    this.h = (a02 * a10 - a00 * a12) * det;
     this.i = (a00 * a11 - a01 * a10) * det;
 
     return this;

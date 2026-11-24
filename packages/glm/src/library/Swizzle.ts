@@ -22,8 +22,10 @@ export function makeSwizzle<const K extends string>(...keys: K[]) {
           return new Vec2(this[a], this[b]);
         },
         set(this: SwizzleObject, value: SwizzleObject) {
-          this[keys[0]] = value[a];
-          this[keys[1]] = value[b];
+          const x = value[keys[0]];
+          const y = value[keys[1]];
+          this[a] = x;
+          this[b] = y;
         }
       });
     });
@@ -37,9 +39,12 @@ export function makeSwizzle<const K extends string>(...keys: K[]) {
             return new Vec3(this[a], this[b], this[c]);
           },
           set(this: SwizzleObject, value: SwizzleObject) {
-            this[keys[0]] = value[a];
-            this[keys[1]] = value[b];
-            this[keys[2]] = value[c];
+            const x = value[keys[0]];
+            const y = value[keys[1]];
+            const z = value[keys[2]];
+            this[a] = x;
+            this[b] = y;
+            this[c] = z;
           }
         });
       });
@@ -55,10 +60,14 @@ export function makeSwizzle<const K extends string>(...keys: K[]) {
               return new Vec4(this[a], this[b], this[c], this[d]);
             },
             set(this: SwizzleObject, value: SwizzleObject) {
-              this[keys[0]] = value[a];
-              this[keys[1]] = value[b];
-              this[keys[2]] = value[c];
-              this[keys[3]] = value[d];
+              const x = value[keys[0]];
+              const y = value[keys[1]];
+              const z = value[keys[2]];
+              const w = value[keys[3]];
+              this[a] = x;
+              this[b] = y;
+              this[c] = z;
+              this[d] = w;
             }
           });
         });

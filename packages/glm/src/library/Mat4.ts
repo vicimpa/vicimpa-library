@@ -466,9 +466,9 @@ export class Mat4 extends Base {
 
   getScaling(out = new Vec3()): Vec3 {
     return out.set(
-      Math.sqrt(this.a * this.a + this.e * this.e + this.i * this.i),
-      Math.sqrt(this.b * this.b + this.f * this.f + this.j * this.j),
-      Math.sqrt(this.c * this.c + this.g * this.g + this.k * this.k)
+      Math.sqrt(this.a * this.a + this.b * this.b + this.c * this.c),
+      Math.sqrt(this.e * this.e + this.f * this.f + this.g * this.g),
+      Math.sqrt(this.i * this.i + this.j * this.j + this.k * this.k)
     );
   }
 
@@ -479,13 +479,13 @@ export class Mat4 extends Base {
     const is3 = 1 / scaling.z;
 
     const sm11 = this.a * is1;
-    const sm12 = this.b * is2;
-    const sm13 = this.c * is3;
-    const sm21 = this.e * is1;
+    const sm12 = this.b * is1;
+    const sm13 = this.c * is1;
+    const sm21 = this.e * is2;
     const sm22 = this.f * is2;
     const sm23 = this.g * is2;
-    const sm31 = this.i * is1;
-    const sm32 = this.j * is2;
+    const sm31 = this.i * is3;
+    const sm32 = this.j * is3;
     const sm33 = this.k * is3;
 
     let trace = sm11 + sm22 + sm33;

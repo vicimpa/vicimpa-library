@@ -194,11 +194,16 @@ export class Vec2 extends makeSwizzle('x', 'y') {
     return this.copy(b).sub(a).scale(t).add(a);
   }
 
-  rendom(scale?: number) {
+  random(scale?: number) {
     const r = Math.random() * 2.0 * Math.PI;
     this.x = Math.cos(r);
     this.y = Math.sin(r);
     return this.scale(scale ?? 1.0);
+  }
+
+  /** @deprecated Use `random()` instead. */
+  rendom(scale?: number) {
+    return this.random(scale);
   }
 
   rotate(rad: number, from?: IVec2) {
@@ -210,7 +215,7 @@ export class Vec2 extends makeSwizzle('x', 'y') {
     const cos = Math.cos(rad);
 
     this.x = x * cos - y * sin;
-    this.y = y * sin + x * cos;
+    this.y = x * sin + y * cos;
 
     if (from !== undefined)
       this.add(from);

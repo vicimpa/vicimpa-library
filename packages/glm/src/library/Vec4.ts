@@ -234,22 +234,27 @@ export class Vec4 extends makeSwizzle('x', 'y', 'z', 'w') {
     return this;
   }
 
-  rendom(scale?: number) {
+  random(scale?: number) {
     let x = 0, y = 0, z = 0, w = 0;
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 2; i++) {
       const u = Math.random() * 2 - 1;
       const v = Math.random() * 2 - 1;
       const s = u * u + v * v;
-      if (s >= 1) { i--; continue; }
+      if (s >= 1 || s === 0) { i--; continue; }
       const f = Math.sqrt((1 - s) / s);
       if (i === 0) { x = u * f; y = v * f; }
-      else if (i === 1) { z = u * f; w = v * f; }
+      else { z = u * f; w = v * f; }
     }
     this.x = x;
     this.y = y;
     this.z = z;
     this.w = w;
     return this.normalize().scale(scale ?? 1.0);
+  }
+
+  /** @deprecated Use `random()` instead. */
+  rendom(scale?: number) {
+    return this.random(scale);
   }
 
   applyMat4(mat: IMat4) {
@@ -325,6 +330,7 @@ function vec4(xyzw: Vec4): Vec4;
 function vec4(xyz: Vec3, w: number): Vec4;
 function vec4(xy: Vec2, zw: Vec2): Vec4;
 function vec4(xy: Vec2, z: number, w: number): Vec4;
+function vec4(x: number, yz: Vec2, w: number): Vec4;
 function vec4(x: number, y: number, zw: Vec2): Vec4;
 function vec4(x: number, yzw: Vec3): Vec4;
 function vec4(xyzw: number): Vec4;
@@ -343,7 +349,7 @@ function vec4(
     if (y instanceof Vec2) (w = y.y, z = y.x, y = x.y, x = x.x);
     else (w = z as number, z = y as number, y = x.y, x = x.x);
   } else if (y instanceof Vec3) (w = y.z, z = y.y, y = y.x);
-  else if (y instanceof Vec2) (w = y.y, z = y.x, y = y.x);
+  else if (y instanceof Vec2) (w = z as number, z = y.y, y = y.x);
   else if (z instanceof Vec2) (w = z.y, z = z.x);
 
   if (y === undefined) y = x as number;

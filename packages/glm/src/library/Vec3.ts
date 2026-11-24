@@ -218,7 +218,7 @@ export class Vec3 extends makeSwizzle('x', 'y', 'z') {
     return this;
   }
 
-  rendom(scale?: number) {
+  random(scale?: number) {
     const u = Math.random() * 2.0 - 1.0;
     const phi = Math.random() * 2.0 * Math.PI;
     const s = Math.sqrt(1.0 - u * u);
@@ -226,6 +226,11 @@ export class Vec3 extends makeSwizzle('x', 'y', 'z') {
     this.y = s * Math.sin(phi);
     this.z = u;
     return this.scale(scale ?? 1.0);
+  }
+
+  /** @deprecated Use `random()` instead. */
+  rendom(scale?: number) {
+    return this.random(scale);
   }
 
   rotateX(rad: number, from?: IVec3) {
