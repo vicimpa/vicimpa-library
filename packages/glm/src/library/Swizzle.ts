@@ -12,6 +12,7 @@ export function makeSwizzle<const K extends string>(...keys: K[]) {
   type SwizzleObject = {
     [k in K]: number
   };
+  type SwizzleValue = Record<"x" | "y" | "z" | "w", number>;
 
   class Swizzle extends Base { }
 
@@ -21,9 +22,9 @@ export function makeSwizzle<const K extends string>(...keys: K[]) {
         get(this: SwizzleObject) {
           return new Vec2(this[a], this[b]);
         },
-        set(this: SwizzleObject, value: SwizzleObject) {
-          const x = value[keys[0]];
-          const y = value[keys[1]];
+        set(this: SwizzleObject, value: SwizzleValue) {
+          const x = value.x;
+          const y = value.y;
           this[a] = x;
           this[b] = y;
         }
@@ -38,10 +39,10 @@ export function makeSwizzle<const K extends string>(...keys: K[]) {
           get(this: SwizzleObject) {
             return new Vec3(this[a], this[b], this[c]);
           },
-          set(this: SwizzleObject, value: SwizzleObject) {
-            const x = value[keys[0]];
-            const y = value[keys[1]];
-            const z = value[keys[2]];
+          set(this: SwizzleObject, value: SwizzleValue) {
+            const x = value.x;
+            const y = value.y;
+            const z = value.z;
             this[a] = x;
             this[b] = y;
             this[c] = z;
@@ -59,11 +60,11 @@ export function makeSwizzle<const K extends string>(...keys: K[]) {
             get(this: SwizzleObject) {
               return new Vec4(this[a], this[b], this[c], this[d]);
             },
-            set(this: SwizzleObject, value: SwizzleObject) {
-              const x = value[keys[0]];
-              const y = value[keys[1]];
-              const z = value[keys[2]];
-              const w = value[keys[3]];
+            set(this: SwizzleObject, value: SwizzleValue) {
+              const x = value.x;
+              const y = value.y;
+              const z = value.z;
+              const w = value.w;
               this[a] = x;
               this[b] = y;
               this[c] = z;

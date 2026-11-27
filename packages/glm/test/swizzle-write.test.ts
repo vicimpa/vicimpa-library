@@ -23,6 +23,16 @@ function expectedAssignment(size: number, pattern: string, values: number[]) {
 }
 
 describe("swizzle assignment", () => {
+  it("reads right-hand components independently of the target keys", () => {
+    const vec3 = new Vec3(1, 2, 3);
+    vec3.xyzx = new Vec4(4, 5, 6, 7);
+    expect([...vec3]).toEqual([7, 5, 6]);
+
+    const vec2 = new Vec2(1, 2);
+    vec2.xyx = new Vec3(4, 5, 6);
+    expect([...vec2]).toEqual([6, 5]);
+  });
+
   it("assigns every unique two-component Vec2 pattern", () => {
     for (const pattern of permutations(["x", "y"], 2)) {
       const vector = new Vec2(1, 2);

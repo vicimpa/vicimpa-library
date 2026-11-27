@@ -23,7 +23,7 @@ npm. Теперь все библиотеки можно и нужно буде�
 	- A simple project demonstrating drag-and-drop functionality using @vicimpa/easy-drag.
 - [@vicimpa/events (0.0.13)](packages/events) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/events)
 	- A lightweight TypeScript library for managing event listeners on HTML elements, document, and window.
-- [@vicimpa/glm (0.1.11)](packages/glm) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/glm)
+- [@vicimpa/glm (0.1.12)](packages/glm) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/glm)
 	- A lightweight, class-based alternative to gl-matrix providing vector, matrix, and quaternion math utilities for 2D/3D graphics, game development, and WebGL/WebGPU applications.
 - [@vicimpa/keyboard (0.0.3)](packages/keyboard) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/keyboard)
 	- A lightweight, dependency-free keyboard input library for games, visualizations, and realtime web applications.
