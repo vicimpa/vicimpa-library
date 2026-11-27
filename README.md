@@ -43,8 +43,8 @@ npm. Теперь все библиотеки можно и нужно буде�
 	- A library of decorators and hooks to enhance React components with dependency injection and context management.
 - [@vicimpa/rsp (0.1.9)](packages/rsp) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/rsp)
 	- A lightweight React layer for @preact/signals-react that lets you use signals as props and bind inputs, textareas, radios, and checkboxes without boilerplate.
-- [@vicimpa/rubles (0.1.23)](packages/rubles) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/rubles)
-	- Стоимость прописью
+- [@vicimpa/rubles (0.2.0)](packages/rubles) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/rubles)
+	- Форматирование денежных сумм в рублях и копейках и перевод чисел в слова на русском языке
 - [@vicimpa/shared-state (1.0.8)](packages/shared-state) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/shared-state)
 	- A lightweight TypeScript library for managing shared state across different components in a React application.
 - [@vicimpa/week-store (0.0.10)](packages/week-store) - [открыть на npm](https://www.npmjs.com/package/@vicimpa/week-store)

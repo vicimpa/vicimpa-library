@@ -1,6 +1,6 @@
-import { joinWord } from "./joinWord";
+import { joinWord, type WordForms } from './joinWord';
 
-export function counterWord(input: string[], counter: number) {
+export function counterWord(input: WordForms, counter: number) {
   const lastTwo = counter % 100;
   const units = counter % 10;
 
@@ -8,14 +8,13 @@ export function counterWord(input: string[], counter: number) {
     return joinWord(input, 0);
   }
 
-  if (counter > 10 && counter < 20)
-    return joinWord(input, 0);
-
-  if (units == 1)
+  if (units === 1) {
     return joinWord(input, 1);
+  }
 
-  if (units > 1 && units < 5)
+  if (units > 1 && units < 5) {
     return joinWord(input, 2);
+  }
 
   return joinWord(input, 0);
 }
